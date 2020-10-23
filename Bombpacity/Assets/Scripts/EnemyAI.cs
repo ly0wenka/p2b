@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class EnemyAI : Movement
 {
-    Rigidbody2D rigidbody2D;
-    float horizontal, vertical;
+    public new Rigidbody2D rigidbody2D;
+    public float horizontal, vertical;
     [SerializeField]
     LayerMask blockingLayer;
-    Direction direction = Direction.Up;
-    Renderer renderer;
+    public new
+        //Direction direction = Direction.Up;
+        Renderer renderer;
+
+    public Transform target;
 
     void Start()
     {
@@ -22,7 +25,7 @@ public class EnemyAI : Movement
     public void RandomDirection()
     {
         CancelInvoke(nameof(RandomDirection));
-
+        print($"{ target.position.x}, { target.position.y}");
         List<Direction> lottery = new List<Direction>();
         if (!Physics2D.Linecast(transform.position, (Vector2)transform.position + new Vector2(1, 0), blockingLayer))
         {

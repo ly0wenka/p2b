@@ -54,7 +54,7 @@ using UnityEngine;
 public class Player : Movement
 {
     private float horizontal, vertical;
-    private Rigidbody2D rigidbody2D;
+    private new Rigidbody2D rigidbody2D;
     public int lifeTotal;
     public int starTotal;
     public Field field;
@@ -100,12 +100,14 @@ public class Player : Movement
             field.stars.Remove(field.stars.First(s => s.position == collider2D.transform.position));
             if (!field.stars.Any())
                 print("win");
+            collider2D.gameObject.name = $"{collider2D.gameObject.name}-grab";
             Destroy(collider2D.gameObject);
         }
         else if (collider2D.name.StartsWith("enemy"))
         {
             lifeTotal--;
-            transform.position = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+            transform.position = new Vector3(0, 0);
+            
             playerInventoryDisplay.OnChangeLifeTotal(lifeTotal);
         }
     }
