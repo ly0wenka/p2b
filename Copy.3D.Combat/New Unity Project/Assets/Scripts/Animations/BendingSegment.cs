@@ -70,9 +70,5 @@ public class BendingSegment : ICloneable
         }
     }
 
-    public object Clone()
-    {
-        throw new NotImplementedException();
-        // return CloneObject.Clone(this);
-    }
+    public object Clone() => CloneObject.Clone(this);
 }

@@ -31,6 +31,7 @@ public class CharacterInfo : ScriptableObject
 
     public PhysicsData physics;
     public HeadLook headLook;
+    public CustomControls customControls;
 
     #endregion
 }
