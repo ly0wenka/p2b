@@ -33,5 +33,19 @@ public class CharacterInfo : ScriptableObject
     public HeadLook headLook;
     public CustomControls customControls;
 
+    public float executingTiming = .3f;
+    public Fix64 _executionTiming = .3;
+    public int possibleAirMoves = 1;
+    public float blendingTime = .1f;
+    public Fix64 _blendingTime = .1;
+
+    public AnimationType animationType;
+    public Avatar avatar;
+    public bool applyRootMotion;
+    public AnimationFlow animationFlow;
+    public bool useAnimationMaps;
+
+    public string[] stanceResourcePath = new string[0];
+    public MoveSetData[] moves = new MoveSetData[0];
     #endregion
 }

@@ -7,7 +7,7 @@ public class InputEvents
 {
     public static InputEvents Default
     {
-        get { return InputEvents._Default}
+        get { return InputEvents._Default; }
     }
 
     private static InputEvents _Default = new InputEvents();

@@ -40,6 +40,20 @@ public abstract class InputTouchControllerBridge : MonoBehaviour
     {
         bool battleGUI = (MainScript.battleGUI != null);
         bool gamePaused = MainScript.isPaused();
+
+        if (battleGUI != this.prevBattleGUI)
+        {
+            this.ShowBattleControls(battleGUI && !gamePaused, battleGUI);
+        }
+        else if(gamePaused != this.prevGamePaused)
+        {
+            if (battleGUI)
+            {
+                this.ShowBattleControls(!gamePaused, true);
+            }
+        }
+        this.prevBattleGUI = battleGUI;
+        this.prevGamePaused = gamePaused;
     }
 
     private void OnScreenChanged(CombatScreen previousScreen, CombatScreen newScreen)
