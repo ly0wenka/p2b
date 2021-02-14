@@ -10,7 +10,7 @@ public enum BodyPart
     lowerTorso,
     leftUpperArm,
     rightUpperArm,
-    leftForeArm,
+    leftForearm,
     rightForearm,
     leftHand,
     rightHand,
