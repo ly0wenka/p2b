@@ -1,4 +1,5 @@
-﻿using FPLibrary;
+﻿using System.Linq;
+using FPLibrary;
 using UnityEngine;
 
 [System.Serializable]
@@ -94,5 +95,42 @@ public class MoveInfo : ScriptableObject
 
     #region trackable definitions
     public FrameLink[] frameLinks = new FrameLink[0];
+    public MoveParticleEffect[] particleEffects = new MoveParticleEffect[0];
+    public AppliedForce[] appliedForces = new AppliedForce[0];
+    public SlowMoEffect[] slowMoEffects = new SlowMoEffect[0];
+    public BodyPartVisibilityChange[] bodyPartVisibilityChanges = new BodyPartVisibilityChange[0];
+    public OpponentOverride[] opponentOverride = new OpponentOverride[0];
+    public SoundEffect[] soundEffects = new SoundEffect[0];
+    public InGameAlert[] inGameAlert = new InGameAlert[0];
+    public StanceChange[] stanceChanges = new StanceChange[0];
+    public CameraMovement[] cameraMovements = new CameraMovement[0];
+    public Hit[] hits = new Hit[0];
+    public BlockArea blockableArea;
+    public InvincibleBodyParts[] invincibleBodyParts = new InvincibleBodyParts[0];
+    public ArmorOptions armorOptions;
+    public Projectile[] projectiles = new Projectile[0];
+
+    public bool cancelable { get; set; }
+    public bool kill { get; set; }
+    public int currentFrame { get; set; }
+    public int overrideStartupFrame { get; set; }
+    public Fix64 animationSpeedTemp { get; set; }
+    public Fix64 currentTick { get; set; }
+    public bool hitConfirmOnBlock { get; set; }
+    public bool hitConfirmOnParry { get; set; }
+    public bool hitConfirmOnStrike { get; set; }
+    public bool hitAnimationOverride { get; set; }
+    public StandUpOptions standUpOptions { get; set; }
+    public CurrentFrameData currentFrameData { get; set; }
     #endregion
+
+    public bool IsThrow(bool teachable) 
+        => hits.Any(hit 
+            => hit.hitConfirmType == HitConfirmType.Throw 
+               && hit.teachable == teachable);
+
+    public MoveInfo GetTechMove()
+        => hits.FirstOrDefault(hit
+            => hit.hitConfirmType == HitConfirmType.Throw 
+               && hit.teachable)?.techMove;
 }

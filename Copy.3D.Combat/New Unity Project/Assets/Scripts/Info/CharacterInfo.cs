@@ -6,8 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class CharacterInfo : ScriptableObject
 {
-    #region public fields
-
     public float version;
     public Texture2D profilePictureSmall;
     public Texture2D profilePictureBig;
@@ -47,5 +45,16 @@ public class CharacterInfo : ScriptableObject
 
     public string[] stanceResourcePath = new string[0];
     public MoveSetData[] moves = new MoveSetData[0];
+    public AIInstructionsSet[] aiInstructionsSet = new AIInstructionsSet[0];
+
+    public int playerNum { get; set; }
+    public bool isAlt { get; set; }
+    public int selectedCostume { get; set; }
+    public MoveSetData[] loadedMoves { get; set; }
+
+    #region trackable definitions
+    public CombatStances currentCombatStance { get; set; }
+    public Fix64 currentLifePoints { get; set; }
+    public Fix64 currentGaugePoints { get; set; }
     #endregion
 }
