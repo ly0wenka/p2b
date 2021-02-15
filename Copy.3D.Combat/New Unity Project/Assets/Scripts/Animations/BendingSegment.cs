@@ -10,7 +10,7 @@ public class BendingSegment : ICloneable
     public Transform firstTransform;
     public Transform lastTransform;
     public BodyPart bodyPart = BodyPart.head;
-    public float tresholdAngleDifference = 0;
+    public float thresholdAngleDifference = 0;
     public float bendingMultiplier = 0.7f;
     public float maxAngleDifference = 30;
     public float maxBendingAngle = 80;

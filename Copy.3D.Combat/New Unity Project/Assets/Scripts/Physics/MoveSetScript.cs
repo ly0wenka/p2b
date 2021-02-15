@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FPLibrary;
 using UnityEngine;
 
@@ -67,8 +68,8 @@ public class MoveSetScript : MonoBehaviour
 
         controlsScript.myInfo.loadedMoves = loadedMoveSets.ToArray();
 
-        controlsScript.myInfo.currentCombatStance = CombatStances.Stance10;
-        ChangeMoveStances(CombatStances.Stance1);
+        controlsScript.myInfo.currentCombatStance = CombatStance.Stance10;
+        ChangeMoveStances(CombatStance.Stance1);
     }
 
 
@@ -81,7 +82,7 @@ public class MoveSetScript : MonoBehaviour
     }
 
 
-    public void ChangeMoveStances(CombatStances newStance)
+    public void ChangeMoveStances(CombatStance newStance)
     {
         if (controlsScript.myInfo.currentCombatStance == newStance) return;
         foreach (MoveSetData moveSetData in controlsScript.myInfo.loadedMoves)
