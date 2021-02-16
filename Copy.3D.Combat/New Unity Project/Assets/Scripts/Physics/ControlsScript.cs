@@ -24,7 +24,7 @@ public class ControlsScript : MonoBehaviour
     public SubStates currentSubState;
 
     public MoveInfo DCMove;
-    public CombatStances DCStance;
+    public CombatStance DCStance;
     public bool firstHit;
     public Fix64 gaugeDPS;
     public bool hitDetected;
@@ -2161,7 +2161,7 @@ public class ControlsScript : MonoBehaviour
 
                         // Tech Throw
                         if (hit.hitConfirmType == HitConfirmType.Throw
-                            && hit.techable
+                            && hit.teachable
                             && opControlsScript.currentMove != null
                             && opControlsScript.currentMove.IsThrow(true)
                         )

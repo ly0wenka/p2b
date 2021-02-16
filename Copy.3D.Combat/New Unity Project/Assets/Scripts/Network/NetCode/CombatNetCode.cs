@@ -7,10 +7,6 @@ using System.Reflection;
 
 namespace CombatNetcode
 {
-    public interface MainScriptInterface
-    {
-    }
-
     public class CombatBehaviour : MonoBehaviour
     {
         public virtual void CombatFixedUpdate()

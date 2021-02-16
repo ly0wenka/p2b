@@ -59,8 +59,8 @@ using UnityEngine;
         public KnockDownOptions knockDownOptions;
         public HitOptions hitOptions;
 
-        public InputReferences[] player1_Inputs = new InputReferences[0]; // Reference to Unity's InputManager to UFE's keys
-        public InputReferences[] player2_Inputs = new InputReferences[0]; // Reference to Unity's InputManager to UFE's keys
+        public InputReferences[] player1_Inputs = new InputReferences[0]; // Reference to Unity's InputManager to Combat's keys
+        public InputReferences[] player2_Inputs = new InputReferences[0]; // Reference to Unity's InputManager to Combat's keys
         public InputOptions inputOptions = new InputOptions();
 
         public StageOptions[] stages = new StageOptions[0];

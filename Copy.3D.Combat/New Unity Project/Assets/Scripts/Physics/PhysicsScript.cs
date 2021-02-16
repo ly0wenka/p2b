@@ -548,7 +548,7 @@ public class PhysicsScript : MonoBehaviour
                 {
                     if (moveSetScript.basicMoves.landing.animMap[0].clip != null
                         && (controlScript.currentMove == null ||
-                            (controlScript.currentMove != null && controlScript.currentMove.cancelMoveWheLanding)))
+                            (controlScript.currentMove != null && controlScript.currentMove.cancelMoveWhenLanding)))
                     {
                         controlScript.isAirRecovering = false;
                         airAnimation = moveSetScript.basicMoves.landing;

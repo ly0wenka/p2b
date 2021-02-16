@@ -4,6 +4,7 @@
    Low,
    Overhead,
    Launcher,
+   MidKnockdown,
    HighKnockdown,
    KnockBack,
    Sweep

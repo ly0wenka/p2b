@@ -708,7 +708,7 @@ public class MainScript : MonoBehaviour, MainScriptInterface
                         if (character != null && character.aiInstructionsSet != null &&
                             character.aiInstructionsSet.Length > 0)
                         {
-                            if (difficulty.startupBehavior == AIBehavior.Any)
+                            if (difficulty.startupBehavior == AIBehaviour.Any)
                             {
                                 method.Invoke(cpu, new object[] {character.aiInstructionsSet[0].aiInfo});
                             }
@@ -717,7 +717,7 @@ public class MainScript : MonoBehaviour, MainScriptInterface
                                 ScriptableObject selectedAIInfo = character.aiInstructionsSet[0].aiInfo;
                                 foreach (AIInstructionsSet instructionSet in character.aiInstructionsSet)
                                 {
-                                    if (instructionSet.behavior == difficulty.startupBehavior)
+                                    if (instructionSet.behaviour == difficulty.startupBehavior)
                                     {
                                         selectedAIInfo = instructionSet.aiInfo;
                                         break;
@@ -2536,13 +2536,13 @@ public class MainScript : MonoBehaviour, MainScriptInterface
 
         // Check the installed Addons and supported 3rd party products
         MainScript.isCInputInstalled = MainScript.IsInstalled("cInput");
-#if UFE_LITE
+#if COMBAT_LITE
         MainScript.isAiAddonInstalled = false;
 #else
         MainScript.isAiAddonInstalled = MainScript.IsInstalled("RuleBasedAI");
 #endif
 
-#if UFE_LITE || UFE_BASIC
+#if COMBAT_LITE || COMBAT_BASIC
 		MainScript.isNetworkAddonInstalled = false;
 		MainScript.isPhotonInstalled = false;
         MainScript.isBluetoothAddonInstalled = false;
@@ -2557,10 +2557,10 @@ public class MainScript : MonoBehaviour, MainScriptInterface
 #endif
 
         MainScript.isControlFreak1Installed = MainScript.IsInstalled("TouchController"); // [DGT]
-        MainScript.isControlFreak2Installed = MainScript.IsInstalled("ControlFreak2.UFEBridge");
+        MainScript.isControlFreak2Installed = MainScript.IsInstalled("ControlFreak2.CombatBridge");
         MainScript.isControlFreakInstalled = MainScript.isControlFreak1Installed || MainScript.isControlFreak2Installed;
         MainScript.isRewiredInstalled =
-            MainScript.IsInstalled("Rewired.Integration.UniversalFightingEngine.RewiredUFEInputManager");
+            MainScript.IsInstalled("Rewired.Integration.UniversalFightingEngine.RewiredCombatInputManager");
 
         // Check if we should run the application in background
         Application.runInBackground = MainScript.config.runInBackground;

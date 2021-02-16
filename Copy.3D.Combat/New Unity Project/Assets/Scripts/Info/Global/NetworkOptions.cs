@@ -39,7 +39,7 @@ public class NetworkOptions
     public int maxBufferSize = 30;
     public int maxFastForwards = 10;
     public int spawnBuffer = 30;
-    public bool ufeTrackers = false;
+    public bool combatTrackers = false;
     public NetworkMessageSize networkMessageSize = NetworkMessageSize.Size32Bits;
     public bool onlySendInputChanges = true;
     public NetworkInputMessageFrequency inputMessageFrequency = NetworkInputMessageFrequency.EveryFrame;

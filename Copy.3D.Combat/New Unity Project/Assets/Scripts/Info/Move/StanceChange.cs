@@ -4,7 +4,7 @@
 public class StanceChange : ICloneable
 {
     public int castingFrame;
-    public CombatStances newStance;
+    public CombatStance newStance;
 
     #region trackable definitions
     public bool casted { get; set; }

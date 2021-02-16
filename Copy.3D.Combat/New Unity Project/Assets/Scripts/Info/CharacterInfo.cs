@@ -53,7 +53,7 @@ public class CharacterInfo : ScriptableObject
     public MoveSetData[] loadedMoves { get; set; }
 
     #region trackable definitions
-    public CombatStances currentCombatStance { get; set; }
+    public CombatStance currentCombatStance { get; set; }
     public Fix64 currentLifePoints { get; set; }
     public Fix64 currentGaugePoints { get; set; }
     #endregion

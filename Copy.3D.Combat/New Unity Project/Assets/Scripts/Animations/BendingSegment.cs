@@ -32,7 +32,7 @@ public class BendingSegment : ICloneable
         this.firstTransform = firstTransform;
         this.lastTransform = lastTransform;
         this.bodyPart = bodyPart;
-        this.tresholdAngleDifference = tresholdAngleDifference;
+        this.thresholdAngleDifference = tresholdAngleDifference;
         this.bendingMultiplier = bendingMultiplier;
         this.maxAngleDifference = maxAngleDifference;
         this.maxBendingAngle = maxBendingAngle;
@@ -51,7 +51,7 @@ public class BendingSegment : ICloneable
         this.firstTransform = other.firstTransform;
         this.lastTransform = other.lastTransform;
         this.bodyPart = other.bodyPart;
-        this.tresholdAngleDifference = other.tresholdAngleDifference;
+        this.thresholdAngleDifference = other.thresholdAngleDifference;
         this.bendingMultiplier = other.bendingMultiplier;
         this.maxAngleDifference = other.maxAngleDifference;
         this.maxBendingAngle = other.maxBendingAngle;

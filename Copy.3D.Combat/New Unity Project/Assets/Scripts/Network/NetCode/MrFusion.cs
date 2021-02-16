@@ -15,21 +15,21 @@ public class MrFusion : MonoBehaviour
 
     private Dictionary<long, TrackableInterface[]> gameHistory = new Dictionary<long, TrackableInterface[]>();
     private MainScriptInterface[] MainScriptInterfaces;
-    private UFEBehaviour[] ufeBehaviours;
+    private CombatBehaviour[] combatBehaviours;
 
 
     void Start()
     {
         MainScriptInterfaces = GetComponentsInChildren<MainScriptInterface>();
-        ufeBehaviours = GetComponentsInChildren<UFEBehaviour>();
+        combatBehaviours = GetComponentsInChildren<CombatBehaviour>();
     }
 
     public void UpdateBehaviours()
     {
-        if (ufeBehaviours == null) return;
-        foreach (UFEBehaviour ufeBehaviour in ufeBehaviours)
+        if (combatBehaviours == null) return;
+        foreach (CombatBehaviour combatBehaviour in combatBehaviours)
         {
-            ufeBehaviour.UFEFixedUpdate();
+            combatBehaviour.CombatFixedUpdate();
         }
     }
 

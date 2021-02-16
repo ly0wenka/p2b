@@ -14,7 +14,7 @@ public class AIDifficultySettings : ICloneable
     public float ruleCompliance = .9f;
     public bool overrideComboEfficiency;
     public float comboEfficiency = 1f;
-    public AIBehavior startupBehavior;
+    public AIBehaviour startupBehavior;
 
     public object Clone() => CloneObject.Clone(this);
 }

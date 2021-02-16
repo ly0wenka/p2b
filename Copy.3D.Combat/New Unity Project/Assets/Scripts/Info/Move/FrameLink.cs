@@ -15,7 +15,7 @@ public class FrameLink : ICloneable
     public MoveInfo counterMoveFilter;
     public bool disableHitImpact = true;
     public bool anyHitStrength = true;
-    public HitStrengh hitStrengh;
+    public HitStrengh hitStrength;
     public bool anyStrokeHitBox = true;
     public HitBoxType hitBoxType;
     public bool anyHitType = true;

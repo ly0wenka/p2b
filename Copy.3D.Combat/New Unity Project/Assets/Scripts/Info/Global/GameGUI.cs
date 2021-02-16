@@ -2,7 +2,8 @@
 using UnityEngine;
 
 [System.Serializable]
-public class GameGUI{
+public class GameGUI
+{
     public bool hasGauge = true;
     public Fix64 screenFadeDuration = .5;
     public Fix64 gameFadeDuration = .5;
@@ -30,7 +31,7 @@ public class GameGUI{
 
     public VersusModeScreen versusModeScreen;
     public VersusModeAfterBattleScreen versusModeAfterBattleScreen;
-	
+
     public ConnectionLostScreen connectionLostScreen;
     public HostGameScreen hostGameScreen;
     public JoinGameScreen joinGameScreen;
