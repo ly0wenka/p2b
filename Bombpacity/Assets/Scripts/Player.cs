@@ -1,55 +1,4 @@
-﻿//using Assets.Scripts.Direction;
-//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-
-//public class Player : MonoBehaviour
-//{
-//    private Vector3 movement;
-
-//    public int speed;
-
-//    // Start is called before the first frame update
-//    void Start()
-//    {
-//        speed = 10;
-//    }
-
-//    // Update is called once per frame
-//    void Update()
-//    {
-//        movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-//        //if (Input.GetKeyDown(KeyCode.UpArrow))
-//        //{
-//        //    transform.Translate(Vector3.up);
-//        //}
-//        //else if (Input.GetKeyDown(KeyCode.DownArrow))
-//        //{
-//        //    transform.Translate(Vector3.down);
-//        //}
-//        //else if (Input.GetKeyDown(KeyCode.RightArrow))
-//        //{
-//        //    transform.Translate(Vector3.right);
-//        //}
-//        //else if (Input.GetKeyDown(KeyCode.LeftArrow))
-//        //{
-//        //    transform.Translate(Vector3.left);
-//        //}
-//    }
-
-//    void FixedUpdate()
-//    {
-//        MoveCharacter(movement);
-//    }
-
-//    private void MoveCharacter(Vector3 movement)
-//    {
-//        GetComponent<Rigidbody2D>().velocity = movement*speed;
-//    }
-//}
-
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 public class Player : Movement
 {
@@ -69,8 +18,6 @@ public class Player : Movement
     }
     private void FixedUpdate()
     {
-        //if (h != 0 && !isMoving) StartCoroutine(Move(h, v, rigidBody));
-        //else if (v != 0 && !isMoving) StartCoroutine(Move(h, v, rigidBody));
         if (horizontal != 0 && !isMoving) StartCoroutine(MoveHorizontal(horizontal, rigidbody2D));
         else if (vertical != 0 && !isMoving) StartCoroutine(MoveVertical(vertical, rigidbody2D));
     }
