@@ -54,7 +54,7 @@ public class SplashScreen : MonoBehaviour
                     SplashScreenFadeIn();
                     break;
                 case SplashScreenController.SplashScreenFadeOut:
-                    SplasScreenFadeOut();
+                    SplashScreenFadeOut();
                     break;
             }
 
@@ -78,7 +78,7 @@ public class SplashScreen : MonoBehaviour
         splashScreenFadeValue += splashScreenFadeSpeed * Time.deltaTime;
     }
 
-    private void SplasScreenFadeOut()
+    private void SplashScreenFadeOut()
     {
         Debug.Log("SplashScreenFadeOut");
 

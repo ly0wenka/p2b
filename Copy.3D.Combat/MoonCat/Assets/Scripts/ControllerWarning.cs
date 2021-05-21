@@ -50,7 +50,7 @@ public class ControllerWarning : ControllerManager
         controllerConditionsMet = true;
     }
 
-    private void OnGui()
+    private void OnGUI()
     {
         GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), controllerWarningBackground);
         GUI.color = new Color(1,1,1, controllerWarningFadeValue);
