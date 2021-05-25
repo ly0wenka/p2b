@@ -7,18 +7,35 @@ using static ChooseCharacterManager;
 [RequireComponent(typeof(AudioSource))]
 public class ChooseCharacter : MonoBehaviour
 {
+    public Texture2D _selectCharacterTextBackground;
+    public Texture2D _selectCharacterTextForeground;
+    public Texture2D _selectCharacterText;
+    
+    public Texture2D _selectCharacterArrowLeft;
+    public Texture2D _selectCharacterArrowRight;
+
+    private float _foregroundTextWidth;
+    private float _foregroundTextHeight;
+    private float _arrowSize;
+    
+    
     public float _chooseCharacterInputTimer;
     public float _chooseCharacterInputDelay = 1f;
+
+    public AudioClip _cycleCharacterButtonPress;
 
     private GameObject _characterDemo;
 
     public int _characterSelectState;
     
-    
     // Start is called before the first frame update
     void Start()
     {
         CharacterSelectManager();
+
+        _foregroundTextWidth = Screen.width / 1.5f;
+        _foregroundTextHeight = Screen.height / 10f;
+        _arrowSize = Screen.height / 10f;
     }
 
     private void CharacterSelectManager()
@@ -73,6 +90,9 @@ public class ChooseCharacter : MonoBehaviour
                 return;
             }
 
+            GetComponent<AudioSource>();
+            PlayOneShot(_cycleCharacterButtonPress);
+
             _characterSelectState--;
             CharacterSelectManager();
             _chooseCharacterInputTimer = _chooseCharacterInputDelay;
@@ -84,13 +104,21 @@ public class ChooseCharacter : MonoBehaviour
             {
                 return;
             }
+            
+            GetComponent<AudioSource>();
+            PlayOneShot(_cycleCharacterButtonPress);
 
             _characterSelectState++;
             CharacterSelectManager();
             _chooseCharacterInputTimer = _chooseCharacterInputDelay;
         }
     }
-    
+
+    private void PlayOneShot(AudioClip cycleCharacterButtonPress)
+    {
+        //TODO:
+    }
+
     private void BlackRobot()
     {
         Debug.Log(nameof(BlackRobot));

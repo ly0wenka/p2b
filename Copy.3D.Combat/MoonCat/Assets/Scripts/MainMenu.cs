@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public float _mainMenuVerticalInputDelay = 1f;
 
     public Texture2D _mainMenuBackground;
+    public Texture2D _mainMenuTitle;
 
     private AudioSource _mainMenuAudio;
     public AudioClip _mainMenuMusic;
@@ -228,6 +229,11 @@ public class MainMenu : MonoBehaviour
             0,0,
             Screen.width, Screen.height),
             _mainMenuBackground);
+        
+        GUI.DrawTexture(new Rect(
+            0,0,
+            Screen.width, Screen.height),
+            _mainMenuTitle);
 
         GUI.color = new Color(1, 1, 1, _mainMenuFadeValue);
         
