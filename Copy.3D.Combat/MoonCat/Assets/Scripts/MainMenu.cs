@@ -241,6 +241,7 @@ public class MainMenu : MonoBehaviour
         CreateButton(1,"Two Player",1, _mainMenuButtonHeight + _mainMenuGUIOffset);
         CreateButton(2,"Quit",2, _mainMenuButtonHeight * 2 + _mainMenuGUIOffset * 2);
 
+        
         GUI.EndGroup();
 
         if (_ps4Controller || _xBOXController)

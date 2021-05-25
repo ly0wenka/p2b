@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class SplashScreen : MonoBehaviour
@@ -23,8 +24,8 @@ public class SplashScreen : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
 
         splashScreenAudio = GetComponent<AudioSource>();
 
@@ -35,7 +36,7 @@ public class SplashScreen : MonoBehaviour
 
         splashScreenController = SplashScreenController.SplashScreenFadeIn;
 
-        StartCoroutine("SplashScreenManager");
+        StartCoroutine(SplashScreenManager());
     }
 
     // Update is called once per frame
@@ -86,11 +87,27 @@ public class SplashScreen : MonoBehaviour
         
         if (splashScreenFadeValue < 0)
             splashScreenFadeValue = 0;
+
+        if (splashScreenFadeValue == 0)
+            SceneManager.LoadScene("ControllerWarning");
     }
 
     private void DecreaseVolume()
     {
         splashScreenAudio.volume -= splashScreenFadeSpeed * Time.deltaTime;
         splashScreenFadeValue -= splashScreenFadeSpeed * Time.deltaTime;
+    }
+
+    void OnGUI()
+    {
+        GUI.DrawTexture(new Rect(0,0,
+                Screen.width, Screen.height),
+            splashScreenBackground);
+
+        GUI.color = new Color(1, 1, 1, splashScreenFadeValue);
+        
+        GUI.DrawTexture(new Rect(0,0,
+            Screen.width, Screen.height),
+            splashScreenText);
     }
 }

@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     void Awake()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
     // Start is called before the first frame update
     void Start()
