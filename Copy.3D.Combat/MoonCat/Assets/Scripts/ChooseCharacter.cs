@@ -265,6 +265,22 @@ public class ChooseCharacter : MonoBehaviour
 
     private void OnGUI()
     {
-        //TODO:
+        
+        GUI.DrawTexture(new Rect(
+            0, 0,
+            Screen.width, Screen.height / 10),
+            _selectCharacterTextBackground);
+            
+        GUI.DrawTexture(new Rect(
+                Screen.width / 2 - (_foregroundTextWidth / 2), 
+                0,
+                Screen.width, Screen.height / 10),
+            _selectCharacterTextForeground);
+            
+        GUI.DrawTexture(new Rect(
+                Screen.width / 2 - (_foregroundTextWidth / 2), 
+                0,
+                Screen.width, Screen.height / 10),
+            _selectCharacterTextForeground);
     }
 }
