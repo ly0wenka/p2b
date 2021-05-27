@@ -31,6 +31,7 @@ public class OpponentManager : MonoBehaviour
         "BrownRobotOpponent",
         "GreenRobotOpponent",
         "PinkRobotOpponent",
+        "GoldRobotOpponent",
     };
         
     // Start is called before the first frame update
@@ -71,14 +72,25 @@ public class OpponentManager : MonoBehaviour
 
     void LoadCurrentOpponent()
     {
-        if (_selectedOpponent == "BlackRobotOpponent" && !_returnRobotBlack)
+        InstantiateOpponent("BlackRobotOpponent", "BlackRobot", "BlackRobotAlt", _returnRobotBlack);
+        InstantiateOpponent("WhiteRobotOpponent", "WhiteRobot", "WhiteRobotAlt", _returnRobotWhite);
+        InstantiateOpponent("RedRobotOpponent", "RedRobot", "RedRobotAlt", _returnRobotRed);
+        InstantiateOpponent("BlueRobotOpponent", "BlueRobot", "BlueRobotAlt", _returnRobotBlue);
+        InstantiateOpponent("BrownRobotOpponent", "BrownRobot", "BrownRobotAlt", _returnRobotBrown);
+        InstantiateOpponent("GreenRobotOpponent", "GreenRobot", "GreenRobotAlt", _returnRobotGreen);
+        InstantiateOpponent("PinkRobotOpponent", "PinkRobot", "PinkRobotAlt", _returnRobotPink);
+        InstantiateOpponent("GoldRobotOpponent", "GoldRobot", "GoldRobotAlt", _returnRobotGold);
+    }
+
+    private void InstantiateOpponent(string selectedOpponent, string pathResource, string altPathResource, bool isReturnOpponent)
+    {
+        if (_selectedOpponent == selectedOpponent && !isReturnOpponent)
         {
-            _currentOpponent = Instantiate(Resources.Load("BlackRobot")) as GameObject;
+            _currentOpponent = Instantiate(Resources.Load(pathResource)) as GameObject;
         }
-        else if (_selectedOpponent == "BlackRobotOpponent" && !_returnRobotBlack)
+        else if (_selectedOpponent == selectedOpponent && isReturnOpponent)
         {
-            
+            _currentOpponent = Instantiate(Resources.Load(altPathResource)) as GameObject;
         }
-        
     }
 }
