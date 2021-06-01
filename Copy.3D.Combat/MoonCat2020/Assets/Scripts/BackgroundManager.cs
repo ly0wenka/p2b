@@ -25,6 +25,11 @@ public class BackgroundManager : MonoBehaviour
     {
         DontDestroyOnLoad(this);
 
+        ResetBackgroundCounter();
+    }
+
+    private void ResetBackgroundCounter()
+    {
         _backgroundCounter = 0;
     }
 
@@ -45,7 +50,7 @@ public class BackgroundManager : MonoBehaviour
 
         if (_backgroundCounter == _backgroundScenes.Length)
         {
-            _backgroundCounter = 0;
+            ResetBackgroundCounter();
         }
 
         _selectedBackground = _backgroundScenes[_backgroundCounter];
@@ -57,6 +62,8 @@ public class BackgroundManager : MonoBehaviour
     private void SceneBackgroundLoad()
     {
         Debug.Log(nameof(SceneBackgroundLoad));
+        
+        SceneBackgroundManager();
         
         SceneManager.LoadScene(_selectedBackground);
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadCharacter : MonoBehaviour
+public class OnePlayerManager : MonoBehaviour
 {
     private GameObject _playerOneCharacter;
 
@@ -14,6 +14,9 @@ public class LoadCharacter : MonoBehaviour
     private bool _returnRobotGreen;
     private bool _returnRobotPink;
     private bool _returnRobotGold;
+
+    private int _yRot = 90;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,20 @@ public class LoadCharacter : MonoBehaviour
     {
         Debug.Log(nameof(LoadPlayerOneCharacter));
 
+        if (_playerOneCharacter != null)
+        {
+            return;
+        }
+        
+        _returnRobotBlack = ChooseCharacterManager._robotBlack;
+        _returnRobotWhite = ChooseCharacterManager._robotWhite;
+        _returnRobotRed = ChooseCharacterManager._robotRed;
+        _returnRobotBlue = ChooseCharacterManager._robotBlue;
+        _returnRobotBrown = ChooseCharacterManager._robotBrown;
+        _returnRobotGreen = ChooseCharacterManager._robotGreen;
+        _returnRobotPink = ChooseCharacterManager._robotPink;
+        _returnRobotGold = ChooseCharacterManager._robotGold;
+        
         if (_returnRobotBlack)
         {
             _playerOneCharacter = Instantiate(Resources.Load("BlackRobot")) as GameObject;
@@ -76,5 +93,13 @@ public class LoadCharacter : MonoBehaviour
         {
             _playerOneCharacter = Instantiate(Resources.Load("GoldRobot")) as GameObject;
         }
+
+        SetPlayerOneCharacterTransform();
+    }
+
+    private void SetPlayerOneCharacterTransform()
+    {
+        _playerOneCharacter.transform.position = new Vector3(-1, 0, -7);
+        _playerOneCharacter.transform.eulerAngles = new Vector3(0, _yRot, 0);
     }
 }

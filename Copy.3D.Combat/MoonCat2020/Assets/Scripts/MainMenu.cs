@@ -65,6 +65,12 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_mainMenuFadeValue > 1)
+        {
+            return;
+        }
+
+    
         var _joyStickNames = Input.GetJoystickNames();
         for (int i = 0; i < _joyStickNames.Length; i++)
         {
@@ -127,6 +133,12 @@ public class MainMenu : MonoBehaviour
                 return;
             _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
             _selectedButton = 2;
+        }
+        
+        if (Time.deltaTime >= _timeDelay && (Input.GetButton("Fire1")))
+        {
+            StartCoroutine(nameof(MainMenuButtonPress));
+            _timeDelay = Time.deltaTime + _timeBetweenButtonPress;
         }
     }
 
@@ -205,10 +217,12 @@ public class MainMenu : MonoBehaviour
             case 0:
                 _mainMenuAudio.PlayOneShot(_mainMenuStartButtonAudio);
                 _startingOnePlayerGame = true;
+                EnableOnePlayerManager();
                 break;
             case 1:
                 _mainMenuAudio.PlayOneShot(_mainMenuStartButtonAudio);
                 _startingTwoPlayerGame = true;
+                EnableTwoPlayerManager();
                 break;
             case 2:
                 _mainMenuAudio.PlayOneShot(_mainMenuQuitButtonAudio);
@@ -217,13 +231,18 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    private static void EnableTwoPlayerManager()
+    {
+        GameObject.FindGameObjectWithTag("TwoPlayerManager").GetComponent<TwoPlayerManager>().enabled = true;
+    }
+
+    private static void EnableOnePlayerManager()
+    {
+        GameObject.FindGameObjectWithTag("OnePlayerManager").GetComponent<OnePlayerManager>().enabled = true;
+    }
+
     private void OnGUI()
     {
-        if (Time.deltaTime >= _timeDelay && (Input.GetButton("Fire1")))
-        {
-            StartCoroutine(nameof(MainMenuButtonPress));
-            _timeDelay = Time.deltaTime + _timeBetweenButtonPress;
-        }
         
         GUI.DrawTexture(new Rect(
             0,0,

@@ -33,19 +33,12 @@ public class OpponentManager : MonoBehaviour
         "PinkRobotOpponent",
         "GoldRobotOpponent",
     };
+    
+    private int _yRot = -90;
         
     // Start is called before the first frame update
     void Start()
     {
-        _returnRobotBlack = ChooseCharacterManager._robotBlack;
-        _returnRobotWhite = ChooseCharacterManager._robotWhite;
-        _returnRobotRed = ChooseCharacterManager._robotRed;
-        _returnRobotBlue = ChooseCharacterManager._robotBlue;
-        _returnRobotBrown = ChooseCharacterManager._robotBrown;
-        _returnRobotGreen = ChooseCharacterManager._robotGreen;
-        _returnRobotPink = ChooseCharacterManager._robotPink;
-        _returnRobotGold = ChooseCharacterManager._robotGold;
-        
         _opponentCounter = 0;
 
         _selectedOpponent = _opponentOrder.First();
@@ -58,10 +51,10 @@ public class OpponentManager : MonoBehaviour
             _opponentOrder[_randomOrder] = _opTemp;
         }
 
-        foreach (var opponent in _opponentOrder)
-        {
-            print(opponent);
-        }
+        // foreach (var opponent in _opponentOrder)
+        // {
+        //     print(opponent);
+        // }
     }
 
     // Update is called once per frame
@@ -72,6 +65,8 @@ public class OpponentManager : MonoBehaviour
 
     void LoadCurrentOpponent()
     {
+        InitReturnRobots();
+
         InstantiateOpponent("BlackRobotOpponent", "BlackRobot", "BlackRobotAlt", _returnRobotBlack);
         InstantiateOpponent("WhiteRobotOpponent", "WhiteRobot", "WhiteRobotAlt", _returnRobotWhite);
         InstantiateOpponent("RedRobotOpponent", "RedRobot", "RedRobotAlt", _returnRobotRed);
@@ -80,6 +75,25 @@ public class OpponentManager : MonoBehaviour
         InstantiateOpponent("GreenRobotOpponent", "GreenRobot", "GreenRobotAlt", _returnRobotGreen);
         InstantiateOpponent("PinkRobotOpponent", "PinkRobot", "PinkRobotAlt", _returnRobotPink);
         InstantiateOpponent("GoldRobotOpponent", "GoldRobot", "GoldRobotAlt", _returnRobotGold);
+        SetCurrentOpponentTransform();
+    }
+
+    private void InitReturnRobots()
+    {
+        _returnRobotBlack = ChooseCharacterManager._robotBlack;
+        _returnRobotWhite = ChooseCharacterManager._robotWhite;
+        _returnRobotRed = ChooseCharacterManager._robotRed;
+        _returnRobotBlue = ChooseCharacterManager._robotBlue;
+        _returnRobotBrown = ChooseCharacterManager._robotBrown;
+        _returnRobotGreen = ChooseCharacterManager._robotGreen;
+        _returnRobotPink = ChooseCharacterManager._robotPink;
+        _returnRobotGold = ChooseCharacterManager._robotGold;
+    }
+
+    private void SetCurrentOpponentTransform()
+    {
+        _currentOpponent.transform.position = new Vector3(1, 0, -7);
+        _currentOpponent.transform.eulerAngles = new Vector3(0, _yRot, 0);
     }
 
     private void InstantiateOpponent(string selectedOpponent, string pathResource, string altPathResource, bool isReturnOpponent)

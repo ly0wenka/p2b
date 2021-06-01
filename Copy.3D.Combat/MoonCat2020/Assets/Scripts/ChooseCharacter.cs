@@ -26,6 +26,8 @@ public class ChooseCharacter : MonoBehaviour
 
     private GameObject _characterDemo;
 
+    public int _yRot = 90;
+
     public int _characterSelectState;
     
     // Start is called before the first frame update
@@ -73,6 +75,11 @@ public class ChooseCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SendMessageSceneBackgroundLoad();
+        }
+        
         if (_chooseCharacterInputTimer > 0)
         {
             _chooseCharacterInputTimer -= 1f * Time.deltaTime;
@@ -114,6 +121,13 @@ public class ChooseCharacter : MonoBehaviour
         }
     }
 
+    private void SendMessageSceneBackgroundLoad()
+    {
+        GameObject.FindGameObjectWithTag(nameof(BackgroundManager))
+            .GetComponent<BackgroundManager>()
+            .SendMessage("SceneBackgroundLoad");
+    }
+
     private void PlayOneShot(AudioClip cycleCharacterButtonPress)
     {
         //TODO:
@@ -126,6 +140,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo = Instantiate(Resources.Load("BlackRobot")) as GameObject;
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
+        
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
 
         _robotBlack = true;
         _robotWhite = false;
@@ -145,6 +162,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
+        
         _robotBlack = false;
         _robotWhite = true;
         _robotRed = false;
@@ -162,6 +182,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo = Instantiate(Resources.Load("RedRobot")) as GameObject;
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
+        
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
         
         _robotBlack = false;
         _robotWhite = false;
@@ -181,6 +204,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
+        
         _robotBlack = false;
         _robotWhite = false;
         _robotRed = false;
@@ -199,6 +225,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
+        
         _robotBlack = false;
         _robotWhite = false;
         _robotRed = false;
@@ -216,6 +245,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo = Instantiate(Resources.Load("GreenRobot")) as GameObject;
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
+        
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
 
         _robotBlack = false;
         _robotWhite = false;
@@ -234,6 +266,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo = Instantiate(Resources.Load("PinkRobot")) as GameObject;
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
+        
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
 
         _robotBlack = false;
         _robotWhite = false;
@@ -252,6 +287,9 @@ public class ChooseCharacter : MonoBehaviour
         _characterDemo = Instantiate(Resources.Load("GoldRobot")) as GameObject;
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
+        
+        _characterDemo.transform.eulerAngles =
+            new Vector3(0, _yRot, 0);
 
         _robotBlack = false;
         _robotWhite = false;
