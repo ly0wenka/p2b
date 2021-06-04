@@ -1,4 +1,17 @@
 public enum PlayerOneStates
 {
-    PlayerOneIdle
+    PlayerOneIdle,
+    PlayerWalkLeft,
+    PlayerWalkRight,
+    PlayerJump,
+    PlayerJumpForward,
+    PlayerJumpBackwards,
+    ComeDown,
+    ComeDownForwards,
+    ComeDownBackwards,
+    PlayerHighPunch,
+    PlayerLowPunch,
+    PlayerHighKick,
+    PlayerLowKick,
+    WaitForAnimations
 }
