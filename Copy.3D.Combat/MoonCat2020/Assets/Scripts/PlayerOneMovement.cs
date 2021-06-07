@@ -23,7 +23,7 @@ public class PlayerOneMovement : MonoBehaviour
     public AnimationClip[] _playerAttackAnim;
 
     public float _controllerDeadZonePos = .1f;
-    public float _controllerDeadZoneNeg = .1f;
+    public float _controllerDeadZoneNeg = -.1f;
 
     public float _playersGravity = 20f;
     public float _playerGravityModifier = 5f;

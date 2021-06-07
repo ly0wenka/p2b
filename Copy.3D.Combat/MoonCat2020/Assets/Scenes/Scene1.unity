@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 1573993692}
   - component: {fileID: 1573993696}
   - component: {fileID: 1573993695}
+  - component: {fileID: 1573993697}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -277,10 +278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35c888166da896409c4a029a6010ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _roundOneTexture2D: {fileID: 0}
-  _roundTwoTexture2D: {fileID: 0}
-  _roundThreeTexture2D: {fileID: 0}
-  _fightTexture2D: {fileID: 0}
+  _roundOneTexture2D: {fileID: 2800000, guid: 2cd2a5ef3febc364b9fdfe4d4fc1f664, type: 3}
+  _roundTwoTexture2D: {fileID: 2800000, guid: 73accda26529f5c49b074156345e4547, type: 3}
+  _roundThreeTexture2D: {fileID: 2800000, guid: f283553273b291941b2a65602820a5dd, type: 3}
+  _fightTexture2D: {fileID: 2800000, guid: 0605811b90025934b81cc09a11d171e7, type: 3}
   _roundOneAnnouncement: {fileID: 0}
   _roundTwoAnnouncement: {fileID: 0}
   _roundThreeAnnouncement: {fileID: 0}
@@ -381,6 +382,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1573993697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573993691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1270998dc816084286bb550a575f273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2131144686
 GameObject:
   m_ObjectHideFlags: 0
