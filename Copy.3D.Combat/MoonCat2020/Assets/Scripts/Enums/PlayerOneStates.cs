@@ -13,5 +13,6 @@ public enum PlayerOneStates
     PlayerLowPunch,
     PlayerHighKick,
     PlayerLowKick,
-    WaitForAnimations
+    WaitForAnimations,
+    PlayerDemo
 }

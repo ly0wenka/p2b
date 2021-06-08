@@ -14,12 +14,13 @@ public class PlayerOneMovement : MonoBehaviour
     public float _playerJumpHeight = 5f;
     public float _playerJumpSpeed = 5f;
     public float _playerJumpHorizontal = 5f;
-    
+
     private Animation _playerOneAnim;
 
     public AnimationClip _playerOneIdleAnim;
     public AnimationClip _playerOneWalkAnim;
     public AnimationClip _playerOneJumpAnim;
+    public AnimationClip _playerOneDemoAnim;
     public AnimationClip[] _playerAttackAnim;
 
     public float _controllerDeadZonePos = .1f;
@@ -28,11 +29,14 @@ public class PlayerOneMovement : MonoBehaviour
     public float _playersGravity = 20f;
     public float _playerGravityModifier = 5f;
     public float _playersSpeedYAxis;
-    
+
+    private bool _returnDemoState;
+    private int _demoRotationValue = 75;
+
     private Vector3 _playerOneMoveDirection = Vector3.zero;
 
     private CollisionFlags _collisionFlags;
-    
+
     private PlayerOneStates _playerOneStates;
 
     // Start is called before the first frame update
@@ -43,9 +47,9 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneMoveDirection = Vector3.zero;
 
         _playersSpeedYAxis = 0;
-        
+
         _playerController = GetComponent<CharacterController>();
-        
+
         _playerOneAnim = GetComponent<Animation>();
 
         foreach (var animClip in _playerAttackAnim)
@@ -54,6 +58,15 @@ public class PlayerOneMovement : MonoBehaviour
         }
 
         StartCoroutine(nameof(PlayerOneFSM));
+
+        _returnDemoState = false;
+
+        _returnDemoState = ChooseCharacter._demoPlayer;
+
+        if (_returnDemoState)
+        {
+            _playerOneStates = PlayerOneStates.PlayerDemo;
+        }
     }
 
     private IEnumerator PlayerOneFSM()
@@ -104,7 +117,11 @@ public class PlayerOneMovement : MonoBehaviour
                 case PlayerOneStates.WaitForAnimations:
                     WaitForAnimations();
                     break;
+                case PlayerOneStates.PlayerDemo:
+                    PlayerDemo();
+                    break;
             }
+
             yield return null;
         }
     }
@@ -120,7 +137,7 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         // SetIdleToState();
         if (_playerOneTransform.transform.position.y >= _playerJumpHeight)
         {
@@ -131,8 +148,6 @@ public class PlayerOneMovement : MonoBehaviour
     private void PlayerOneJumpForwardAnim()
     {
         Debug.Log(nameof(PlayerOneJumpForwardAnim));
-
-        
     }
 
     private void PlayerOneJumpBackwards()
@@ -140,13 +155,13 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerOneJumpBackwards));
 
         PlayerOneJumpBackwardsAnim();
-        
+
         _playerOneMoveDirection = new Vector3(+_playerJumpHorizontal, _playerJumpSpeed, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         // SetIdleToState();
         if (_playerOneTransform.transform.position.y >= _playerJumpHeight)
         {
@@ -157,8 +172,6 @@ public class PlayerOneMovement : MonoBehaviour
     private void PlayerOneJumpBackwardsAnim()
     {
         Debug.Log(nameof(PlayerOneJumpBackwardsAnim));
-
-        
     }
 
     private void PlayerOneComeDownForwards()
@@ -166,13 +179,13 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerOneComeDownForwards));
 
         PlayerOneComeDownForwardsAnim();
-        
+
         _playerOneMoveDirection = new Vector3(-_playerJumpHorizontal, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         // SetIdleToState();
         if (PlayerOneIsGrounded())
         {
@@ -183,8 +196,6 @@ public class PlayerOneMovement : MonoBehaviour
     private void PlayerOneComeDownForwardsAnim()
     {
         Debug.Log(nameof(PlayerOneComeDownForwardsAnim));
-
-        
     }
 
     private void PlayerOneComeDownBackwards()
@@ -192,13 +203,13 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerOneComeDownBackwards));
 
         PlayerOneComeDownBackwardsAnim();
-        
+
         _playerOneMoveDirection = new Vector3(+_playerJumpHorizontal, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         // SetIdleToState();
         if (PlayerOneIsGrounded())
         {
@@ -209,8 +220,6 @@ public class PlayerOneMovement : MonoBehaviour
     private void PlayerOneComeDownBackwardsAnim()
     {
         Debug.Log(nameof(PlayerOneComeDownBackwardsAnim));
-
-        
     }
 
     private void WaitForAnimations()
@@ -233,10 +242,31 @@ public class PlayerOneMovement : MonoBehaviour
     private void WaitForAnimationsAnim()
     {
         Debug.Log(nameof(WaitForAnimationsAnim));
-
-        
     }
 
+    private void PlayerDemo()
+    {
+        Debug.Log(nameof(PlayerDemo));
+
+        PlayerDemoAnim();
+
+        if (Input.GetAxis("LeftTrigger") > .1f)
+        {
+            transform.Rotate(Vector3.up * _demoRotationValue * Time.deltaTime);
+        }
+
+        if (Input.GetAxis("RightTrigger") < -.1f)
+        {
+            transform.Rotate(Vector3.down * _demoRotationValue * Time.deltaTime);
+        }
+    }
+
+    private void PlayerDemoAnim()
+    {
+        Debug.Log(nameof(PlayerDemoAnim));
+
+        _playerOneAnim.CrossFade(_playerOneDemoAnim.name);
+    }
 
 
     private void PlayerOneIdle()
@@ -262,18 +292,18 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerOneAnim.CrossFade(_playerOneIdleAnim.name);
     }
-    
+
     private void PlayerOneWalkLeft()
     {
         Debug.Log(nameof(PlayerOneWalkLeft));
 
         PlayerOneRetreatAnim();
 
-        _playerOneMoveDirection = new Vector3(+ _playerWalkSpeed, 0, 0);
+        _playerOneMoveDirection = new Vector3(+_playerWalkSpeed, 0, 0);
         MoveDirection();
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         SetIdleToState();
     }
 
@@ -296,12 +326,12 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerOneWalkRight));
 
         PlayerOneWalkAnim();
-        
-        _playerOneMoveDirection = new Vector3(- _playerWalkSpeed, 0, 0);
+
+        _playerOneMoveDirection = new Vector3(-_playerWalkSpeed, 0, 0);
         MoveDirection();
-        
+
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         SetIdleToState();
     }
 
@@ -310,7 +340,7 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerOneWalkAnim));
 
         _playerOneAnim.CrossFade(_playerOneWalkAnim.name);
-        
+
         if (Math.Abs(_playerOneAnim[_playerOneWalkAnim.name].speed - _playerWalkSpeed) < 0.01f)
         {
             return;
@@ -333,7 +363,7 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         // SetIdleToState();
         if (_playerOneTransform.transform.position.y >= _playerJumpHeight)
         {
@@ -344,21 +374,20 @@ public class PlayerOneMovement : MonoBehaviour
     private void PlayerOneComeDown()
     {
         Debug.Log(nameof(PlayerOneComeDown));
-        
+
         PlayerOneComeDownAnim();
-        
+
         _playerOneMoveDirection = new Vector3(0, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-        
+
         // SetIdleToState();
         if (PlayerOneIsGrounded())
         {
             _playerOneStates = PlayerOneStates.PlayerOneIdle;
         }
-        
     }
 
     private void PlayerOneJumpAnim()
@@ -425,7 +454,6 @@ public class PlayerOneMovement : MonoBehaviour
 
         if (PlayerOneIsGrounded())
         {
-
             HorizontalInputManager();
             AttackInputManager();
             StandardInputManager();
@@ -440,13 +468,13 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerOneStates = PlayerOneStates.WaitForAnimations;
     }
-    
+
     private void PlayerLowPunch()
     {
         Debug.Log(nameof(PlayerLowPunch));
 
         PlayerLowPunchAnim();
-        
+
         _playerOneStates = PlayerOneStates.WaitForAnimations;
     }
 
@@ -455,7 +483,7 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerHighKick));
 
         PlayerHighKickAnim();
-        
+
         _playerOneStates = PlayerOneStates.WaitForAnimations;
     }
 
@@ -501,7 +529,7 @@ public class PlayerOneMovement : MonoBehaviour
         {
             _playerOneStates = PlayerOneStates.PlayerJumpForward;
         }
-        
+
         if (Input.GetAxis("Vertical") > _controllerDeadZonePos && Input.GetAxis("Horizontal") < _controllerDeadZoneNeg)
         {
             _playerOneStates = PlayerOneStates.PlayerJumpBackwards;
@@ -511,8 +539,6 @@ public class PlayerOneMovement : MonoBehaviour
     private void HorizontalInputManagerAnim()
     {
         Debug.Log(nameof(HorizontalInputManagerAnim));
-
-        
     }
 
     private void StandardInputManager()
@@ -538,19 +564,13 @@ public class PlayerOneMovement : MonoBehaviour
     private void StandardInputManagerAnim()
     {
         Debug.Log(nameof(StandardInputManagerAnim));
-
-        
     }
-
 
 
     private void AttackInputManagerAnim()
     {
         Debug.Log(nameof(AttackInputManagerAnim));
-
-        
     }
-
 
 
     private void ApplyGravity()
@@ -572,9 +592,5 @@ public class PlayerOneMovement : MonoBehaviour
     private void PlayerOneComeDownAnim()
     {
         Debug.Log(nameof(PlayerOneComeDownAnim));
-
-        
     }
-
-
 }

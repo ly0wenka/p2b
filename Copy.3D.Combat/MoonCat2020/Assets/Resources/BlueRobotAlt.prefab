@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 2392640348515124646}
   - component: {fileID: 5746134051821349084}
   m_Layer: 0
-  m_Name: BlueRobot
+  m_Name: BlueRobotAlt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1280,7 +1280,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e8fb50de5f3b6eb4894bd2a338ff3a28, type: 2}
+  - {fileID: 2100000, guid: ecf9c27265c1d6d40b77971d5411097d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -605,7 +605,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c2431e5bfd3c18f4fae3de1950f11e59, type: 2}
+  - {fileID: 2100000, guid: 6682235aa85af174e9fbf8820be7f4bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 3517546317911418916}
   - component: {fileID: 8248937573428593648}
   m_Layer: 0
-  m_Name: BlackRobot
+  m_Name: BlackRobotAlt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

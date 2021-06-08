@@ -11,6 +11,8 @@ public class ChooseCharacter : MonoBehaviour
     public Texture2D _selectCharacterTextForeground;
     public Texture2D _selectCharacterText;
     
+    public Texture2D _selectCharacterXboxLeft;
+    public Texture2D _selectCharacterXboxRight;
     public Texture2D _selectCharacterArrowLeft;
     public Texture2D _selectCharacterArrowRight;
 
@@ -25,7 +27,7 @@ public class ChooseCharacter : MonoBehaviour
     public AudioClip _cycleCharacterButtonPress;
 
     private GameObject _characterDemo;
-
+    public static bool _demoPlayer;
     public int _yRot = 90;
 
     public int _characterSelectState;
@@ -34,6 +36,8 @@ public class ChooseCharacter : MonoBehaviour
     void Start()
     {
         CharacterSelectManager();
+
+        _demoPlayer = true;
 
         _foregroundTextWidth = Screen.width / 1.5f;
         _foregroundTextHeight = Screen.height / 10f;
@@ -77,6 +81,7 @@ public class ChooseCharacter : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            _demoPlayer = false;
             SendMessageSceneBackgroundLoad();
         }
         
