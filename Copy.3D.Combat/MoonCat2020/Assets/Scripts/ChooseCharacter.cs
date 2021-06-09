@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static ChooseCharacterManager;
 
 [RequireComponent(typeof(AudioSource))]
@@ -13,12 +14,12 @@ public class ChooseCharacter : MonoBehaviour
     
     public Texture2D _selectCharacterXboxLeft;
     public Texture2D _selectCharacterXboxRight;
-    public Texture2D _selectCharacterArrowLeft;
-    public Texture2D _selectCharacterArrowRight;
+    /*[FormerlySerializedAs("_selectCharacterArrowLeft")] */public Texture2D _selectCharacterPSLeft;
+    /*[FormerlySerializedAs("_selectCharacterArrowRight")]*/ public Texture2D _selectCharacterPSRight;
 
     private float _foregroundTextWidth;
     private float _foregroundTextHeight;
-    private float _arrowSize;
+    private float _leftRightControllerIconSize;
     
     
     public float _chooseCharacterInputTimer;
@@ -30,6 +31,8 @@ public class ChooseCharacter : MonoBehaviour
     public static bool _demoPlayer;
     public int _yRot = 90;
 
+    private GameObject _switchCharacterParticleSystem;
+    
     public int _characterSelectState;
     
     // Start is called before the first frame update
@@ -41,7 +44,7 @@ public class ChooseCharacter : MonoBehaviour
 
         _foregroundTextWidth = Screen.width / 1.5f;
         _foregroundTextHeight = Screen.height / 10f;
-        _arrowSize = Screen.height / 10f;
+        _leftRightControllerIconSize = Screen.height / 10f;
     }
 
     private void CharacterSelectManager()
@@ -106,11 +109,12 @@ public class ChooseCharacter : MonoBehaviour
             PlayOneShot(_cycleCharacterButtonPress);
 
             _characterSelectState--;
+            InstantiateSwitchCharParticle();
             CharacterSelectManager();
             _chooseCharacterInputTimer = _chooseCharacterInputDelay;
         }
         
-        if (Input.GetAxis("Horizontal") > -.5f)
+        if (Input.GetAxis("Horizontal") > .5f)
         {
             if (_characterSelectState == 7)
             {
@@ -121,9 +125,17 @@ public class ChooseCharacter : MonoBehaviour
             PlayOneShot(_cycleCharacterButtonPress);
 
             _characterSelectState++;
+            InstantiateSwitchCharParticle();
             CharacterSelectManager();
             _chooseCharacterInputTimer = _chooseCharacterInputDelay;
         }
+    }
+
+    private void InstantiateSwitchCharParticle()
+    {
+        _switchCharacterParticleSystem = Instantiate(Resources.Load("SwitchCharParticle")) as GameObject;
+
+        _switchCharacterParticleSystem.transform.position = new Vector3(-.5f, 0, -7);
     }
 
     private void SendMessageSceneBackgroundLoad()
@@ -325,19 +337,39 @@ public class ChooseCharacter : MonoBehaviour
                 0,
                 _foregroundTextWidth, _foregroundTextHeight),
             _selectCharacterText);
+
+
+        if (GameObject.FindGameObjectWithTag(nameof(ControllerManager)).GetComponent<ControllerManager>()
+            .xBOXController)
+        {
+            GUI.DrawTexture(new Rect(
+                    Screen.width / 2 - (_foregroundTextWidth / 2) - _leftRightControllerIconSize, 
+                    0,
+                    _leftRightControllerIconSize, _leftRightControllerIconSize),
+                _selectCharacterXboxLeft);
             
-        GUI.DrawTexture(new Rect(
-                Screen.width / 2 - (_foregroundTextWidth / 2) - _arrowSize, 
-                0,
-                _arrowSize, _arrowSize),
-            _selectCharacterArrowLeft);
+            GUI.DrawTexture(new Rect(
+                    Screen.width / 2 + (_foregroundTextWidth / 2), 
+                    0,
+                    _leftRightControllerIconSize, _leftRightControllerIconSize),
+                _selectCharacterXboxRight);
+        }
+
+
+        if (GameObject.FindGameObjectWithTag(nameof(ControllerManager)).GetComponent<ControllerManager>()
+            .pS4Controller)
+        {
+            GUI.DrawTexture(new Rect(
+                    Screen.width / 2 - (_foregroundTextWidth / 2) - _leftRightControllerIconSize, 
+                    0,
+                    _leftRightControllerIconSize, _leftRightControllerIconSize),
+                _selectCharacterPSLeft);
             
-        GUI.DrawTexture(new Rect(
-                Screen.width / 2 + (_foregroundTextWidth / 2), 
-                0,
-                _arrowSize, _arrowSize),
-            _selectCharacterArrowRight);
-        
-        
+            GUI.DrawTexture(new Rect(
+                    Screen.width / 2 + (_foregroundTextWidth / 2), 
+                    0,
+                    _leftRightControllerIconSize, _leftRightControllerIconSize),
+                _selectCharacterPSRight);
+        }
     }
 }
