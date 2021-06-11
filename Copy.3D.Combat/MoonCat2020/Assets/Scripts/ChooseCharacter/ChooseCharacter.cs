@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static ChooseCharacterManager;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class ChooseCharacter : MonoBehaviour
@@ -29,6 +30,9 @@ public class ChooseCharacter : MonoBehaviour
 
     private GameObject _characterDemo;
     public static bool _demoPlayer;
+
+    private int _pickRandomCharacter;
+    
     public int _yRot = 90;
 
     private GameObject _switchCharacterParticleSystem;
@@ -129,13 +133,25 @@ public class ChooseCharacter : MonoBehaviour
             CharacterSelectManager();
             _chooseCharacterInputTimer = _chooseCharacterInputDelay;
         }
+
+        if (Input.GetButtonDown("Select"))
+        {
+            _pickRandomCharacter = Random.Range(0, 7);
+
+            _characterSelectState = _pickRandomCharacter;
+            
+            GetComponent<AudioSource>().PlayOneShot(_cycleCharacterButtonPress);
+            
+            InstantiateSwitchCharParticle();
+            CharacterSelectManager();
+        }
     }
 
     private void InstantiateSwitchCharParticle()
     {
         _switchCharacterParticleSystem = Instantiate(Resources.Load("SwitchCharParticle")) as GameObject;
 
-        _switchCharacterParticleSystem.transform.position = new Vector3(-.5f, 0, -7);
+        _switchCharacterParticleSystem.transform.position = new Vector3(-.5f, 0, -8);
     }
 
     private void SendMessageSceneBackgroundLoad()

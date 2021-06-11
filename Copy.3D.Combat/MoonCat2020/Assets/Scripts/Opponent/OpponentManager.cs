@@ -34,7 +34,7 @@ public class OpponentManager : MonoBehaviour
         "GoldRobotOpponent",
     };
     
-    private int _yRot = -90;
+    private int _yRot = 0;
         
     // Start is called before the first frame update
     void Start()
@@ -76,6 +76,14 @@ public class OpponentManager : MonoBehaviour
         InstantiateOpponent("PinkRobotOpponent", "PinkRobot", "PinkRobotAlt", _returnRobotPink);
         InstantiateOpponent("GoldRobotOpponent", "GoldRobot", "GoldRobotAlt", _returnRobotGold);
         SetCurrentOpponentTransform();
+
+        FightCamera._opponent = _currentOpponent;
+
+        _currentOpponent.GetComponent<PlayerOneMovement>().enabled = false;
+        _currentOpponent.GetComponent<PlayerOneHealth>().enabled = false;
+        
+        _currentOpponent.GetComponent<OpponentAI>().enabled = true;
+        _currentOpponent.GetComponent<OpponentHealth>().enabled = true;
     }
 
     private void InitReturnRobots()

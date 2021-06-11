@@ -95,6 +95,14 @@ public class OnePlayerManager : MonoBehaviour
         }
 
         SetPlayerOneCharacterTransform();
+
+        FightCamera._opponent = _playerOneCharacter;
+        
+        _playerOneCharacter.GetComponent<PlayerOneMovement>().enabled = true;
+        _playerOneCharacter.GetComponent<PlayerOneHealth>().enabled = true;
+        
+        _playerOneCharacter.GetComponent<OpponentAI>().enabled = false;
+        _playerOneCharacter.GetComponent<OpponentHealth>().enabled = false;
     }
 
     private void SetPlayerOneCharacterTransform()
