@@ -11,8 +11,8 @@ public class ControllerWarning : ControllerManager
     public Texture2D controllerWarningText;
     public Texture2D controllerDetectedText;
 
-    public float controllerWarningFadeValue;
-    private float controllerWarningFadeSpeed = 0.25f;
+    private float controllerWarningFadeValue;
+    private float controllerWarningFadeSpeed = .33f;
     private bool controllerConditionsMet;
 
     void Start()

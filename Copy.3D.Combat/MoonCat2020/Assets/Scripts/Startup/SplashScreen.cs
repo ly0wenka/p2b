@@ -13,7 +13,7 @@ public class SplashScreen : MonoBehaviour
     public AudioClip splashScreenMusic;
 
     private float splashScreenFadeValue;
-    private float splashScreenFadeSpeed = 0.15f;
+    private float splashScreenFadeSpeed = .5f;
 
     private SplashScreenController splashScreenController;
 

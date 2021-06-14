@@ -23,21 +23,21 @@ public class ChooseCharacter : MonoBehaviour
     private float _leftRightControllerIconSize;
     
     
-    public float _chooseCharacterInputTimer;
-    public float _chooseCharacterInputDelay = 1f;
+    private float _chooseCharacterInputTimer;
+    private float _chooseCharacterInputDelay = 1f;
 
     public AudioClip _cycleCharacterButtonPress;
 
     private GameObject _characterDemo;
-    public static bool _demoPlayer;
+    private static bool _demoPlayer;
 
     private int _pickRandomCharacter;
     
-    public int _yRot = 90;
+    public int _yRot = 180;
 
     private GameObject _switchCharacterParticleSystem;
     
-    public int _characterSelectState;
+    private int _characterSelectState;
     
     // Start is called before the first frame update
     void Start()

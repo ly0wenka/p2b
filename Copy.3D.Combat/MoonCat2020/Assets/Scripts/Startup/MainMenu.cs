@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(AudioSource))]
 public class MainMenu : MonoBehaviour
 {
-    public int _selectedButton = 0;
-    public float _timeBetweenButtonPress = 0.1f;
-    public float _timeDelay;
+    private int _selectedButton = 0;
+    private float _timeBetweenButtonPress = 0.1f;
+    private float _timeDelay;
 
-    public float _mainMenuVerticalInputTimer;
-    public float _mainMenuVerticalInputDelay = 1f;
+    private float _mainMenuVerticalInputTimer;
+    private float _mainMenuVerticalInputDelay = 1f;
 
     public Texture2D _mainMenuBackground;
     public Texture2D _mainMenuTitle;
@@ -22,12 +22,12 @@ public class MainMenu : MonoBehaviour
     public AudioClip _mainMenuStartButtonAudio;
     public AudioClip _mainMenuQuitButtonAudio;
 
-    public float _mainMenuFadeValue;
-    public float _mainMenuFadeSpeed = 0.15f;
+    private float _mainMenuFadeValue;
+    private float _mainMenuFadeSpeed = .5f;
 
-    public float _mainMenuButtonWidth = 100f;
-    public float _mainMenuButtonHeight = 25f;
-    public float _mainMenuGUIOffset = 10f;
+    private float _mainMenuButtonWidth = 100f;
+    private float _mainMenuButtonHeight = 25f;
+    private float _mainMenuGUIOffset = 10f;
 
     private bool _startingOnePlayerGame;
     private bool _startingTwoPlayerGame;

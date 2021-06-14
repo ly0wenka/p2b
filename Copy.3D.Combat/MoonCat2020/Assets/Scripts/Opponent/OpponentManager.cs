@@ -67,23 +67,39 @@ public class OpponentManager : MonoBehaviour
     {
         InitReturnRobots();
 
-        InstantiateOpponent("BlackRobotOpponent", "BlackRobot", "BlackRobotAlt", _returnRobotBlack);
-        InstantiateOpponent("WhiteRobotOpponent", "WhiteRobot", "WhiteRobotAlt", _returnRobotWhite);
-        InstantiateOpponent("RedRobotOpponent", "RedRobot", "RedRobotAlt", _returnRobotRed);
-        InstantiateOpponent("BlueRobotOpponent", "BlueRobot", "BlueRobotAlt", _returnRobotBlue);
-        InstantiateOpponent("BrownRobotOpponent", "BrownRobot", "BrownRobotAlt", _returnRobotBrown);
-        InstantiateOpponent("GreenRobotOpponent", "GreenRobot", "GreenRobotAlt", _returnRobotGreen);
-        InstantiateOpponent("PinkRobotOpponent", "PinkRobot", "PinkRobotAlt", _returnRobotPink);
-        InstantiateOpponent("GoldRobotOpponent", "GoldRobot", "GoldRobotAlt", _returnRobotGold);
-        SetCurrentOpponentTransform();
-
-        FightCamera._opponent = _currentOpponent;
-
-        _currentOpponent.GetComponent<PlayerOneMovement>().enabled = false;
-        _currentOpponent.GetComponent<PlayerOneHealth>().enabled = false;
-        
-        _currentOpponent.GetComponent<OpponentAI>().enabled = true;
-        _currentOpponent.GetComponent<OpponentHealth>().enabled = true;
+        if(TryInstantiateAltOpponent("BlackRobotOpponent", "BlackRobot", "BlackRobotAlt", _returnRobotBlack))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("WhiteRobotOpponent", "WhiteRobot", "WhiteRobotAlt", _returnRobotWhite))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("RedRobotOpponent", "RedRobot", "RedRobotAlt", _returnRobotRed))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("BlueRobotOpponent", "BlueRobot", "BlueRobotAlt", _returnRobotBlue))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("BrownRobotOpponent", "BrownRobot", "BrownRobotAlt", _returnRobotBrown))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("GreenRobotOpponent", "GreenRobot", "GreenRobotAlt", _returnRobotGreen))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("PinkRobotOpponent", "PinkRobot", "PinkRobotAlt", _returnRobotPink))
+        {
+            return;
+        }
+        if(TryInstantiateAltOpponent("GoldRobotOpponent", "GoldRobot", "GoldRobotAlt", _returnRobotGold))
+        {
+            return;
+        }
+        SetOpponent();
     }
 
     private void InitReturnRobots()
@@ -98,13 +114,21 @@ public class OpponentManager : MonoBehaviour
         _returnRobotGold = ChooseCharacterManager._robotGold;
     }
 
-    private void SetCurrentOpponentTransform()
+    private void SetOpponent()
     {
         _currentOpponent.transform.position = new Vector3(1, 0, -7);
         _currentOpponent.transform.eulerAngles = new Vector3(0, _yRot, 0);
+        
+        FightCamera._opponent = _currentOpponent;
+
+        _currentOpponent.GetComponent<PlayerOneMovement>().enabled = false;
+        _currentOpponent.GetComponent<PlayerOneHealth>().enabled = false;
+        
+        _currentOpponent.GetComponent<OpponentAI>().enabled = true;
+        _currentOpponent.GetComponent<OpponentHealth>().enabled = true;
     }
 
-    private void InstantiateOpponent(string selectedOpponent, string pathResource, string altPathResource, bool isReturnOpponent)
+    private bool TryInstantiateAltOpponent(string selectedOpponent, string pathResource, string altPathResource, bool isReturnOpponent)
     {
         if (_selectedOpponent == selectedOpponent && !isReturnOpponent)
         {
@@ -113,6 +137,10 @@ public class OpponentManager : MonoBehaviour
         else if (_selectedOpponent == selectedOpponent && isReturnOpponent)
         {
             _currentOpponent = Instantiate(Resources.Load(altPathResource)) as GameObject;
+            SetOpponent();
+            return true;
         }
+
+        return false;
     }
 }
