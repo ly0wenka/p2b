@@ -29,7 +29,7 @@ public class ChooseCharacter : MonoBehaviour
     public AudioClip _cycleCharacterButtonPress;
 
     private GameObject _characterDemo;
-    private static bool _demoPlayer;
+    public static bool _demoPlayer;
 
     private int _pickRandomCharacter;
     
