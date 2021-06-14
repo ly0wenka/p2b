@@ -972,14 +972,15 @@ GameObject:
   m_Component:
   - component: {fileID: 8673052265689362421}
   - component: {fileID: 1645745520579904143}
-  - component: {fileID: -1397686360362258498}
   - component: {fileID: 3715011568660582061}
   - component: {fileID: 3517546317911418916}
   - component: {fileID: 8248937573428593648}
+  - component: {fileID: -1397686360362258498}
   - component: {fileID: 8136280713828904604}
   - component: {fileID: 9204182103830624919}
   - component: {fileID: 802877583335022935}
   - component: {fileID: 1893217979407432256}
+  - component: {fileID: 1173932810335587561}
   m_Layer: 0
   m_Name: BlackRobot
   m_TagString: Untagged
@@ -1022,37 +1023,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-1397686360362258498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5622610877394542054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd89a74a9f52b684eaa1ad6da3811d75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerWalkSpeed: 1
-  _playerRetreatSpeed: 0.75
-  _playerJumpHeight: 5
-  _playerJumpSpeed: 5
-  _playerJumpHorizontal: 5
-  _playerOneIdleAnim: {fileID: 7400000, guid: d5cf7161fc2a944108a5e674edab0571, type: 2}
-  _playerOneWalkAnim: {fileID: 7400000, guid: 858fc3b036a224e13a713fe766542791, type: 2}
-  _playerOneJumpAnim: {fileID: -203655887218126122, guid: 87c0af07e74d96247b2759e10df95878, type: 3}
-  _playerOneDemoAnim: {fileID: 0}
-  _playerAttackAnim:
-  - {fileID: -203655887218126122, guid: 5c7be4f7aaecd0d4fa125bad1071b1d8, type: 3}
-  - {fileID: -203655887218126122, guid: d3c98ae80402d91408c4d36e79f14a1a, type: 3}
-  - {fileID: -203655887218126122, guid: 4e9249e357b39ab41b5a4d05adc7b86c, type: 3}
-  - {fileID: -203655887218126122, guid: 4a480310d7205cb4fb717cc96a8f9ff5, type: 3}
-  _controllerDeadZonePos: 0.1
-  _controllerDeadZoneNeg: -0.1
-  _playersGravity: 20
-  _playerGravityModifier: 5
-  _playersSpeedYAxis: 0
 --- !u!111 &3715011568660582061
 Animation:
   m_ObjectHideFlags: 0
@@ -1084,7 +1054,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!143 &8248937573428593648
 CharacterController:
@@ -1095,15 +1065,46 @@ CharacterController:
   m_GameObject: {fileID: 5622610877394542054}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Height: 1.78
-  m_Radius: 0.5
+  m_Height: 1.8
+  m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.92, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &-1397686360362258498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622610877394542054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd89a74a9f52b684eaa1ad6da3811d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerWalkSpeed: 1
+  _playerRetreatSpeed: 0.75
+  _playerJumpHeight: 5
+  _playerJumpSpeed: 5
+  _playerJumpHorizontal: 5
+  _playerOneIdleAnim: {fileID: 7400000, guid: d5cf7161fc2a944108a5e674edab0571, type: 2}
+  _playerOneWalkAnim: {fileID: 7400000, guid: 858fc3b036a224e13a713fe766542791, type: 2}
+  _playerOneJumpAnim: {fileID: -203655887218126122, guid: 87c0af07e74d96247b2759e10df95878, type: 3}
+  _playerOneDemoAnim: {fileID: 0}
+  _playerAttackAnim:
+  - {fileID: -203655887218126122, guid: 5c7be4f7aaecd0d4fa125bad1071b1d8, type: 3}
+  - {fileID: -203655887218126122, guid: d3c98ae80402d91408c4d36e79f14a1a, type: 3}
+  - {fileID: -203655887218126122, guid: 4e9249e357b39ab41b5a4d05adc7b86c, type: 3}
+  - {fileID: -203655887218126122, guid: 4a480310d7205cb4fb717cc96a8f9ff5, type: 3}
+  _controllerDeadZonePos: 0.1
+  _controllerDeadZoneNeg: -0.1
+  _playersGravity: 20
+  _playerGravityModifier: 5
+  _playersSpeedYAxis: 0
 --- !u!114 &8136280713828904604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1128,6 +1129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41e8f7ada30e7944b8f37c3055a9aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _opponentIdleAnim: {fileID: 0}
+  _opponentHitBodyAnim: {fileID: 0}
+  _opponentHitHeadAnim: {fileID: 0}
+  _opponentDefeatedFinalHitAnim: {fileID: 0}
 --- !u!114 &802877583335022935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6971fcd73b6604244a57172fd9456bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minimumOpponentHealth: 0
+  _maximumOpponentHealth: 100
+  _currentOpponentHealth: 100
 --- !u!82 &1893217979407432256
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1236,6 +1244,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &1173932810335587561
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622610877394542054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &5811022139334298594
 GameObject:
   m_ObjectHideFlags: 0
