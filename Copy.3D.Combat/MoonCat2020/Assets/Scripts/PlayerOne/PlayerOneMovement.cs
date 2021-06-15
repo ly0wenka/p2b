@@ -539,7 +539,7 @@ public class PlayerOneMovement : MonoBehaviour
         {
             _playerOneStates = PlayerOneStates.PlayerLowPunch;
 
-            _playerIsPunchingLeft = true;
+            _playerIsPunchingRight = true;
         }
     }
 

@@ -72,13 +72,16 @@ public class OpponentAI : MonoBehaviour
                     OpponentHitBody();
                     break;
                 case OpponentAIState.OpponentHitByLeftPunch:
-                    OpponentHitHead();
+                    OpponentHitByLeftPunch();
                     break;
                 case OpponentAIState.WaitForHitAnimations:
                     WaitForHitAnimations();
                     break;
                 case OpponentAIState.DefeatedFinalHit:
                     OpponentDefeated();
+                    break;
+                case OpponentAIState.OpponentHitByRightPunch:
+                    OpponentHitByRightPunch();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -158,15 +161,30 @@ public class OpponentAI : MonoBehaviour
 
     public float _temp = 0;
 
-    private void OpponentHitHead()
+    private void OpponentHitByLeftPunch()
     {
-        Debug.Log(nameof(OpponentHitHead));
+        Debug.Log(nameof(OpponentHitByLeftPunch));
 
         OpponentHitHeadAnimation();
         
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
 
-        var _impactPoint = OpponentHeadHit._opponentImpactPoint;
+        var _impactPoint = PlayerPunchLeft._opponentImpactPoint;
+        
+        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y + 1, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
+        
+        _opponentAIState = OpponentAIState.WaitForHitAnimations;
+    }
+
+    private void OpponentHitByRightPunch()
+    {
+        Debug.Log(nameof(OpponentHitByRightPunch));
+
+        OpponentHitHeadAnimation();
+        
+        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
+
+        var _impactPoint = PlayerPunchRight._opponentImpactPoint;
         
         var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y + 1, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
         

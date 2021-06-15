@@ -49,6 +49,6 @@ public class PlayerPunchRight : MonoBehaviour
 
     private void HeadStruck()
     {
-        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLeftPunch;
+        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByRightPunch;
     }
 }

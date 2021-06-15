@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-#pragma warning disable 618
 namespace UnityStandardAssets.Utility
 {
     public class SimpleActivatorMenu : MonoBehaviour
     {
         // An incredibly simple menu which, when given references
         // to gameobjects in the scene
-        public GUIText camSwitchButton;
+        public Text camSwitchButton;
         public GameObject[] objects;
 
 
@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Utility
         {
             int nextactiveobject = m_CurrentActiveObject + 1 >= objects.Length ? 0 : m_CurrentActiveObject + 1;
 
-            for (int i = 0; i < objects.Length; i++)
+            for (var i = 0; i < objects.Length; i++)
             {
                 objects[i].SetActive(i == nextactiveobject);
             }
