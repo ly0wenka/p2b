@@ -8,6 +8,9 @@ TagManager:
   - TwoPlayerManager
   - BackgroundManager
   - OpponentManager
+  - ControllerManager
+  - HeadHit
+  - BodyHit
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,12 @@ public class OpponentAI : MonoBehaviour
     public AnimationClip _opponentHitHeadAnim;
     public AnimationClip _opponentDefeatedFinalHitAnim;
 
+    private AudioSource _opponentAIAudioSource;
+    public AudioClip _opponentHeadHitAudio;
+    public AudioClip _opponentBodyHitAudio;
+
+    public GameObject _hitSparks;
+
     private Vector3 _opponentMoveDirection = Vector3.zero;
 
     private float _opponentGravity = 5f;
@@ -24,7 +30,7 @@ public class OpponentAI : MonoBehaviour
 
     private CollisionFlags _collisionFlagsOpponent;
 
-    private OpponentAIState _opponentAIState;
+    public static OpponentAIState _opponentAIState;
     
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,8 @@ public class OpponentAI : MonoBehaviour
         _opponentController = GetComponent<CharacterController>();
 
         _opponentAnim = GetComponent<Animation>();
+
+        _opponentAIAudioSource = GetComponent<AudioSource>();
 
         _opponentTransform = transform;
         
@@ -125,6 +133,10 @@ public class OpponentAI : MonoBehaviour
         
         OpponentHitBodyAnimation();
         
+        _opponentAIAudioSource.PlayOneShot(_opponentBodyHitAudio);
+        
+        var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }
 
@@ -140,6 +152,10 @@ public class OpponentAI : MonoBehaviour
         Debug.Log(nameof(OpponentHitHead));
 
         OpponentHitHeadAnimation();
+        
+        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
+
+        var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }
