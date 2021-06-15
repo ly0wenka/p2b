@@ -3,7 +3,8 @@ public enum OpponentAIState
     Initialise,
     OpponentIdle,
     OpponentHitBody,
-    OpponentHitHead,
+    OpponentHitByLeftPunch,
+    OpponentHitByRightPunch,
     WaitForHitAnimations,
     DefeatedFinalHit
 }

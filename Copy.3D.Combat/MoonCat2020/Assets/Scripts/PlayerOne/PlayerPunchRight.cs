@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentHeadHit : MonoBehaviour
+public class PlayerPunchRight : MonoBehaviour
 {
     public static Vector3 _opponentImpactPoint;
 
     private Collider _headHitCollider;
 
-    private bool _returnIfPlayerIsPunching;
+    private bool _returnIfPlayerIsPunchingRight;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +22,14 @@ public class OpponentHeadHit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _returnIfPlayerIsPunching = PlayerOneMovement._playerIsPunchingLeft;
+        _returnIfPlayerIsPunchingRight = PlayerOneMovement._playerIsPunchingRight;
 
-        if (_returnIfPlayerIsPunching)
+        if (_returnIfPlayerIsPunchingRight)
         {
             _headHitCollider.enabled = true;
         }
 
-        if (!_returnIfPlayerIsPunching)
+        if (!_returnIfPlayerIsPunchingRight)
         {
             _headHitCollider.enabled = false;
         }

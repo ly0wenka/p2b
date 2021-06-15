@@ -23,6 +23,9 @@ public class PlayerOneMovement : MonoBehaviour
     public AnimationClip _playerOneDemoAnim;
     public AnimationClip[] _playerAttackAnim;
 
+    public static bool _playerIsPunchingLeft;
+    public static bool _playerIsPunchingRight;
+    
     public float _controllerDeadZonePos = .1f;
     public float _controllerDeadZoneNeg = -.1f;
 
@@ -65,6 +68,9 @@ public class PlayerOneMovement : MonoBehaviour
 
         _returnDemoState = ChooseCharacter._demoPlayer;
 
+        _playerIsPunchingLeft = false;
+        _playerIsPunchingRight = false;
+        
         if (_returnDemoState)
         {
             _playerOneStates = PlayerOneStates.PlayerDemo;
@@ -237,6 +243,9 @@ public class PlayerOneMovement : MonoBehaviour
                 return;
             }
         }
+
+        _playerIsPunchingLeft = false;
+        _playerIsPunchingRight = false;
 
         _playerOneStates = PlayerOneStates.PlayerOneIdle;
     }
@@ -522,11 +531,15 @@ public class PlayerOneMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire3"))
         {
             _playerOneStates = PlayerOneStates.PlayerHighPunch;
+
+            _playerIsPunchingLeft = true;
         }
 
         if (Input.GetButtonDown("Fire4"))
         {
             _playerOneStates = PlayerOneStates.PlayerLowPunch;
+
+            _playerIsPunchingLeft = true;
         }
     }
 

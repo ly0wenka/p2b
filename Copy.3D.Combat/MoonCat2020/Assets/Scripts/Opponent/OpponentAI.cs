@@ -71,7 +71,7 @@ public class OpponentAI : MonoBehaviour
                 case OpponentAIState.OpponentHitBody:
                     OpponentHitBody();
                     break;
-                case OpponentAIState.OpponentHitHead:
+                case OpponentAIState.OpponentHitByLeftPunch:
                     OpponentHitHead();
                     break;
                 case OpponentAIState.WaitForHitAnimations:
