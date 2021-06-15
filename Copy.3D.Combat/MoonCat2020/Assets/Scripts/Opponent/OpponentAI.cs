@@ -27,6 +27,8 @@ public class OpponentAI : MonoBehaviour
     private float _opponentGravity = 5f;
     private float _opponentGravityModifier = 5f;
     private float _opponentVerticalSpeed = .0f;
+    
+    private bool _returnFightIntroFinished;
 
     private CollisionFlags _collisionFlagsOpponent;
 
@@ -95,6 +97,13 @@ public class OpponentAI : MonoBehaviour
         }
 
         OpponentMove();
+        
+        _returnFightIntroFinished = FightIntro._fightIntroFinished;
+
+        if (_returnFightIntroFinished != true)
+        {
+            return;
+        }
     }
 
     private void OpponentMove()
@@ -147,6 +156,8 @@ public class OpponentAI : MonoBehaviour
         _opponentAnim.CrossFade(_opponentHitBodyAnim.name);
     }
 
+    public float _temp = 0;
+
     private void OpponentHitHead()
     {
         Debug.Log(nameof(OpponentHitHead));
@@ -155,7 +166,9 @@ public class OpponentAI : MonoBehaviour
         
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
 
-        var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        var _impactPoint = OpponentHeadHit._opponentImpactPoint;
+        
+        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y + 1, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
         
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }

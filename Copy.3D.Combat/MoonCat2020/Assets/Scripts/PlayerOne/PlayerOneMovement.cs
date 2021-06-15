@@ -33,6 +33,8 @@ public class PlayerOneMovement : MonoBehaviour
     private bool _returnDemoState;
     private int _demoRotationValue = 75;
 
+    private bool _returnFightIntroFinished;
+
     private Vector3 _playerOneMoveDirection = Vector3.zero;
 
     private CollisionFlags _collisionFlags;
@@ -448,6 +450,13 @@ public class PlayerOneMovement : MonoBehaviour
         ApplyGravity();
 
         if (_playerAttackAnim.Any(clip => _playerOneAnim.IsPlaying(clip.name)))
+        {
+            return;
+        }
+
+        _returnFightIntroFinished = FightIntro._fightIntroFinished;
+
+        if (_returnFightIntroFinished != true)
         {
             return;
         }

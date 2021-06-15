@@ -121,6 +121,20 @@ public class FightIntro : MonoBehaviour
         Debug.Log(nameof(FightIntroFightAnnouncement));
 
         _fightIntroFadeValue -= _fightIntroFadeSpeed * 2 * Time.deltaTime;
+
+        if (_fightIntroFadeValue < 0)
+        {
+            _fightIntroFadeValue = 0;
+        }
+
+        if (_fightIntroFadeValue == 0)
+        {
+            _displayingRound = false;
+            _displayingFight = false;
+
+            _fightIntroFinished = true;
+            StopCoroutine(FightIntroManager());
+        }
     }
 
     private void IncreaseRoundCounter()

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class OpponentHeadHit : MonoBehaviour
 {
+    public static Vector3 _opponentImpactPoint;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _opponentImpactPoint = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -23,6 +24,10 @@ public class OpponentHeadHit : MonoBehaviour
         {
             HeadStruck();
         }
+
+        _opponentHeadHit.ClosestPointOnBounds(transform.position);
+
+        _opponentImpactPoint = _opponentHeadHit.transform.position;
     }
 
     private void HeadStruck()
