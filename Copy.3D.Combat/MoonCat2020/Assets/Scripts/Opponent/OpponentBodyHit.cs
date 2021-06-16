@@ -26,6 +26,6 @@ public class OpponentBodyHit : MonoBehaviour
 
     private void BodyStruck()
     {
-        OpponentAI._opponentAIState = OpponentAIState.OpponentHitBody;
+        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLowKick;
     }
 }

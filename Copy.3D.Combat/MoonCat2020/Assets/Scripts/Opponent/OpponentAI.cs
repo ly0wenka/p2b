@@ -68,8 +68,8 @@ public class OpponentAI : MonoBehaviour
                 case OpponentAIState.OpponentIdle:
                     OpponentIdle();
                     break;
-                case OpponentAIState.OpponentHitBody:
-                    OpponentHitBody();
+                case OpponentAIState.OpponentHitByLowKick:
+                    OpponentHitByLowKick();
                     break;
                 case OpponentAIState.OpponentHitByLeftPunch:
                     OpponentHitByLeftPunch();
@@ -82,6 +82,9 @@ public class OpponentAI : MonoBehaviour
                     break;
                 case OpponentAIState.OpponentHitByRightPunch:
                     OpponentHitByRightPunch();
+                    break;
+                case OpponentAIState.OpponentHitByHighKick:
+                    OpponentHitByHighKick();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -139,9 +142,22 @@ public class OpponentAI : MonoBehaviour
         
     }
 
-    private void OpponentHitBody()
+    private void OpponentHitByLowKick()
     {
-        Debug.Log(nameof(OpponentHitBody));
+        Debug.Log(nameof(OpponentHitByLowKick));
+        
+        OpponentHitBodyAnimation();
+        
+        _opponentAIAudioSource.PlayOneShot(_opponentBodyHitAudio);
+        
+        var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        
+        _opponentAIState = OpponentAIState.WaitForHitAnimations;
+    }
+
+    private void OpponentHitByHighKick()
+    {
+        Debug.Log(nameof(OpponentHitByHighKick));
         
         OpponentHitBodyAnimation();
         

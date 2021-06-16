@@ -2,7 +2,8 @@ public enum OpponentAIState
 {
     Initialise,
     OpponentIdle,
-    OpponentHitBody,
+    OpponentHitByLowKick,
+    OpponentHitByHighKick,
     OpponentHitByLeftPunch,
     OpponentHitByRightPunch,
     WaitForHitAnimations,
