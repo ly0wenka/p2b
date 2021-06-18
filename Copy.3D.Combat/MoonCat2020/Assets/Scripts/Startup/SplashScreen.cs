@@ -65,12 +65,17 @@ public class SplashScreen : MonoBehaviour
 
     private void SplashScreenFadeIn()
     {
-        Debug.Log("SplashScreenFadeIn");
+        Debug.Log(nameof(SplashScreenFadeIn));
 
         IncreaseVolume();
 
         if (splashScreenFadeValue > 1)
             splashScreenFadeValue = 1;
+
+        if (splashScreenFadeValue == 1)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
     
     private void IncreaseVolume()
@@ -81,7 +86,7 @@ public class SplashScreen : MonoBehaviour
 
     private void SplashScreenFadeOut()
     {
-        Debug.Log("SplashScreenFadeOut");
+        Debug.Log(nameof(SplashScreenFadeOut));
 
         DecreaseVolume();
         

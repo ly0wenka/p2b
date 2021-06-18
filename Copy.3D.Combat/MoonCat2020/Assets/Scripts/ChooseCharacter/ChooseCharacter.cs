@@ -171,6 +171,10 @@ public class ChooseCharacter : MonoBehaviour
         Debug.Log(nameof(BlackRobot));
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("BlackRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -192,6 +196,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("WhiteRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -213,6 +221,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("RedRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -234,6 +246,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("BlueRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -255,6 +271,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("BrownRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -276,6 +296,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("GreenRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -297,6 +321,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("PinkRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         
@@ -318,6 +346,10 @@ public class ChooseCharacter : MonoBehaviour
 
         Destroy(_characterDemo);
         _characterDemo = Instantiate(Resources.Load("GoldRobot")) as GameObject;
+
+        _characterDemo.GetComponent<OpponentAI>().enabled = false;
+        _characterDemo.GetComponent<OpponentHealth>().enabled = false;
+        
         _characterDemo.transform.position =
             new Vector3(-.5f, 0, -7);
         

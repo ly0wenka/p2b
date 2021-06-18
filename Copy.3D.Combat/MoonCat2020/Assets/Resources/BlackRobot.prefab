@@ -378,6 +378,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 701757554142762119}
+  - component: {fileID: 1378991542}
+  - component: {fileID: 1378991541}
+  - component: {fileID: 1378991540}
   m_Layer: 0
   m_Name: Right_Toe_Joint_01
   m_TagString: Untagged
@@ -399,6 +402,47 @@ Transform:
   m_Father: {fileID: 3116663794030024382}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1378991542
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227558705860152926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1378991541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227558705860152926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9d7e1d032d82048b3971a3405bd98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextHighKickIsAllowed: -1
+  _attackDelay: 1
+--- !u!114 &1378991540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227558705860152926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a8d737b6beadd04282b74c3c62c7dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextLowKickIsAllowed: -1
+  _attackDelay: 1
 --- !u!1 &3352129022281767494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1058,7 @@ Animator:
   m_GameObject: {fileID: 5622610877394542054}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1065,7 +1109,7 @@ CharacterController:
   m_GameObject: {fileID: 5622610877394542054}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.8
   m_Radius: 0.4
@@ -1136,6 +1180,7 @@ MonoBehaviour:
   _opponentHeadHitAudio: {fileID: 0}
   _opponentBodyHitAudio: {fileID: 0}
   _hitSparks: {fileID: 0}
+  _temp: 0
 --- !u!114 &802877583335022935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,6 +1551,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5737075859436090361}
+  - component: {fileID: 1378991545}
+  - component: {fileID: 1378991544}
+  - component: {fileID: 1378991543}
   m_Layer: 0
   m_Name: Left_Toe_Joint_01
   m_TagString: Untagged
@@ -1527,6 +1575,47 @@ Transform:
   m_Father: {fileID: 3900346721052697924}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1378991545
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6654166148492922649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1378991544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6654166148492922649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9d7e1d032d82048b3971a3405bd98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextHighKickIsAllowed: -1
+  _attackDelay: 1
+--- !u!114 &1378991543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6654166148492922649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a8d737b6beadd04282b74c3c62c7dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nextLowKickIsAllowed: -1
+  _attackDelay: 1
 --- !u!1 &6887251991354336095
 GameObject:
   m_ObjectHideFlags: 0

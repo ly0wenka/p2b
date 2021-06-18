@@ -536,6 +536,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -756,6 +757,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8602974253190650863}
   - component: {fileID: 1867274488804423317}
+  - component: {fileID: -8208151082231572141}
+  - component: {fileID: -2696564773123271222}
+  - component: {fileID: 5876037340892303723}
   m_Layer: 0
   m_Name: BrownRobot
   m_TagString: Untagged
@@ -798,6 +802,62 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8208151082231572141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4699715497851382268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6971fcd73b6604244a57172fd9456bf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minimumOpponentHealth: 0
+  _maximumOpponentHealth: 100
+  _currentOpponentHealth: 100
+--- !u!114 &-2696564773123271222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4699715497851382268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd89a74a9f52b684eaa1ad6da3811d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerWalkSpeed: 1
+  _playerRetreatSpeed: 0.75
+  _playerJumpHeight: 5
+  _playerJumpSpeed: 5
+  _playerJumpHorizontal: 5
+  _playerOneIdleAnim: {fileID: 0}
+  _playerOneWalkAnim: {fileID: 0}
+  _playerOneJumpAnim: {fileID: 0}
+  _playerOneDemoAnim: {fileID: 0}
+  _playerAttackAnim: []
+  _controllerDeadZonePos: 0.1
+  _controllerDeadZoneNeg: -0.1
+  _playersGravity: 20
+  _playerGravityModifier: 5
+  _playersSpeedYAxis: 0
+--- !u!136 &5876037340892303723
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4699715497851382268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &4977504665912310843
 GameObject:
   m_ObjectHideFlags: 0

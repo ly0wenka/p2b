@@ -9648,6 +9648,7 @@ GameObject:
   - component: {fileID: 400006}
   - component: {fileID: 19800004}
   - component: {fileID: 19900004}
+  - component: {fileID: -2845009209596495613}
   m_Layer: 0
   m_Name: HitSparks
   m_TagString: Untagged
@@ -14384,3 +14385,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-2845009209596495613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86aac046c4b0565449dcd58fca335315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeDelay: 2
