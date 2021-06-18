@@ -2,10 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+[RequireComponent(typeof(SphereCollider))]
 public class PlayerPunchRight : MonoBehaviour
 {
     public static Vector3 _opponentImpactPoint;
+
+    public float _nextRightPunchIsAllowed = -1.0f;
+    public float _attackDelay = 1.0f;
 
     private Collider _headHitCollider;
 
@@ -23,23 +28,17 @@ public class PlayerPunchRight : MonoBehaviour
     void Update()
     {
         _returnIfPlayerIsPunchingRight = PlayerOneMovement._playerIsPunchingRight;
-
-        if (_returnIfPlayerIsPunchingRight)
-        {
-            _headHitCollider.enabled = true;
-        }
-
-        if (!_returnIfPlayerIsPunchingRight)
-        {
-            _headHitCollider.enabled = false;
-        }
+        
+        _headHitCollider.enabled = _returnIfPlayerIsPunchingRight;
     }
 
     private void OnTriggerEnter(Collider _opponentHeadHit)
     {
-        if (_opponentHeadHit.CompareTag(("HeadHit")))
+        if (_opponentHeadHit.CompareTag(("HeadHit")) && Time.time >= _nextRightPunchIsAllowed)
         {
             HeadStruck();
+            
+            _nextRightPunchIsAllowed = Time.time + _attackDelay;
         }
 
         _opponentHeadHit.ClosestPointOnBounds(transform.position);

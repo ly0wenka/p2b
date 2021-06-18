@@ -146,9 +146,9 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentHitByLowKick));
         
-        OpponentHitBodyAnimation();
+        OpponentHitHeadAnimation();
         
-        _opponentAIAudioSource.PlayOneShot(_opponentBodyHitAudio);
+        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
         
         var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         
@@ -159,9 +159,9 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentHitByHighKick));
         
-        OpponentHitBodyAnimation();
+        OpponentHitHeadAnimation();
         
-        _opponentAIAudioSource.PlayOneShot(_opponentBodyHitAudio);
+        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
         
         var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         

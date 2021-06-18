@@ -25,6 +25,8 @@ public class PlayerOneMovement : MonoBehaviour
 
     public static bool _playerIsPunchingLeft;
     public static bool _playerIsPunchingRight;
+    public static bool _playerIsKickingLow;
+    public static bool _playerIsKickingHigh;
     
     public float _controllerDeadZonePos = .1f;
     public float _controllerDeadZoneNeg = -.1f;
@@ -70,6 +72,8 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerIsPunchingLeft = false;
         _playerIsPunchingRight = false;
+        _playerIsKickingLow = false;
+        _playerIsKickingHigh = false;
         
         if (_returnDemoState)
         {
@@ -246,6 +250,8 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerIsPunchingLeft = false;
         _playerIsPunchingRight = false;
+        _playerIsKickingLow = false;
+        _playerIsKickingHigh = false;
 
         _playerOneStates = PlayerOneStates.PlayerOneIdle;
     }
@@ -422,16 +428,16 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneAnim.CrossFade(_playerAttackAnim[1].name);
     }
 
-    private void PlayerHighKickAnim()
+    private void PlayerLowKickAnim()
     {
-        Debug.Log(nameof(PlayerHighKickAnim));
+        Debug.Log(nameof(PlayerLowKickAnim));
 
         _playerOneAnim.CrossFade(_playerAttackAnim[2].name);
     }
 
-    private void PlayerLowKickAnim()
+    private void PlayerHighKickAnim()
     {
-        Debug.Log(nameof(PlayerLowKickAnim));
+        Debug.Log(nameof(PlayerHighKickAnim));
 
         _playerOneAnim.CrossFade(_playerAttackAnim[3].name);
     }
@@ -521,11 +527,14 @@ public class PlayerOneMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             _playerOneStates = PlayerOneStates.PlayerLowKick;
+
+            _playerIsKickingLow = true;
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
             _playerOneStates = PlayerOneStates.PlayerHighKick;
+            _playerIsKickingHigh = true;
         }
 
         if (Input.GetButtonDown("Fire3"))

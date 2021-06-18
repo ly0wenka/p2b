@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
 public class PlayerPunchLeft : MonoBehaviour
 {
     public static Vector3 _opponentImpactPoint;
+
+    public float _nextLeftPunchIsAllowed = -1.0f;
+    public float _attackDelay = 1.0f;
 
     private Collider _headHitCollider;
 
@@ -23,23 +27,17 @@ public class PlayerPunchLeft : MonoBehaviour
     void Update()
     {
         _returnIfPlayerIsPunchingLeft = PlayerOneMovement._playerIsPunchingLeft;
-
-        if (_returnIfPlayerIsPunchingLeft)
-        {
-            _headHitCollider.enabled = true;
-        }
-
-        if (!_returnIfPlayerIsPunchingLeft)
-        {
-            _headHitCollider.enabled = false;
-        }
+        
+        _headHitCollider.enabled = _returnIfPlayerIsPunchingLeft;
     }
 
-    private void OnTriggerEnter(Collider _opponentHeadHit)
+    private void OnTriggerStay(Collider _opponentHeadHit)
     {
-        if (_opponentHeadHit.CompareTag(("HeadHit")))
+        if (_opponentHeadHit.CompareTag(("HeadHit")) && Time.time >= _nextLeftPunchIsAllowed)
         {
             HeadStruck();
+
+            _nextLeftPunchIsAllowed = Time.time + _attackDelay;
         }
 
         _opponentHeadHit.ClosestPointOnBounds(transform.position);
