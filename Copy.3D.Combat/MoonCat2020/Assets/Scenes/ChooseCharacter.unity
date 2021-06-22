@@ -317,14 +317,13 @@ MonoBehaviour:
   _selectCharacterTextForeground: {fileID: 2800000, guid: b810453c4bba7ed4c9dd84b5d8381beb, type: 3}
   _selectCharacterText: {fileID: 2800000, guid: 0ae046793470bdc4abe08108775da4cf, type: 3}
   _selectCharacterXboxLeft: {fileID: 2800000, guid: c47eb5cbf4110464598929e83a627510, type: 3}
+  _selectCharacterKeyboardLeft: {fileID: 2800000, guid: d057915602c5c844b87c31272533a20e, type: 3}
+  _selectCharacterKeyboardRight: {fileID: 2800000, guid: f3fd0fc0cc016184a9c9edf983af4acd, type: 3}
   _selectCharacterXboxRight: {fileID: 2800000, guid: 69e8d8c09febd8f438de0edd6b30d542, type: 3}
   _selectCharacterPSLeft: {fileID: 2800000, guid: 8ad1d9d849f8a224b834e7ba574c7aac, type: 3}
   _selectCharacterPSRight: {fileID: 2800000, guid: 0e3632680ede65940a638745a8d6ae96, type: 3}
-  _chooseCharacterInputTimer: 0
-  _chooseCharacterInputDelay: 1
   _cycleCharacterButtonPress: {fileID: 0}
   _yRot: 90
-  _characterSelectState: 0
 --- !u!82 &919870160
 AudioSource:
   m_ObjectHideFlags: 0

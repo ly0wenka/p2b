@@ -140,6 +140,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74bfa89112879a40bfca864946a0810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &479228455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 479228457}
+  - component: {fileID: 479228456}
+  m_Layer: 0
+  m_Name: Fight Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &479228456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479228455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae6f62988a0bd645a71071ee7aa5258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &479228457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479228455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,15 +628,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4678702925723055699, guid: 0a034c0dd3e757a41ba1bb175fd28581, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.549503
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4678702925723055699, guid: 0a034c0dd3e757a41ba1bb175fd28581, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6760235
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4678702925723055699, guid: 0a034c0dd3e757a41ba1bb175fd28581, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35.62477
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4678702925723055699, guid: 0a034c0dd3e757a41ba1bb175fd28581, type: 3}
       propertyPath: m_LocalRotation.w

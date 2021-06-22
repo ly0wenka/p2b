@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class OpponentHealth : MonoBehaviour
 {
-    public int _minimumOpponentHealth = 0;
-    public int _maximumOpponentHealth = 100;
-    public int _currentOpponentHealth = 100;
+    public static int _minimumOpponentHealth = 0;
+    public static int _maximumOpponentHealth = 100;
+    public static int _currentOpponentHealth = 100;
 
     private bool _isOpponentDefeated;
     

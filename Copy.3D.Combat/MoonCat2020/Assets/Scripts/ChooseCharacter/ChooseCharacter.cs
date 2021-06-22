@@ -14,6 +14,8 @@ public class ChooseCharacter : MonoBehaviour
     public Texture2D _selectCharacterText;
     
     public Texture2D _selectCharacterXboxLeft;
+    public Texture2D _selectCharacterKeyboardLeft;
+    public Texture2D _selectCharacterKeyboardRight;
     public Texture2D _selectCharacterXboxRight;
     /*[FormerlySerializedAs("_selectCharacterArrowLeft")] */public Texture2D _selectCharacterPSLeft;
     /*[FormerlySerializedAs("_selectCharacterArrowRight")]*/ public Texture2D _selectCharacterPSRight;
@@ -404,7 +406,7 @@ public class ChooseCharacter : MonoBehaviour
         }
 
 
-        if (GameObject.FindGameObjectWithTag(nameof(ControllerManager)).GetComponent<ControllerManager>()
+        else if (GameObject.FindGameObjectWithTag(nameof(ControllerManager)).GetComponent<ControllerManager>()
             .pS4Controller)
         {
             GUI.DrawTexture(new Rect(
@@ -418,6 +420,20 @@ public class ChooseCharacter : MonoBehaviour
                     0,
                     _leftRightControllerIconSize, _leftRightControllerIconSize),
                 _selectCharacterPSRight);
+        }
+        else
+        {
+            GUI.DrawTexture(new Rect(
+                    Screen.width / 2 - (_foregroundTextWidth / 2) - _leftRightControllerIconSize, 
+                    0,
+                    _leftRightControllerIconSize, _leftRightControllerIconSize),
+                _selectCharacterKeyboardLeft);
+            
+            GUI.DrawTexture(new Rect(
+                    Screen.width / 2 + (_foregroundTextWidth / 2), 
+                    0,
+                    _leftRightControllerIconSize, _leftRightControllerIconSize),
+                _selectCharacterKeyboardRight);
         }
     }
 }

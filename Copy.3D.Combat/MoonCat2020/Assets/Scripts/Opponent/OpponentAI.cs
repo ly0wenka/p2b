@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class OpponentAI : MonoBehaviour
@@ -27,7 +28,17 @@ public class OpponentAI : MonoBehaviour
     private float _opponentGravity = 5f;
     private float _opponentGravityModifier = 5f;
     private float _opponentVerticalSpeed = .0f;
+
+    public RangeInt _offensivePriority = new RangeInt(1, 3);
+    public RangeInt _assessPriority = new RangeInt(4, 6);
+    public RangeInt _defensivePriority = new RangeInt(7, 9);
+
+    private int _decideForwardMovement;
+
+    private int _decideAggressionPriority;
     
+    private bool _assessingThePlayer;
+    public float _assessingTime = 3;
     private bool _returnFightIntroFinished;
 
     private CollisionFlags _collisionFlagsOpponent;
@@ -47,6 +58,10 @@ public class OpponentAI : MonoBehaviour
         
         _opponentMoveDirection = Vector3.zero;
 
+        _decideAggressionPriority = 0;
+
+        _assessingThePlayer = false;
+        
         StartCoroutine(OpponentFSM());
     }
 
@@ -86,6 +101,12 @@ public class OpponentAI : MonoBehaviour
                 case OpponentAIState.OpponentHitByHighKick:
                     OpponentHitByHighKick();
                     break;
+                case OpponentAIState.AttackThePlayer:
+                    AttackThePlayer();
+                    break;
+                case OpponentAIState.RetreatFromThePlayer:
+                    RetreatFromThePlayer();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -102,7 +123,9 @@ public class OpponentAI : MonoBehaviour
             return;
         }
 
-        OpponentMove();
+        OpponentIdleAnimation();
+        
+        OpponentGravityIdle();
         
         _returnFightIntroFinished = FightIntro._fightIntroFinished;
 
@@ -110,9 +133,31 @@ public class OpponentAI : MonoBehaviour
         {
             return;
         }
+
+        if (_decideAggressionPriority < _assessPriority.start)
+        {
+            _opponentAIState = OpponentAIState.AttackThePlayer;
+        }
+
+        if (_decideAggressionPriority > _offensivePriority.end
+         && _decideAggressionPriority < _defensivePriority.start)
+        {
+            if (_assessingThePlayer)
+            {
+                return;
+            }
+
+            _assessingThePlayer = true;
+            AssessThePlayer();
+        }
+
+        if (_decideAggressionPriority == _defensivePriority.start)
+        {
+            _opponentAIState = OpponentAIState.RetreatFromThePlayer;
+        }
     }
 
-    private void OpponentMove()
+    private void OpponentGravityIdle()
     {
         _opponentMoveDirection = new Vector3(0, _opponentVerticalSpeed, 0);
 
@@ -132,12 +177,35 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(Initialise));
 
+        _decideAggressionPriority = Random.Range(1, 9);
+
         _opponentAIState = OpponentAIState.OpponentIdle;
     }
 
     private void InitialiseAnimation()
     {
         Debug.Log(nameof(InitialiseAnimation));
+
+        
+    }
+
+    private void AttackThePlayer()
+    {
+        Debug.Log(nameof(AttackThePlayer));
+
+        
+    }
+
+    private void RetreatFromThePlayer()
+    {
+        Debug.Log(nameof(RetreatFromThePlayer));
+
+        
+    }
+
+    private void AssessThePlayer()
+    {
+        Debug.Log(nameof(AssessThePlayer));
 
         
     }
@@ -150,7 +218,9 @@ public class OpponentAI : MonoBehaviour
         
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
         
-        var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        var _impactPoint = PlayerLowKick._opponentImpactPoint;
+
+        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
         
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }
@@ -163,8 +233,10 @@ public class OpponentAI : MonoBehaviour
         
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
         
-        var _hs = Instantiate(_hitSparks, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        
+        var _impactPoint = PlayerHighKick._opponentImpactPoint;
+
+        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
+
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }
 
@@ -187,7 +259,7 @@ public class OpponentAI : MonoBehaviour
 
         var _impactPoint = PlayerPunchLeft._opponentImpactPoint;
         
-        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y + 1, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
+        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
         
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }
@@ -202,7 +274,7 @@ public class OpponentAI : MonoBehaviour
 
         var _impactPoint = PlayerPunchRight._opponentImpactPoint;
         
-        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y + 1, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
+        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f), Quaternion.identity) as GameObject;
         
         _opponentAIState = OpponentAIState.WaitForHitAnimations;
     }
@@ -239,7 +311,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentDefeated));
         
-        OpponentMove();
+        OpponentGravityIdle();
 
         if (_opponentAnim.IsPlaying(_opponentDefeatedFinalHitAnim.name))
         {
