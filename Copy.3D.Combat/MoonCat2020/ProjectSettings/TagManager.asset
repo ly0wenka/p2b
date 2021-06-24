@@ -11,6 +11,7 @@ TagManager:
   - ControllerManager
   - HeadHit
   - BodyHit
+  - EnemyTest
   layers:
   - Default
   - TransparentFX

@@ -8,9 +8,9 @@ using Random = System.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject EnemyPrefab { get; set; }
+    private Object _enemyPrefab;
 
-    private Random _random;
+    public Random Random { get; set; }
     private float _timeSinceLastSpawn;
     private float _spawnRate;
     private readonly RangeInt _degree = new RangeInt(0, 361);
@@ -25,13 +25,13 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_random == null)
-            _random = new Random();
+        if (Random == null)
+            Random = new Random();
 
         if (_timeSinceLastSpawn >= _spawnRate)
         {
-            var enemy = PrefabUtility.InstantiatePrefab(EnemyPrefab) as GameObject;
-            var degrees = _random.Next(_degree.start, _degree.end);
+            var enemy = PrefabUtility.InstantiatePrefab(_enemyPrefab) as GameObject;
+            var degrees = Random.Next(_degree.start, _degree.end);
 
             var x = _radius * Mathf.Cos(degrees * Mathf.Deg2Rad);
             if (Mathf.Abs(x) < 0.01f)
@@ -44,7 +44,17 @@ public class EnemySpawner : MonoBehaviour
             {
                 y = 0;
             }
+            
+            enemy.transform.position = new Vector3(x, 0, y);
+
+            _timeSinceLastSpawn += Time.deltaTime;
         }
     }
 
+    public void Constructor(Object enemyPrefab, float spawnRate, float radius)
+    {
+        _enemyPrefab = enemyPrefab;
+        _spawnRate = spawnRate;
+        _radius = radius;
+    }
 }
