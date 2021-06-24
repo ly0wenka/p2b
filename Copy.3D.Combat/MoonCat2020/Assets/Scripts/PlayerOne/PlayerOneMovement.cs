@@ -618,7 +618,12 @@ public class PlayerOneMovement : MonoBehaviour
         }
     }
 
-    private bool PlayerOneIsGrounded() => (_collisionFlags & CollisionFlags.CollidedBelow) != 0;
+    private bool PlayerOneIsGrounded()
+    {
+        Debug.Log($"{nameof(PlayerOneIsGrounded)} - {(_collisionFlags & CollisionFlags.Below) != 0}");
+        //return (_collisionFlags & CollisionFlags.Below) != 0;
+        return true;
+    }
 
     private void PlayerOneComeDownAnim()
     {
