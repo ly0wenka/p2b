@@ -17,8 +17,8 @@ public class ChooseCharacter : MonoBehaviour
     public Texture2D _selectCharacterKeyboardLeft;
     public Texture2D _selectCharacterKeyboardRight;
     public Texture2D _selectCharacterXboxRight;
-    /*[FormerlySerializedAs("_selectCharacterArrowLeft")] */public Texture2D _selectCharacterPSLeft;
-    /*[FormerlySerializedAs("_selectCharacterArrowRight")]*/ public Texture2D _selectCharacterPSRight;
+    public Texture2D _selectCharacterPSLeft;
+    public Texture2D _selectCharacterPSRight;
 
     private float _foregroundTextWidth;
     private float _foregroundTextHeight;

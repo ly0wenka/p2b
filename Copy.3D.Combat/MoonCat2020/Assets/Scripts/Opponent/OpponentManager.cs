@@ -63,7 +63,7 @@ public class OpponentManager : MonoBehaviour
         
     }
 
-    void LoadCurrentOpponent()
+    public void LoadCurrentOpponent()
     {
         InitReturnRobots();
 

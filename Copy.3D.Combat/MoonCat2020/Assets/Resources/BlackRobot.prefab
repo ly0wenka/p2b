@@ -1016,7 +1016,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8673052265689362421}
   - component: {fileID: 1645745520579904143}
-  - component: {fileID: 3715011568660582061}
   - component: {fileID: 3517546317911418916}
   - component: {fileID: 8248937573428593648}
   - component: {fileID: -1397686360362258498}
@@ -1058,7 +1057,7 @@ Animator:
   m_GameObject: {fileID: 5622610877394542054}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ad16e911d5fa264a9fe55f7ba40a4dd, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1067,23 +1066,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!111 &3715011568660582061
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5622610877394542054}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: -203655887218126122, guid: 0ec2865a125959449b64d5b0055bdc31, type: 3}
-  - {fileID: -203655887218126122, guid: ec6a1c7b22ebe044b9f2f736c7501c1f, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!54 &3517546317911418916
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1117,7 +1099,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-1397686360362258498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1178,12 +1160,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _opponentIdleAnim: {fileID: -203655887218126122, guid: 0ec2865a125959449b64d5b0055bdc31, type: 3}
-  _opponentHitBodyAnim: {fileID: 0}
-  _opponentHitHeadAnim: {fileID: 0}
-  _opponentDefeatedFinalHitAnim: {fileID: 0}
+  _opponentHitBodyAnim: {fileID: -203655887218126122, guid: a8e82d27d9a29ae498c2c3c4f075d4c3, type: 3}
+  _opponentHitHeadAnim: {fileID: -203655887218126122, guid: a8e82d27d9a29ae498c2c3c4f075d4c3, type: 3}
+  _opponentDefeatedFinalHitAnim: {fileID: -203655887218126122, guid: b6c5fadc2dd52634193376473ff7870f, type: 3}
   _opponentHeadHitAudio: {fileID: 0}
   _opponentBodyHitAudio: {fileID: 0}
-  _hitSparks: {fileID: 0}
+  _hitSparks: {fileID: 100006, guid: 78de02e4f0c761d4ab61a4fcaa4fa80a, type: 3}
   _assessingTime: 3
   _temp: 0
 --- !u!114 &802877583335022935

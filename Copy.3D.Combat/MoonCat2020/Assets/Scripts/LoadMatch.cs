@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class LoadMatch : MonoBehaviour
@@ -13,16 +15,32 @@ public class LoadMatch : MonoBehaviour
 
     private void SendMessageSceneBackgroundLoadFromOnePlayerManager()
     {
-        GameObject.FindGameObjectWithTag(nameof(OnePlayerManager))
-            .GetComponent<OnePlayerManager>()
-            .SendMessage("LoadPlayerOneCharacter");
+        var onePlayerManager = GameObject.FindGameObjectWithTag(nameof(OnePlayerManager));
+
+        #region InstatiateWhenNull
+        if (!onePlayerManager)
+        {
+            Instantiate(Resources.Load($"Managers{Path.PathSeparator}OnePlayerManager"));
+        }
+        #endregion
+        
+        onePlayerManager.GetComponent<OnePlayerManager>()
+        .SendMessage(nameof(OnePlayerManager.LoadPlayerOneCharacter));
     }
 
     private void SendMessageSceneBackgroundLoadFromOpponentManager()
     {
-        GameObject.FindGameObjectWithTag(nameof(OpponentManager))
-            .GetComponent<OpponentManager>()
-            .SendMessage("LoadCurrentOpponent");
+        var opponentManager = GameObject.FindGameObjectWithTag(nameof(OpponentManager));
+
+        #region InstatiateWhenNull
+        if (!opponentManager)
+        {
+            Instantiate(Resources.Load($"Managers{Path.PathSeparator}OnePlayerManager"));
+        }
+        #endregion
+        
+        opponentManager.GetComponent<OpponentManager>()
+        .SendMessage(nameof(OpponentManager.LoadCurrentOpponent));
     }
 
     // Update is called once per frame

@@ -11,11 +11,11 @@ public class PlayerOneMovement : MonoBehaviour
 
     public float _playerWalkSpeed = 1f;
     public float _playerRetreatSpeed = .75f;
-    public float _playerJumpHeight = 5f;
-    public float _playerJumpSpeed = 5f;
-    public float _playerJumpHorizontal = 5f;
+    public float _playerJumpHeight = 1f;
+    public float _playerJumpSpeed = 1f;
+    public float _playerJumpHorizontal = 1f;
 
-    private Animation _playerOneAnim;
+    private Animator _playerOneAnimator;
 
     public AnimationClip _playerOneIdleAnim;
     public AnimationClip _playerOneWalkAnim;
@@ -57,12 +57,12 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerController = GetComponent<CharacterController>();
 
-        _playerOneAnim = GetComponent<Animation>();
+        _playerOneAnimator = GetComponent<Animator>();
 
-        foreach (var animClip in _playerAttackAnim)
-        {
-            _playerOneAnim[animClip.name].wrapMode = WrapMode.Once;
-        }
+        // foreach (var animClip in _playerAttackAnim)
+        // {
+        //     _playerOneAnimator[animClip.name].wrapMode = WrapMode.Once;
+        // }
 
         StartCoroutine(nameof(PlayerOneFSM));
 
@@ -242,7 +242,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         for (int i = 0; i < _playerAttackAnim.Length; i++)
         {
-            if (_playerOneAnim.IsPlaying(_playerAttackAnim[i].name))
+            if (_playerOneAnimator.IsPlaying(_playerAttackAnim[i].name))
             {
                 return;
             }
@@ -282,7 +282,7 @@ public class PlayerOneMovement : MonoBehaviour
     {
         Debug.Log(nameof(PlayerDemoAnim));
 
-        _playerOneAnim.CrossFade(_playerOneDemoAnim.name);
+        _playerOneAnimator.CrossFade(_playerOneDemoAnim.name);
     }
 
 
@@ -307,16 +307,17 @@ public class PlayerOneMovement : MonoBehaviour
     {
         Debug.Log(nameof(PlayerOneIdleAnim));
 
-        _playerOneAnim.CrossFade(_playerOneIdleAnim.name);
+        _playerOneAnimator.CrossFade(_playerOneIdleAnim.name);
     }
 
+    #region Walk
     private void PlayerOneWalkLeft()
     {
         Debug.Log(nameof(PlayerOneWalkLeft));
 
         PlayerOneRetreatAnim();
 
-        _playerOneMoveDirection = new Vector3(+_playerWalkSpeed, 0, 0);
+        _playerOneMoveDirection = new Vector3(-_playerWalkSpeed, 0, 0);
         MoveDirection();
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
@@ -344,7 +345,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         PlayerOneWalkAnim();
 
-        _playerOneMoveDirection = new Vector3(-_playerWalkSpeed, 0, 0);
+        _playerOneMoveDirection = new Vector3(+_playerWalkSpeed, 0, 0);
         MoveDirection();
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
@@ -356,19 +357,21 @@ public class PlayerOneMovement : MonoBehaviour
     {
         Debug.Log(nameof(PlayerOneWalkAnim));
 
-        _playerOneAnim.CrossFade(_playerOneWalkAnim.name);
+        _playerOneAnimator.CrossFade(_playerOneWalkAnim.name);
 
-        if (Math.Abs(_playerOneAnim[_playerOneWalkAnim.name].speed - _playerWalkSpeed) < 0.01f)
+        if (Math.Abs(_playerOneAnimator.State(_playerOneWalkAnim.name).speed - _playerWalkSpeed) < 0.01f)
         {
             return;
         }
 
-        if (_playerOneAnim[_playerOneWalkAnim.name].speed < _playerWalkSpeed)
+        if (_playerOneAnimator.State(_playerOneWalkAnim.name).speed < _playerWalkSpeed)
         {
-            _playerOneAnim[_playerOneAnim.name].speed = _playerWalkSpeed;
+            _playerOneAnimator.GetAnimator(_playerOneAnimator.name).speed = _playerWalkSpeed;
         }
     }
+    #endregion
 
+    #region Jump
     private void PlayerOneJump()
     {
         Debug.Log(nameof(PlayerOneJump));
@@ -411,51 +414,56 @@ public class PlayerOneMovement : MonoBehaviour
     {
         Debug.Log(nameof(PlayerOneJumpAnim));
 
-        _playerOneAnim.CrossFade(_playerOneJumpAnim.name);
+        _playerOneAnimator.CrossFade(_playerOneJumpAnim.name);
     }
+    #endregion
 
+    #region Punch
     private void PlayerHighPunchAnim()
     {
         Debug.Log(nameof(PlayerHighPunchAnim));
 
-        _playerOneAnim.CrossFade(_playerAttackAnim[0].name);
+        _playerOneAnimator.CrossFade(_playerAttackAnim[0].name);
     }
 
     private void PlayerLowPunchAnim()
     {
         Debug.Log(nameof(PlayerLowPunchAnim));
 
-        _playerOneAnim.CrossFade(_playerAttackAnim[1].name);
+        _playerOneAnimator.CrossFade(_playerAttackAnim[1].name);
     }
+    #endregion
 
+    #region Kick
     private void PlayerLowKickAnim()
     {
         Debug.Log(nameof(PlayerLowKickAnim));
 
-        _playerOneAnim.CrossFade(_playerAttackAnim[2].name);
+        _playerOneAnimator.CrossFade(_playerAttackAnim[2].name);
     }
 
     private void PlayerHighKickAnim()
     {
         Debug.Log(nameof(PlayerHighKickAnim));
 
-        _playerOneAnim.CrossFade(_playerAttackAnim[3].name);
+        _playerOneAnimator.CrossFade(_playerAttackAnim[3].name);
     }
+    #endregion
 
     private void PlayerOneRetreatAnim()
     {
         Debug.Log(nameof(PlayerOneRetreatAnim));
 
-        _playerOneAnim.CrossFade(_playerOneWalkAnim.name);
+        _playerOneAnimator.CrossFade(_playerOneWalkAnim.name);
 
-        if (Math.Abs(_playerOneAnim[_playerOneWalkAnim.name].speed - _playerRetreatSpeed) < 0.01f)
+        if (Math.Abs(_playerOneAnimator.State(_playerOneWalkAnim.name).speed - _playerRetreatSpeed) < 0.01f)
         {
             return;
         }
 
-        if (_playerOneAnim[_playerOneWalkAnim.name].speed > _playerRetreatSpeed)
+        if (_playerOneAnimator.State(_playerOneWalkAnim.name).speed > _playerRetreatSpeed)
         {
-            _playerOneAnim[_playerOneAnim.name].speed = _playerRetreatSpeed;
+            _playerOneAnimator.GetAnimator(_playerOneAnimator.name).speed = _playerRetreatSpeed;
         }
     }
 
@@ -464,7 +472,7 @@ public class PlayerOneMovement : MonoBehaviour
     {
         ApplyGravity();
 
-        if (_playerAttackAnim.Any(clip => _playerOneAnim.IsPlaying(clip.name)))
+        if (_playerAttackAnim.Any(clip => _playerOneAnimator.IsPlaying(clip.name)))
         {
             return;
         }
@@ -519,6 +527,8 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerOneStates = PlayerOneStates.WaitForAnimations;
     }
+
+    #region Managers
 
     private void AttackInputManager()
     {
@@ -591,6 +601,7 @@ public class PlayerOneMovement : MonoBehaviour
             _playerOneStates = PlayerOneStates.PlayerJump;
         }
     }
+    #endregion
 
     private void StandardInputManagerAnim()
     {

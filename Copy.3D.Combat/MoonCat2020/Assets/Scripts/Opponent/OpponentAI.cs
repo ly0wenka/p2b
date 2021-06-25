@@ -10,7 +10,7 @@ public class OpponentAI : MonoBehaviour
     private Transform _opponentTransform;
     private CharacterController _opponentController;
 
-    private Animation _opponentAnim;
+    private Animator _opponentAnimator;
 
     public AnimationClip _opponentIdleAnim;
     public AnimationClip _opponentHitBodyAnim;
@@ -50,7 +50,7 @@ public class OpponentAI : MonoBehaviour
     {
         _opponentController = GetComponent<CharacterController>();
 
-        _opponentAnim = GetComponent<Animation>();
+        _opponentAnimator = GetComponent<Animator>();
 
         _opponentAIAudioSource = GetComponent<AudioSource>();
 
@@ -170,7 +170,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentIdleAnimation));
         
-        _opponentAnim.CrossFade(_opponentIdleAnim.name);
+        _opponentAnimator.CrossFade(_opponentIdleAnim.name);
     }
 
     private void Initialise()
@@ -244,7 +244,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentHitBodyAnimation));
 
-        _opponentAnim.CrossFade(_opponentHitBodyAnim.name);
+        _opponentAnimator.CrossFade(_opponentHitBodyAnim.name);
     }
 
     public float _temp = 0;
@@ -283,7 +283,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentHitHeadAnimation));
 
-        _opponentAnim.CrossFade(_opponentHitHeadAnim.name);
+        _opponentAnimator.CrossFade(_opponentHitHeadAnim.name);
     }
 
     private void WaitForHitAnimations()
@@ -295,11 +295,11 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(WaitForHitAnimationsAnimation));
 
-        if (_opponentAnim.IsPlaying(_opponentHitBodyAnim.name))
+        if (_opponentAnimator.IsPlaying(_opponentHitBodyAnim.name))
         {
             return;
         }
-        if (_opponentAnim.IsPlaying(_opponentHitHeadAnim.name))
+        if (_opponentAnimator.IsPlaying(_opponentHitHeadAnim.name))
         {
             return;
         }
@@ -313,7 +313,7 @@ public class OpponentAI : MonoBehaviour
         
         OpponentGravityIdle();
 
-        if (_opponentAnim.IsPlaying(_opponentDefeatedFinalHitAnim.name))
+        if (_opponentAnimator.IsPlaying(_opponentDefeatedFinalHitAnim.name))
         {
             return;
         }
@@ -334,7 +334,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentFinalHitAnimation));
         
-        _opponentAnim.CrossFade(_opponentDefeatedFinalHitAnim.name);
+        _opponentAnimator.CrossFade(_opponentDefeatedFinalHitAnim.name);
     }
 
     private void DefeatedFinalHit()

@@ -36,7 +36,7 @@ public class OnePlayerManager : MonoBehaviour
         
     }
 
-    void LoadPlayerOneCharacter()
+    public void LoadPlayerOneCharacter()
     {
         Debug.Log(nameof(LoadPlayerOneCharacter));
 

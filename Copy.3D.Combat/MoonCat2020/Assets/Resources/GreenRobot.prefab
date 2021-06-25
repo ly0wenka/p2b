@@ -1382,7 +1382,7 @@ Animator:
   m_GameObject: {fileID: 7720433392455883253}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ad16e911d5fa264a9fe55f7ba40a4dd, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1403,9 +1403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6971fcd73b6604244a57172fd9456bf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimumOpponentHealth: 0
-  _maximumOpponentHealth: 100
-  _currentOpponentHealth: 100
 --- !u!114 &-8512333482447921093
 MonoBehaviour:
   m_ObjectHideFlags: 0
