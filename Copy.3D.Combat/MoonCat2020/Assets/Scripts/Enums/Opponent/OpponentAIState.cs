@@ -2,8 +2,10 @@ public enum OpponentAIState
 {
     Initialise,
     OpponentIdle,
-    AttackThePlayer,
+    AdvanceOnThePlayer,
+    WalkTowardsThePlayer,
     RetreatFromThePlayer,
+    WalkAwayFromThePlayer,
     OpponentHitByLowKick,
     OpponentHitByHighKick,
     OpponentHitByLeftPunch,

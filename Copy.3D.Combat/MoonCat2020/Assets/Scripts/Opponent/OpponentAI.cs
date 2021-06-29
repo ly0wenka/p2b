@@ -10,12 +10,29 @@ public class OpponentAI : MonoBehaviour
     private Transform _opponentTransform;
     private CharacterController _opponentController;
 
+    #region Rotation
+
+    public static GameObject _playerOne;
+    public static GameObject _opponent;
+
+    private Vector3 _playersPosition;
+    private Vector3 _opponentPosition;
+
+    private Quaternion _targetRotation;
+    private int _defaultRotation = 0;
+    private int _alternativeRotation = 180;
+    public float _rotationSpeed = 5f;
+    public float _opponentWalkSpeed = 1.0f;
+
+    #endregion
+    
     private Animator _opponentAnimator;
 
     public AnimationClip _opponentIdleAnim;
     public AnimationClip _opponentHitBodyAnim;
     public AnimationClip _opponentHitHeadAnim;
     public AnimationClip _opponentDefeatedFinalHitAnim;
+    public AnimationClip _opponentWalkAnim;
 
     private AudioSource _opponentAIAudioSource;
     public AudioClip _opponentHeadHitAudio;
@@ -34,7 +51,11 @@ public class OpponentAI : MonoBehaviour
     public RangeInt _defensivePriority = new RangeInt(7, 9);
 
     private int _decideForwardMovement;
+    private int _decideBackwardMovement;
 
+    private int _minimumDecideValue;
+    private int _maximumDecideValue;
+    public int _tippingPointDecideValue;
     private int _decideAggressionPriority;
     
     private bool _assessingThePlayer;
@@ -61,6 +82,9 @@ public class OpponentAI : MonoBehaviour
         _decideAggressionPriority = 0;
 
         _assessingThePlayer = false;
+
+        _minimumDecideValue = 1;
+        _maximumDecideValue = 10;
         
         StartCoroutine(OpponentFSM());
     }
@@ -69,6 +93,10 @@ public class OpponentAI : MonoBehaviour
     void Update()
     {
         ApplyOpponentGravity();
+        
+        UpdatePlayerPosition();
+        UpdateOpponentsPosition();
+        UpdateOpponentsRotation();
     }
 
     private IEnumerator OpponentFSM()
@@ -101,11 +129,17 @@ public class OpponentAI : MonoBehaviour
                 case OpponentAIState.OpponentHitByHighKick:
                     OpponentHitByHighKick();
                     break;
-                case OpponentAIState.AttackThePlayer:
-                    AttackThePlayer();
+                case OpponentAIState.AdvanceOnThePlayer:
+                    AdvanceOnThePlayer();
                     break;
                 case OpponentAIState.RetreatFromThePlayer:
                     RetreatFromThePlayer();
+                    break;
+                case OpponentAIState.WalkTowardsThePlayer:
+                    WalkTowardsThePlayer();
+                    break;
+                case OpponentAIState.WalkAwayFromThePlayer:
+                    WalkAwayFromThePlayer();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -136,7 +170,7 @@ public class OpponentAI : MonoBehaviour
 
         if (_decideAggressionPriority < _assessPriority.start)
         {
-            _opponentAIState = OpponentAIState.AttackThePlayer;
+            _opponentAIState = OpponentAIState.AdvanceOnThePlayer;
         }
 
         if (_decideAggressionPriority > _offensivePriority.end
@@ -148,7 +182,7 @@ public class OpponentAI : MonoBehaviour
             }
 
             _assessingThePlayer = true;
-            AssessThePlayer();
+            StartCoroutine(AssessThePlayer());
         }
 
         if (_decideAggressionPriority == _defensivePriority.start)
@@ -177,7 +211,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(Initialise));
 
-        _decideAggressionPriority = Random.Range(1, 9);
+        _decideAggressionPriority = 2;//Random.Range(1, 9);
 
         _opponentAIState = OpponentAIState.OpponentIdle;
     }
@@ -189,25 +223,98 @@ public class OpponentAI : MonoBehaviour
         
     }
 
-    private void AttackThePlayer()
+    private void AdvanceOnThePlayer()
     {
-        Debug.Log(nameof(AttackThePlayer));
+        Debug.Log(nameof(AdvanceOnThePlayer));
 
+        _decideForwardMovement = Random.Range(1, 10);
+
+        if (_decideBackwardMovement >= _minimumDecideValue
+            && _decideForwardMovement <= _tippingPointDecideValue)
+        {
+            
+        }
         
+        if (_decideBackwardMovement <= _maximumDecideValue
+            && _decideForwardMovement > _tippingPointDecideValue)
+        {
+            
+        }
     }
 
     private void RetreatFromThePlayer()
     {
         Debug.Log(nameof(RetreatFromThePlayer));
 
+        _decideForwardMovement = Random.Range(1, 10);
+
+        if (_decideBackwardMovement >= _minimumDecideValue
+            && _decideForwardMovement <= _tippingPointDecideValue)
+        {
+            
+        }
         
+        if (_decideBackwardMovement <= _maximumDecideValue
+            && _decideForwardMovement > _tippingPointDecideValue)
+        {
+            
+        }
     }
 
-    private void AssessThePlayer()
+    private void WalkAwayFromThePlayer()
+    {
+        Debug.Log(nameof(WalkAwayFromThePlayer));
+
+        _opponentMoveDirection =
+            (transform.position - _playersPosition)
+            * _opponentWalkSpeed;
+        
+        _opponentMoveDirection.Normalize();
+
+        _opponentMoveDirection.y = 0;
+        _opponentMoveDirection.z = 0;
+
+        _collisionFlagsOpponent =
+            _opponentController.Move(
+                _opponentMoveDirection * Time.deltaTime);
+        
+        OpponentWalkAnimation();
+    }
+
+    private void WalkTowardsThePlayer()
+    {
+        Debug.Log(nameof(WalkTowardsThePlayer));
+
+        _opponentMoveDirection =
+            (_playersPosition - transform.position)
+            * _opponentWalkSpeed;
+        
+        _opponentMoveDirection.Normalize();
+
+        _opponentMoveDirection.y = 0;
+        _opponentMoveDirection.z = 0;
+
+        _collisionFlagsOpponent =
+            _opponentController.Move(
+                _opponentMoveDirection * Time.deltaTime);
+        
+        OpponentWalkAnimation();
+    }
+
+    private void OpponentWalkAnimation()
+    {
+        Debug.Log(nameof(OpponentWalkAnimation));
+
+        _opponentAnimator.CrossFade(_opponentWalkAnim.name);
+    }
+
+    private IEnumerator AssessThePlayer()
     {
         Debug.Log(nameof(AssessThePlayer));
 
-        
+        yield return new WaitForSeconds(_assessingTime);
+
+        _assessingThePlayer = false;
     }
 
     private void OpponentHitByLowKick()
@@ -348,6 +455,69 @@ public class OpponentAI : MonoBehaviour
 
         
     }
+
+    #region Update
+
+
+    private void UpdatePlayerPosition()
+    {
+        Debug.Log(nameof(UpdatePlayerPosition));
+
+        _playersPosition = new Vector3(_playerOne.transform.position.x, _playerOne.transform.position.y, _playerOne.transform.position.z);
+    }
+
+    private void UpdateOpponentsPosition()
+    {
+        Debug.Log(nameof(UpdateOpponentsPosition));
+
+        _opponentPosition = new Vector3(_opponent.transform.position.x, _opponent.transform.position.y, _opponent.transform.position.z);
+    }
+
+    private void UpdateOpponentsRotation()
+    {
+        Debug.Log(nameof(UpdateOpponentsRotation));
+
+        if (_playerOne.transform.position.x < _opponent.transform.position.x)
+        {
+            if (_opponent.transform.rotation.y == _defaultRotation)
+            {
+                return;
+            }
+            else
+            {
+                _targetRotation = Quaternion.Euler(0, _defaultRotation, 0);
+                
+                _opponent.transform.rotation = 
+                    Quaternion.Slerp(
+                        transform.rotation, 
+                        _targetRotation, 
+                        Time.deltaTime * _rotationSpeed);
+            }
+        }
+        
+        if (_playerOne.transform.position.x > _opponent.transform.position.x)
+        {
+            
+            if (Math.Abs(_opponent.transform.rotation.y - _alternativeRotation) < 0.001)
+            {
+                return;
+            }
+            else
+            {
+                _targetRotation = Quaternion.Euler(0, _alternativeRotation, 0);
+                
+                _opponent.transform.rotation = 
+                    Quaternion.Slerp(
+                        transform.rotation, 
+                        _targetRotation, 
+                        Time.deltaTime * _rotationSpeed);
+                
+                Debug.LogWarning("TEST");
+            }
+        }
+    }
+
+    #endregion
 
     private void ApplyOpponentGravity()
     {

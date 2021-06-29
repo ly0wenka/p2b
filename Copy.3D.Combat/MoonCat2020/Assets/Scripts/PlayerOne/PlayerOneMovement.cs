@@ -9,11 +9,27 @@ public class PlayerOneMovement : MonoBehaviour
     private Transform _playerOneTransform;
     private CharacterController _playerController;
 
+    #region Rotation
+
+    public static GameObject _playerOne;
+    public static GameObject _opponent;
+
+    private Vector3 _playersPosition;
+    private Vector3 _opponentPosition;
+
+    private Quaternion _targetRotation;
+    private int _defaultRotation = 0;
+    private int _alternativeRotation = 180;
+    public float _rotationSpeed = 5f;
+
+    #endregion
+
     public float _playerWalkSpeed = 1f;
     public float _playerRetreatSpeed = .75f;
-    public float _playerJumpHeight = 1f;
-    public float _playerJumpSpeed = 1f;
-    public float _playerJumpHorizontal = 1f;
+    public float _playerJumpHeight = 0.5f;
+    public float _playerJumpSpeed = 0.5f;
+    public float _playerJumpHorizontal = 0.5f;
+    private Vector3 _jumpHeightTemp;
 
     private Animator _playerOneAnimator;
 
@@ -30,6 +46,15 @@ public class PlayerOneMovement : MonoBehaviour
     
     public float _controllerDeadZonePos = .1f;
     public float _controllerDeadZoneNeg = -.1f;
+
+    private float _xAxis;
+    private float _yAxis;
+    private float _analogStickAngle;
+
+    private int _0DegreesAngle = 0;
+    private int _90DegreesAngle = 90;
+    private int _180DegreesAngle = 180;
+    private float _degreeModifier = 22.5f;
 
     public float _playersGravity = 20f;
     public float _playerGravityModifier = 5f;
@@ -52,6 +77,8 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneTransform = transform;
 
         _playerOneMoveDirection = Vector3.zero;
+        
+        _jumpHeightTemp = new Vector3(0, _playerJumpHeight, 0);
 
         _playersSpeedYAxis = 0;
 
@@ -81,6 +108,36 @@ public class PlayerOneMovement : MonoBehaviour
         }
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        ApplyGravity();
+        PlayerInputController();
+
+        if (_playerAttackAnim.Any(clip => _playerOneAnimator.IsPlaying(clip.name)))
+        {
+            return;
+        }
+
+        _returnFightIntroFinished = FightIntro._fightIntroFinished;
+
+        if (_returnFightIntroFinished != true)
+        {
+            return;
+        }
+
+        if (PlayerOneIsGrounded())
+        {
+            HorizontalJumpInputManager();
+            AttackInputManager();
+            StandardInputManager();
+        }
+        
+        UpdatePlayerPosition();
+        UpdateOpponentsPosition();
+        UpdatePlayersRotation();
+    }
+
     private IEnumerator PlayerOneFSM()
     {
         while (true)
@@ -97,7 +154,7 @@ public class PlayerOneMovement : MonoBehaviour
                     PlayerOneWalkRight();
                     break;
                 case PlayerOneStates.PlayerJump:
-                    PlayerOneJump();
+                    PlayerJump();
                     break;
                 case PlayerOneStates.PlayerJumpForward:
                     PlayerOneJumpForward();
@@ -150,8 +207,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
 
-        // SetIdleToState();
-        if (_playerOneTransform.transform.position.y >= _playerJumpHeight)
+        if (_playerOneTransform.transform.position.y >= _jumpHeightTemp.y)
         {
             _playerOneStates = PlayerOneStates.ComeDownForwards;
         }
@@ -173,9 +229,8 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-
-        // SetIdleToState();
-        if (_playerOneTransform.transform.position.y >= _playerJumpHeight)
+        
+        if (_playerOneTransform.transform.position.y >= _jumpHeightTemp.y)
         {
             _playerOneStates = PlayerOneStates.ComeDownBackwards;
         }
@@ -321,22 +376,17 @@ public class PlayerOneMovement : MonoBehaviour
         MoveDirection();
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-
-        SetIdleToState();
+        if (_analogStickAngle > (0 + _degreeModifier)
+            || _analogStickAngle < 0 - _degreeModifier)
+        {
+            _playerOneStates = PlayerOneStates.PlayerOneIdle;
+        }
     }
 
     private void MoveDirection()
     {
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection).normalized;
         _playerOneMoveDirection *= _playerWalkSpeed;
-    }
-
-    private void SetIdleToState()
-    {
-        if (Input.GetAxis("Horizontal") == 0f)
-        {
-            _playerOneStates = PlayerOneStates.PlayerOneIdle;
-        }
     }
 
     private void PlayerOneWalkRight()
@@ -350,7 +400,12 @@ public class PlayerOneMovement : MonoBehaviour
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
 
-        SetIdleToState();
+
+        if (_analogStickAngle > (0 + _degreeModifier)
+                || _analogStickAngle < 0 - _degreeModifier)
+        {
+            _playerOneStates = PlayerOneStates.PlayerOneIdle;
+        }
     }
 
     private void PlayerOneWalkAnim()
@@ -372,9 +427,9 @@ public class PlayerOneMovement : MonoBehaviour
     #endregion
 
     #region Jump
-    private void PlayerOneJump()
+    private void PlayerJump()
     {
-        Debug.Log(nameof(PlayerOneJump));
+        Debug.Log(nameof(PlayerJump));
 
         PlayerOneJumpAnim();
 
@@ -383,9 +438,8 @@ public class PlayerOneMovement : MonoBehaviour
         _playerOneMoveDirection *= _playerJumpSpeed;
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
-
-        // SetIdleToState();
-        if (_playerOneTransform.transform.position.y >= _playerJumpHeight)
+        
+        if (_playerOneTransform.transform.position.y >= _jumpHeightTemp.y)
         {
             _playerOneStates = PlayerOneStates.ComeDown;
         }
@@ -467,31 +521,6 @@ public class PlayerOneMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        ApplyGravity();
-
-        if (_playerAttackAnim.Any(clip => _playerOneAnimator.IsPlaying(clip.name)))
-        {
-            return;
-        }
-
-        _returnFightIntroFinished = FightIntro._fightIntroFinished;
-
-        if (_returnFightIntroFinished != true)
-        {
-            return;
-        }
-
-        if (PlayerOneIsGrounded())
-        {
-            HorizontalInputManager();
-            AttackInputManager();
-            StandardInputManager();
-        }
-    }
-
     private void PlayerHighPunch()
     {
         Debug.Log(nameof(PlayerHighPunch));
@@ -562,18 +591,48 @@ public class PlayerOneMovement : MonoBehaviour
         }
     }
 
-    private void HorizontalInputManager()
+    private void PlayerInputController()
     {
-        Debug.Log(nameof(HorizontalInputManager));
+        Debug.Log(nameof(PlayerInputController));
+
+        _xAxis = Input.GetAxis("Horizontal");
+        _yAxis = Input.GetAxis("Vertical");
+
+        _analogStickAngle =
+            Mathf.Atan2
+                (_yAxis, _xAxis)
+                * Mathf.Rad2Deg;
+    }
+
+    private void HorizontalJumpInputManager()
+    {
+        Debug.Log(nameof(HorizontalJumpInputManager));
 
         if (Input.GetAxis("Vertical") > _controllerDeadZonePos && Input.GetAxis("Horizontal") > _controllerDeadZoneNeg)
         {
-            _playerOneStates = PlayerOneStates.PlayerJumpForward;
+            if (_analogStickAngle > 45 + _degreeModifier
+                || _analogStickAngle < 45 - _degreeModifier)
+            {
+                return;
+            }
+            else
+            {
+                _playerOneStates = PlayerOneStates.PlayerJumpForward;
+            }
         }
-
-        if (Input.GetAxis("Vertical") > _controllerDeadZonePos && Input.GetAxis("Horizontal") < _controllerDeadZoneNeg)
+        
+        if (Input.GetAxis("Vertical") > _controllerDeadZonePos 
+            || Input.GetAxis("Horizontal") < _controllerDeadZoneNeg)
         {
-            _playerOneStates = PlayerOneStates.PlayerJumpBackwards;
+            if (_analogStickAngle > 135 + _degreeModifier
+                || _analogStickAngle < 135 - _degreeModifier)
+            {
+                return;
+            }
+            else
+            {
+                _playerOneStates = PlayerOneStates.PlayerJumpBackwards;
+            }
         }
     }
 
@@ -588,17 +647,42 @@ public class PlayerOneMovement : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") < _controllerDeadZoneNeg)
         {
-            _playerOneStates = PlayerOneStates.PlayerWalkLeft;
+            if (_analogStickAngle < (_180DegreesAngle - _degreeModifier)
+                && _analogStickAngle > 0 - (_180DegreesAngle + _degreeModifier))
+            {
+                return;
+            }
+            else
+            {
+                _playerOneStates = PlayerOneStates.PlayerWalkLeft;
+            }
         }
 
         if (Input.GetAxis("Horizontal") > _controllerDeadZonePos)
         {
-            _playerOneStates = PlayerOneStates.PlayerWalkRight;
+            if ((_analogStickAngle > (0 + _degreeModifier)
+                 || _analogStickAngle < 0 - _degreeModifier)
+                || Input.GetAxis("Horizontal") == 0)
+            {
+                return;
+            }
+            else
+            {
+                _playerOneStates = PlayerOneStates.PlayerWalkRight;
+            }
         }
 
         if (Input.GetAxis("Vertical") > _controllerDeadZonePos)
         {
-            _playerOneStates = PlayerOneStates.PlayerJump;
+            if (_analogStickAngle > 90 + _degreeModifier
+            || _analogStickAngle < 90 - _degreeModifier)
+            {
+                return;
+            }
+            else
+            {
+                _playerOneStates = PlayerOneStates.PlayerJump;
+            }
         }
     }
     #endregion
@@ -635,6 +719,69 @@ public class PlayerOneMovement : MonoBehaviour
         //return (_collisionFlags & CollisionFlags.Below) != 0;
         return true;
     }
+    
+    #region UpdateRotation
+
+
+    private void UpdatePlayerPosition()
+    {
+        Debug.Log(nameof(UpdatePlayerPosition));
+
+        _playersPosition = new Vector3(_playerOne.transform.position.x, _playerOne.transform.position.y, _playerOne.transform.position.z);
+    }
+
+    private void UpdateOpponentsPosition()
+    {
+        Debug.Log(nameof(UpdateOpponentsPosition));
+
+        _opponentPosition = new Vector3(_opponent.transform.position.x, _opponent.transform.position.y, _opponent.transform.position.z);
+    }
+
+    private void UpdatePlayersRotation()
+    {
+        Debug.Log(nameof(UpdatePlayersRotation));
+
+        if (_playerOne.transform.position.x < _opponent.transform.position.x)
+        {
+            if (Math.Abs(_playerOne.transform.rotation.y - _defaultRotation) < 0.001)
+            {
+                return;
+            }
+            else
+            {
+                _targetRotation = Quaternion.Euler(0, _defaultRotation, 0);
+                
+                _playerOne.transform.rotation = 
+                    Quaternion.Slerp(
+                        transform.rotation, 
+                        _targetRotation, 
+                        Time.deltaTime * _rotationSpeed);
+            }
+        }
+        
+        if (_playerOne.transform.position.x > _opponent.transform.position.x)
+        {
+            
+            if (Math.Abs(_playerOne.transform.rotation.y - _alternativeRotation) < 0.001)
+            {
+                return;
+            }
+            else
+            {
+                _targetRotation = Quaternion.Euler(0, _alternativeRotation, 0);
+                
+                _playerOne.transform.rotation = 
+                    Quaternion.Slerp(
+                        transform.rotation, 
+                        _targetRotation, 
+                        Time.deltaTime * _rotationSpeed);
+                
+                Debug.LogWarning("TEST");
+            }
+        }
+    }
+
+    #endregion
 
     private void PlayerOneComeDownAnim()
     {

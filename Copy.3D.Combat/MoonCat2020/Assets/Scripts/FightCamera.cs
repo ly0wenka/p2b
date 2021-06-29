@@ -14,11 +14,9 @@ public class FightCamera : MonoBehaviour
     private int _cameraValueZAxisModifier = -8;
 
     public static GameObject _playerOne;
-
     public static GameObject _opponent;
 
     private Vector3 _playersPosition;
-
     private Vector3 _opponentPosition;
     // Start is called before the first frame update
     void Start()
