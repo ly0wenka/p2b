@@ -33,6 +33,7 @@ public class OpponentAI : MonoBehaviour
     public AnimationClip _opponentHitHeadAnim;
     public AnimationClip _opponentDefeatedFinalHitAnim;
     public AnimationClip _opponentWalkAnim;
+    public AnimationClip _opponentJumpAnim;
 
     private AudioSource _opponentAIAudioSource;
     public AudioClip _opponentHeadHitAudio;
@@ -42,6 +43,11 @@ public class OpponentAI : MonoBehaviour
 
     private Vector3 _opponentMoveDirection = Vector3.zero;
 
+    public float _opponentJumpHeight = .5f;
+    public float _opponentJumpSpeed = 1f;
+    public float _opponentJumpHorizontal = 1f;
+    private Vector3 _jumpHeightTemp;
+    
     private float _opponentGravity = 5f;
     private float _opponentGravityModifier = 5f;
     private float _opponentVerticalSpeed = .0f;
@@ -78,6 +84,8 @@ public class OpponentAI : MonoBehaviour
         _opponentTransform = transform;
         
         _opponentMoveDirection = Vector3.zero;
+        
+        _jumpHeightTemp = new Vector3(0, _opponentJumpHeight, 0);
 
         _decideAggressionPriority = 0;
 
@@ -140,6 +148,18 @@ public class OpponentAI : MonoBehaviour
                     break;
                 case OpponentAIState.WalkAwayFromThePlayer:
                     WalkAwayFromThePlayer();
+                    break;
+                case OpponentAIState.JumpTowardsThePlayer:
+                    break;
+                case OpponentAIState.JumpAwayThePlayer:
+                    break;
+                case OpponentAIState.OpponentJumpUp:
+                    break;
+                case OpponentAIState.OpponentComeDown:
+                    break;
+                case OpponentAIState.OpponentComeDownForward:
+                    break;
+                case OpponentAIState.OpponentComeDownBackwards:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
