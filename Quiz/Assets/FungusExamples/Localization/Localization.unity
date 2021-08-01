@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 4ffecb7439f81ed43afdebf7e4f71375,
+    type: 2}
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -376,7 +379,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &1369216149
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -428,8 +431,7 @@ MonoBehaviour:
     height: 1114
   selectedBlocks:
   - {fileID: 1369216156}
-  selectedCommands:
-  - {fileID: 1369216149}
+  selectedCommands: []
   variables: []
   description: "This scene shows how to use the Fungus localization system.\nThe
     key elements are the Localization game object, the \nlocalization.csv file and
@@ -870,6 +872,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -.744200826
       objectReference: {fileID: 0}
@@ -882,6 +888,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -891,14 +901,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11438504, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
