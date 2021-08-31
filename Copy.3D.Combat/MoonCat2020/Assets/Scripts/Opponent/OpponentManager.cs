@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class OpponentManager : MonoBehaviour
+public class OpponentManager : GameManager
 {
     public GameObject _currentOpponent;
 
@@ -33,8 +33,6 @@ public class OpponentManager : MonoBehaviour
         "PinkRobotOpponent",
         "GoldRobotOpponent",
     };
-    
-    private int _yRot = 0;
         
     // Start is called before the first frame update
     void Start()
@@ -116,8 +114,8 @@ public class OpponentManager : MonoBehaviour
 
     private void SetOpponent()
     {
-        _currentOpponent.transform.position = new Vector3(1, 0, -7);
-        _currentOpponent.transform.eulerAngles = new Vector3(0, _yRot, 0);
+        _currentOpponent.transform.position = _opponentsStartingPosition;
+        _currentOpponent.transform.eulerAngles = _opponentsStartingRotation;
         
         FightCamera._opponent = _currentOpponent;
         OpponentAI._opponent = _currentOpponent;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnePlayerManager : MonoBehaviour
+public class OnePlayerManager : GameManager
 {
     private GameObject _playerOneCharacter;
 
@@ -14,8 +14,6 @@ public class OnePlayerManager : MonoBehaviour
     private bool _returnRobotGreen;
     private bool _returnRobotPink;
     private bool _returnRobotGold;
-
-    private int _yRot = 90;
 
     // Start is called before the first frame update
     void Start()
@@ -109,7 +107,7 @@ public class OnePlayerManager : MonoBehaviour
 
     private void SetPlayerOneCharacterTransform()
     {
-        _playerOneCharacter.transform.position = new Vector3(-1, 0, -7);
-        _playerOneCharacter.transform.eulerAngles = new Vector3(0, _yRot, 0);
+        _playerOneCharacter.transform.position = _playerStartingPosition;
+        _playerOneCharacter.transform.eulerAngles = _playerStartingRotation;
     }
 }

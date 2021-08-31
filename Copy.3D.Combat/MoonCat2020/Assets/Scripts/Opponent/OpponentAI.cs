@@ -17,6 +17,8 @@ public class OpponentAI : MonoBehaviour
 
     private Vector3 _playersPosition;
     private Vector3 _opponentPosition;
+    private Vector3 _positionDifference;
+    public float _positionDifferenceModifier = 2.0f; 
 
     private Quaternion _targetRotation;
     private int _defaultRotation = 0;
@@ -110,6 +112,7 @@ public class OpponentAI : MonoBehaviour
         UpdatePlayerPosition();
         UpdateOpponentsPosition();
         UpdateOpponentsRotation();
+        UpdatePositionDifference();
     }
 
     private IEnumerator OpponentFSM()
@@ -228,7 +231,7 @@ public class OpponentAI : MonoBehaviour
 
         if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
         {
-            _opponentAIState = OpponentAIState.OpponentComeDown;
+            _opponentAIState = OpponentAIState.OpponentComeDownForward;
         }
     }
 
@@ -245,7 +248,7 @@ public class OpponentAI : MonoBehaviour
 
         if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
         {
-            _opponentAIState = OpponentAIState.OpponentComeDown;
+            _opponentAIState = OpponentAIState.OpponentComeDownBackwards;
         }
     }
 
@@ -288,7 +291,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentComeDownForward));
 
-        OpponentJumpAnimation();
+        //OpponentJumpAnimation();
         _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
         _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
         _opponentMoveDirection *= _opponentJumpSpeed;
@@ -297,7 +300,7 @@ public class OpponentAI : MonoBehaviour
 
         if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
         {
-            _opponentAIState = OpponentAIState.OpponentComeDown;
+            _opponentAIState = OpponentAIState.OpponentIdle;
         }
     }
 
@@ -305,7 +308,7 @@ public class OpponentAI : MonoBehaviour
     {
         Debug.Log(nameof(OpponentComeDownBackwards));
 
-        OpponentJumpAnimation();
+        //OpponentJumpAnimation();
         _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
         _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
         _opponentMoveDirection *= _opponentJumpSpeed;
@@ -314,7 +317,7 @@ public class OpponentAI : MonoBehaviour
 
         if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
         {
-            _opponentAIState = OpponentAIState.OpponentComeDown;
+            _opponentAIState = OpponentAIState.OpponentIdle;
         }
     }
 
@@ -385,7 +388,7 @@ public class OpponentAI : MonoBehaviour
 
         _decideAggressionPriority = 2; //Random.Range(1, 9);
 
-        _opponentAIState = OpponentAIState.OpponentIdle;
+        _opponentAIState = OpponentAIState.AdvanceOnThePlayer;
     }
 
     private void InitialiseAnimation()
@@ -402,11 +405,20 @@ public class OpponentAI : MonoBehaviour
         if (_decideBackwardMovement >= _minimumDecideValue
             && _decideForwardMovement <= _tippingPointDecideValue)
         {
+            _opponentAIState = OpponentAIState.WalkTowardsThePlayer;
         }
 
         if (_decideBackwardMovement <= _maximumDecideValue
             && _decideForwardMovement > _tippingPointDecideValue)
         {
+            if (_positionDifference.x >= _positionDifferenceModifier)
+            {
+                _opponentAIState = OpponentAIState.JumpTowardsThePlayer;
+            }
+            else
+            {
+                _opponentAIState = OpponentAIState.WalkTowardsThePlayer; 
+            }
         }
     }
 
@@ -641,6 +653,21 @@ public class OpponentAI : MonoBehaviour
 
         _opponentPosition = new Vector3(_opponent.transform.position.x, _opponent.transform.position.y,
             _opponent.transform.position.z);
+    }
+
+    private void UpdatePositionDifference()
+    {
+        Debug.Log(nameof(UpdateOpponentsPosition));
+
+        if (_playerOne.transform.position.x < _opponent.transform.position.x)
+        {
+            _positionDifference = (_opponentPosition - _playersPosition);
+        }
+
+        if (_playerOne.transform.position.x >= _opponent.transform.position.x)
+        {
+            _positionDifference = (_playersPosition - _opponentPosition);
+        }
     }
 
     private void UpdateOpponentsRotation()
