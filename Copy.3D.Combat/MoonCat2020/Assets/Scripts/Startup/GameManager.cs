@@ -7,11 +7,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static int _playersStartingYRot = 180;
-    public static Vector3 _playerStartingPosition = new Vector3(-1, 0, -7);
+
+    public float _playerStartingPosXAxis = -1f;
+    public float _playerStartingPosYAxis = 0f;
+    public float _playerStartingPosZAxis = -7f;
+
+    public float _opponentStartingPosXAxis = 1f;
+    public float _opponentStartingPosYAxis = 0f;
+    public float _opponentStartingPosZAxis = -7f;
+    
+    public static Vector3 _playerStartingPosition;
     public static Vector3 _playerStartingRotation = new Vector3(0, _playersStartingYRot, 0);
     
     private static int _opponentsStartingYRot = 0;
-    public static Vector3 _opponentsStartingPosition = new Vector3(1, 0, -7);
+    public static Vector3 _opponentsStartingPosition;
     public static Vector3 _opponentsStartingRotation = new Vector3(0, _opponentsStartingYRot, 0);
     
     void Awake()
@@ -21,6 +30,16 @@ public class GameManager : MonoBehaviour
 
         DisableOnePlayerManager();
         DisableTwoPlayerManager();
+
+        _playerStartingPosition = new Vector3(
+            _playerStartingPosXAxis,
+            _playerStartingPosYAxis,
+            _playerStartingPosZAxis);
+
+        _playerStartingPosition = new Vector3(
+            _opponentStartingPosXAxis,
+            _opponentStartingPosYAxis,
+            _opponentStartingPosZAxis);
     }
 
     private static void DisableTwoPlayerManager() 

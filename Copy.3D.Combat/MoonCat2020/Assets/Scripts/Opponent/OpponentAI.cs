@@ -113,6 +113,7 @@ public class OpponentAI : MonoBehaviour
         UpdateOpponentsPosition();
         UpdateOpponentsRotation();
         UpdatePositionDifference();
+        UpdateOpponentsPlanePosition();
     }
 
     private IEnumerator OpponentFSM()
@@ -388,7 +389,7 @@ public class OpponentAI : MonoBehaviour
 
         _decideAggressionPriority = 2; //Random.Range(1, 9);
 
-        _opponentAIState = OpponentAIState.AdvanceOnThePlayer;
+        _opponentAIState = OpponentAIState.OpponentIdle;
     }
 
     private void InitialiseAnimation()
@@ -710,6 +711,18 @@ public class OpponentAI : MonoBehaviour
 
                 Debug.LogWarning("TEST");
             }
+        }
+    }
+
+    private void UpdateOpponentsPlanePosition()
+    {
+        Debug.Log(nameof(UpdateOpponentsPlanePosition));
+
+        if (_opponentController.transform.position.z != GameManager._opponentsStartingPosition.z)
+        {
+            transform.position = new Vector3(transform.position.x,
+                transform.position.y,
+                GameManager._opponentsStartingPosition.z);
         }
     }
 

@@ -136,6 +136,7 @@ public class PlayerOneMovement : MonoBehaviour
         UpdatePlayerPosition();
         UpdateOpponentsPosition();
         UpdatePlayersRotation();
+        UpdatePlayersPlanePosition();
     }
 
     private IEnumerator PlayerOneFSM()
@@ -339,7 +340,6 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerOneAnimator.CrossFade(_playerOneDemoAnim.name);
     }
-
 
     private void PlayerOneIdle()
     {
@@ -697,7 +697,20 @@ public class PlayerOneMovement : MonoBehaviour
     {
         Debug.Log(nameof(AttackInputManagerAnim));
     }
+    
+    private void UpdatePlayersPlanePosition()
+    {
+        Debug.Log(nameof(UpdatePlayersPlanePosition));
 
+        var TOLERANCE = 0.01f;
+        if (Math.Abs(_playerController.transform.position.z - GameManager._playerStartingPosition.z) > TOLERANCE)
+        {
+            transform.position = new Vector3(
+                transform.position.x,
+                transform.position.y,
+                GameManager._opponentsStartingPosition.z);
+        }
+    }
 
     private void ApplyGravity()
     {
