@@ -20,6 +20,7 @@ public enum OpponentAIState
     OpponentRightPunch,
     OpponentHighKick,
     OpponentLowKick,
+    ChooseAttackState,
     WaitForHitAnimations,
     DefeatedFinalHit
 }

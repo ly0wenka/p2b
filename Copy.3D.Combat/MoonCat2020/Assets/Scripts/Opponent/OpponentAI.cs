@@ -78,7 +78,7 @@ public class OpponentAI : MonoBehaviour
     private int _switchAttackValue;
     private int _switchAttackStateValue;
     public int _punchKickPivotValue;
-
+    public float _chooseAttackDistanceModifier = .75f;
     public int _lowPunchRangeMin, _lowPunchRangeMax;
     public int _highPunchRangeMin, _highPunchRangeMax;
     public int _lowKickRangeMin, _lowKickRangeMax;
@@ -206,6 +206,9 @@ public class OpponentAI : MonoBehaviour
                     break;
                 case OpponentAIState.OpponentLowKick:
                     OpponentLowKick();
+                    break;
+                case OpponentAIState.ChooseAttackState:
+                    ChooseAttackState();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -429,6 +432,8 @@ public class OpponentAI : MonoBehaviour
             return;
         }
 
+        _opponentAIState = OpponentAIState.RetreatFromThePlayer;
+
         if (_decideAggressionPriority < _assessPriority.start)
         {
             _opponentAIState = OpponentAIState.AdvanceOnThePlayer;
@@ -539,6 +544,11 @@ public class OpponentAI : MonoBehaviour
     private void WalkTowardsThePlayer()
     {
         Debug.Log(nameof(WalkTowardsThePlayer));
+
+        if (Mathf.Abs(_playerOne.transform.position.x - _opponent.transform.position.x) <= _chooseAttackDistanceModifier)
+        {
+            _opponentAIState = OpponentAIState.ChooseAttackState;
+        }
 
         _opponentMoveDirection =
             (_playersPosition - transform.position)
@@ -654,6 +664,8 @@ public class OpponentAI : MonoBehaviour
 
     private void ChooseAttackState()
     {
+        OpponentIdleAnimation();
+        
         _switchAttackValue = Random.Range(0, 7);
 
         if (_switchAttackValue >= _lowPunchRangeMin 
