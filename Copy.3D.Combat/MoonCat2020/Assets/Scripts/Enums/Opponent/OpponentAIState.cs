@@ -16,6 +16,10 @@ public enum OpponentAIState
     OpponentHitByHighKick,
     OpponentHitByLeftPunch,
     OpponentHitByRightPunch,
+    OpponentLeftPunch,
+    OpponentRightPunch,
+    OpponentHighKick,
+    OpponentLowKick,
     WaitForHitAnimations,
     DefeatedFinalHit
 }

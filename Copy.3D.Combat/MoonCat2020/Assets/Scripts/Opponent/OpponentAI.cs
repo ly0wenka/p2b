@@ -73,12 +73,31 @@ public class OpponentAI : MonoBehaviour
 
     private bool _assessingThePlayer;
     public float _assessingTime = 3;
+
+    private ChooseAttack _chooseAttack;
+    private int _switchAttackValue;
+    private int _switchAttackStateValue;
+    public int _punchKickPivotValue;
+
+    public int _lowPunchRangeMin, _lowPunchRangeMax;
+    public int _highPunchRangeMin, _highPunchRangeMax;
+    public int _lowKickRangeMin, _lowKickRangeMax;
+    public int _highKickRangeMin, _highKickRangeMax;
+    
     private bool _returnFightIntroFinished;
 
     private CollisionFlags _collisionFlagsOpponent;
 
     public static OpponentAIState _opponentAIState;
 
+    private enum ChooseAttack
+    {
+        LowPunch,
+        HighPunch,
+        LowKick,
+        HighKick
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -176,12 +195,78 @@ public class OpponentAI : MonoBehaviour
                 case OpponentAIState.OpponentComeDownBackwards:
                     OpponentComeDownBackwards();
                     break;
+                case OpponentAIState.OpponentLeftPunch:
+                    OpponentLeftPunch();
+                    break;
+                case OpponentAIState.OpponentRightPunch:
+                    OpponentRightPunch();
+                    break;
+                case OpponentAIState.OpponentHighKick:
+                    OpponentHighKick();
+                    break;
+                case OpponentAIState.OpponentLowKick:
+                    OpponentLowKick();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             yield return null;
         }
+    }
+
+    private void Initialise()
+    {
+        Debug.Log(nameof(Initialise));
+
+        _decideAggressionPriority = 2; //Random.Range(1, 9);
+
+        if (_punchKickPivotValue == 0)
+        {
+            _punchKickPivotValue = 3;
+        }
+
+        if (_lowPunchRangeMin != 0)
+        {
+            _lowPunchRangeMin = 0;
+        }
+
+        if (_lowPunchRangeMax == 0)
+        {
+            _lowPunchRangeMax = 1;
+        }
+
+        if (_highPunchRangeMin == 0)
+        {
+            _highPunchRangeMin = 2;
+        }
+
+        if (_highPunchRangeMax == 0)
+        {
+            _highPunchRangeMax = 3;
+        }
+
+        if (_lowKickRangeMin == 0)
+        {
+            _lowKickRangeMin = 4;
+        }
+
+        if (_lowKickRangeMax == 0)
+        {
+            _lowKickRangeMax = 5;
+        }
+
+        if (_highKickRangeMin == 0)
+        {
+            _highKickRangeMin = 6;
+        }
+
+        if (_highKickRangeMax == 0)
+        {
+            _highKickRangeMax = 7;
+        }
+
+        _opponentAIState = OpponentAIState.OpponentIdle;
     }
 
     private void OpponentJumpAnimation()
@@ -383,15 +468,6 @@ public class OpponentAI : MonoBehaviour
         _opponentAnimator.CrossFade(_opponentIdleAnim.name);
     }
 
-    private void Initialise()
-    {
-        Debug.Log(nameof(Initialise));
-
-        _decideAggressionPriority = 2; //Random.Range(1, 9);
-
-        _opponentAIState = OpponentAIState.OpponentIdle;
-    }
-
     private void InitialiseAnimation()
     {
         Debug.Log(nameof(InitialiseAnimation));
@@ -575,6 +651,81 @@ public class OpponentAI : MonoBehaviour
 
         _opponentAnimator.CrossFade(_opponentHitHeadAnim.name);
     }
+
+    private void ChooseAttackState()
+    {
+        _switchAttackValue = Random.Range(0, 7);
+
+        if (_switchAttackValue >= _lowPunchRangeMin 
+            || _switchAttackValue <= _lowPunchRangeMax)
+        {
+            _switchAttackStateValue = 0;
+        }
+
+        if (_switchAttackValue >= _highPunchRangeMin 
+            || _switchAttackValue <= _highPunchRangeMax)
+        {
+            _switchAttackStateValue = 1;
+        }
+
+        if (_switchAttackValue >= _lowKickRangeMin 
+            || _switchAttackValue <= _lowKickRangeMax)
+        {
+            _switchAttackStateValue = 2;
+        }
+
+        if (_switchAttackValue >= _highKickRangeMin 
+            || _switchAttackValue <= _highKickRangeMax)
+        {
+            _switchAttackStateValue = 3;
+        }
+
+        switch (_switchAttackStateValue)
+        {
+            case 0:
+                _chooseAttack = ChooseAttack.LowPunch;
+                break;
+            case 1:
+                _chooseAttack = ChooseAttack.HighPunch;
+                break;
+            case 2:
+                _chooseAttack = ChooseAttack.LowKick;
+                break;
+            case 3:
+                _chooseAttack = ChooseAttack.HighKick;
+                break;
+        }
+    }
+
+    #region PunchKick
+    private void OpponentLeftPunch()
+    {
+        Debug.Log(nameof(OpponentLeftPunch));
+        
+        OpponentPunchLeftAnimation();
+    }
+
+    private void OpponentRightPunch()
+    {
+        Debug.Log(nameof(OpponentRightPunch));
+        
+        OpponentPunchRightAnimation();
+    }
+
+    private void OpponentHighKick()
+    {
+        Debug.Log(nameof(OpponentHighKick));
+        
+        OpponentHighKick();
+    }
+
+    private void OpponentLowKick()
+    {
+        Debug.Log(nameof(OpponentLowKick));
+        
+        OpponentKickLowAnimation();
+    }
+    #endregion
 
     private void WaitForHitAnimations()
     {
