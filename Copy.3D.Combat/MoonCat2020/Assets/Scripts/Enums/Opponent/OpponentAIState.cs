@@ -22,5 +22,6 @@ public enum OpponentAIState
     OpponentLowKick,
     ChooseAttackState,
     WaitForHitAnimations,
+    WaitForStrikeAnimations,
     DefeatedFinalHit
 }
