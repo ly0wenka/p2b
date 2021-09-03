@@ -13,6 +13,12 @@ public enum PlayerOneStates
     PlayerLowPunch,
     PlayerHighKick,
     PlayerLowKick,
+    PlayerHitByLowKick,
+    PlayerHitByHighKick,
+    PlayerHitByLeftPunch,
+    PlayerHitByRightPunch,
     WaitForAnimations,
+    PlayerDefeated,
+    WaitForHitAnimations,
     PlayerDemo
 }

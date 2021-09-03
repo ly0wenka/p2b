@@ -850,7 +850,7 @@ public class OpponentAI : MonoBehaviour
         StopCoroutine(OpponentFSM());
     }
 
-    private void SetOpponentDefeated()
+    public void SetOpponentDefeated()
     {
         Debug.Log(nameof(SetOpponentDefeated));
 

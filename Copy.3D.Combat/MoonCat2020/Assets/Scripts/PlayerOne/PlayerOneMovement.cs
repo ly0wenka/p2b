@@ -38,6 +38,15 @@ public class PlayerOneMovement : MonoBehaviour
     public AnimationClip _playerOneJumpAnim;
     public AnimationClip _playerOneDemoAnim;
     public AnimationClip[] _playerAttackAnim;
+    public AnimationClip _playerHitBodyAnim;
+    public AnimationClip _playerHitHeadAnim;
+    public AnimationClip _playerDefeatedFinalHitAnim;
+
+    private AudioSource _playerAudioSource;
+    public AudioClip _playerHeadHitAudio;
+    public AudioClip _playerBodyHitAudio;
+
+    public GameObject _hitSparks;
 
     public static bool _playerIsPunchingLeft;
     public static bool _playerIsPunchingRight;
@@ -71,7 +80,6 @@ public class PlayerOneMovement : MonoBehaviour
 
     private PlayerOneStates _playerOneStates;
 
-    // Start is called before the first frame update
     void Start()
     {
         _playerOneTransform = transform;
@@ -85,6 +93,8 @@ public class PlayerOneMovement : MonoBehaviour
         _playerController = GetComponent<CharacterController>();
 
         _playerOneAnimator = GetComponent<Animator>();
+
+        _playerAudioSource = GetComponent<AudioSource>();
 
         // foreach (var animClip in _playerAttackAnim)
         // {
@@ -108,7 +118,6 @@ public class PlayerOneMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         ApplyGravity();
@@ -190,11 +199,33 @@ public class PlayerOneMovement : MonoBehaviour
                 case PlayerOneStates.PlayerDemo:
                     PlayerDemo();
                     break;
+                case PlayerOneStates.PlayerHitByLowKick:
+                    PlayerHitByLowKick();
+                    break;
+                case PlayerOneStates.PlayerHitByHighKick:
+                    PlayerHitByHighKick();
+                    break;
+                case PlayerOneStates.PlayerHitByLeftPunch:
+                    PlayerHitByLeftPunch();
+                    break;
+                case PlayerOneStates.PlayerHitByRightPunch:
+                    PlayerHitByRightPunch();
+                    break;
+                case PlayerOneStates.PlayerDefeated:
+                    PlayerDefeated();
+                    break;
+                case PlayerOneStates.WaitForHitAnimations:
+                    WaitForHitAnimations();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             yield return null;
         }
     }
+
+    #region NonSorted
 
     private void PlayerOneJumpForward()
     {
@@ -290,6 +321,87 @@ public class PlayerOneMovement : MonoBehaviour
         Debug.Log(nameof(PlayerOneComeDownBackwardsAnim));
     }
 
+    #endregion
+
+    #region HitDefeated
+
+    private void PlayerDefeated()
+    {
+        Debug.Log(nameof(PlayerDefeated));
+        
+        
+    }
+
+    private void PlayerHitByRightPunch()
+    {
+        Debug.Log(nameof(PlayerHitByRightPunch));
+        
+        PlayerHitHeadAnimation();
+
+        _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
+
+    }
+
+    private void PlayerHitByLeftPunch()
+    {
+        Debug.Log(nameof(PlayerHitByLeftPunch));
+        
+        PlayerHitHeadAnimation();
+
+        _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
+
+    }
+
+    private void PlayerHitByHighKick()
+    {
+        Debug.Log(nameof(PlayerHitByHighKick));
+        
+        PlayerHitBodyAnimation();
+
+        _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
+
+    }
+
+    private void PlayerHitByLowKick()
+    {
+        Debug.Log(nameof(PlayerHitByLowKick));
+        
+        PlayerHitBodyAnimation();
+        
+        _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
+
+        Vector3 _impactPoint = PlayerLowKick._playerOneImpactPoint;
+        
+        var hs = Instantiate(_hitSparks, new Vector3(
+            _impactPoint.x,
+            _impactPoint.y,
+            _impactPoint.z + -.2f),
+            Quaternion.identity) as GameObject;
+
+        _playerOneStates = PlayerOneStates.WaitForHitAnimations;
+    }
+
+    #endregion
+
+    #region NonSorted2
+    
+    private void WaitForHitAnimations()
+    {
+        Debug.Log(nameof(WaitForHitAnimations));
+
+        if (_playerOneAnimator.IsPlaying(_playerHitBodyAnim.name))
+        {
+            return;
+        }
+
+        if (_playerOneAnimator.IsPlaying(_playerHitHeadAnim.name))
+        {
+            return;
+        }
+
+        _playerOneStates = PlayerOneStates.PlayerOneIdle;
+    }
+    
     private void WaitForAnimations()
     {
         Debug.Log(nameof(WaitForAnimations));
@@ -358,12 +470,44 @@ public class PlayerOneMovement : MonoBehaviour
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
     }
 
+    public void SetPlayerDefeated()
+    {
+        Debug.Log(nameof(SetPlayerDefeated));
+
+        PlayerFinalHitAnimation();
+
+        _playerOneStates = PlayerOneStates.PlayerDefeated;
+    }
+
+    private void PlayerFinalHitAnimation()
+    {
+        Debug.Log(nameof(PlayerFinalHitAnimation));
+
+        _playerOneAnimator.CrossFade(_playerDefeatedFinalHitAnim.name);
+    }
+
+    private void PlayerHitBodyAnimation()
+    {
+        Debug.Log(nameof(PlayerHitBodyAnimation));
+        
+        _playerOneAnimator.CrossFade(_playerHitBodyAnim.name);
+    }
+
+    private void PlayerHitHeadAnimation()
+    {
+        Debug.Log(nameof(PlayerHitHeadAnimation));
+        
+        _playerOneAnimator.CrossFade(_playerHitHeadAnim.name);
+    }
+
     private void PlayerOneIdleAnim()
     {
         Debug.Log(nameof(PlayerOneIdleAnim));
 
         _playerOneAnimator.CrossFade(_playerOneIdleAnim.name);
     }
+
+    #endregion
 
     #region Walk
     private void PlayerOneWalkLeft()
@@ -504,6 +648,8 @@ public class PlayerOneMovement : MonoBehaviour
     }
     #endregion
 
+    #region Anim
+
     private void PlayerOneRetreatAnim()
     {
         Debug.Log(nameof(PlayerOneRetreatAnim));
@@ -556,6 +702,8 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerOneStates = PlayerOneStates.WaitForAnimations;
     }
+
+    #endregion
 
     #region Managers
 
@@ -687,16 +835,19 @@ public class PlayerOneMovement : MonoBehaviour
     }
     #endregion
 
+    #region InputAnim
+
     private void StandardInputManagerAnim()
     {
         Debug.Log(nameof(StandardInputManagerAnim));
     }
 
-
     private void AttackInputManagerAnim()
     {
         Debug.Log(nameof(AttackInputManagerAnim));
     }
+
+    #endregion
     
     private void UpdatePlayersPlanePosition()
     {
@@ -734,8 +885,6 @@ public class PlayerOneMovement : MonoBehaviour
     }
     
     #region UpdateRotation
-
-
     private void UpdatePlayerPosition()
     {
         Debug.Log(nameof(UpdatePlayerPosition));
