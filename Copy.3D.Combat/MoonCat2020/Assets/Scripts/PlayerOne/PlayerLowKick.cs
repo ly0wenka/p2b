@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 public class PlayerLowKick : MonoBehaviour
 {
     public static Vector3 _opponentImpactPoint;
+    public static Vector3 _playerImpactPoint;
 
     public float _nextLowKickIsAllowed = -1.0f;
     public float _attackDelay = 1.0f;

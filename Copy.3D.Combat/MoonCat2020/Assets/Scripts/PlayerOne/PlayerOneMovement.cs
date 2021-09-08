@@ -196,9 +196,6 @@ public class PlayerOneMovement : MonoBehaviour
                 case PlayerOneStates.WaitForAnimations:
                     WaitForAnimations();
                     break;
-                case PlayerOneStates.PlayerDemo:
-                    PlayerDemo();
-                    break;
                 case PlayerOneStates.PlayerHitByLowKick:
                     PlayerHitByLowKick();
                     break;
@@ -216,6 +213,9 @@ public class PlayerOneMovement : MonoBehaviour
                     break;
                 case PlayerOneStates.WaitForHitAnimations:
                     WaitForHitAnimations();
+                    break;
+                case PlayerOneStates.PlayerDemo:
+                    PlayerDemo();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -323,14 +323,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     #endregion
 
-    #region HitDefeated
-
-    private void PlayerDefeated()
-    {
-        Debug.Log(nameof(PlayerDefeated));
-        
-        
-    }
+    #region HitBy
 
     private void PlayerHitByRightPunch()
     {
@@ -339,6 +332,16 @@ public class PlayerOneMovement : MonoBehaviour
         PlayerHitHeadAnimation();
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
+
+        // Vector3 _impactPoint = global::OpponentRightPunch._playerImpactPoint;
+        //
+        // var hs = Instantiate(_hitSparks, new Vector3(
+        //         _impactPoint.x,
+        //         _impactPoint.y,
+        //         _impactPoint.z + -.2f),
+        //     Quaternion.identity) as GameObject;
+
+        _playerOneStates = PlayerOneStates.WaitForHitAnimations;
 
     }
 
@@ -350,6 +353,16 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
+        // Vector3 _impactPoint = global::OpponentLeftPunch._playerImpactPoint;
+        //
+        // var hs = Instantiate(_hitSparks, new Vector3(
+        //         _impactPoint.x,
+        //         _impactPoint.y,
+        //         _impactPoint.z + -.2f),
+        //     Quaternion.identity) as GameObject;
+
+        _playerOneStates = PlayerOneStates.WaitForHitAnimations;
+
     }
 
     private void PlayerHitByHighKick()
@@ -359,6 +372,16 @@ public class PlayerOneMovement : MonoBehaviour
         PlayerHitBodyAnimation();
 
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
+
+        // Vector3 _impactPoint = global::OpponentHighKick._playerImpactPoint;
+        //
+        // var hs = Instantiate(_hitSparks, new Vector3(
+        //         _impactPoint.x,
+        //         _impactPoint.y,
+        //         _impactPoint.z + -.2f),
+        //     Quaternion.identity) as GameObject;
+
+        _playerOneStates = PlayerOneStates.WaitForHitAnimations;
 
     }
 
@@ -370,13 +393,13 @@ public class PlayerOneMovement : MonoBehaviour
         
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
 
-        Vector3 _impactPoint = PlayerLowKick._playerOneImpactPoint;
-        
-        var hs = Instantiate(_hitSparks, new Vector3(
-            _impactPoint.x,
-            _impactPoint.y,
-            _impactPoint.z + -.2f),
-            Quaternion.identity) as GameObject;
+        // Vector3 _impactPoint = global::OpponentLowKick._playerImpactPoint;
+        //
+        // var hs = Instantiate(_hitSparks, new Vector3(
+        //     _impactPoint.x,
+        //     _impactPoint.y,
+        //     _impactPoint.z + -.2f),
+        //     Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
     }
@@ -384,6 +407,22 @@ public class PlayerOneMovement : MonoBehaviour
     #endregion
 
     #region NonSorted2
+
+    private void PlayerDefeated()
+    {
+        Debug.Log(nameof(PlayerDefeated));
+
+        // _playerOneMoveDirection = 
+        //
+        // OpponentGravityIdle();
+        //
+        // if (_opponentAnimator.IsPlaying(_opponentDefeatedFinalHitAnim.name))
+        // {
+        //     return;
+        // }
+        //
+        // StopCoroutine(OpponentFSM());
+    }
     
     private void WaitForHitAnimations()
     {
