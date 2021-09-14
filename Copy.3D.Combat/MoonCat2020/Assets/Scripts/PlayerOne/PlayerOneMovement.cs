@@ -78,7 +78,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private CollisionFlags _collisionFlags;
 
-    private PlayerOneStates _playerOneStates;
+    public static PlayerOneStates _playerOneStates;
 
     void Start()
     {
@@ -333,13 +333,13 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
-        // Vector3 _impactPoint = global::OpponentRightPunch._playerImpactPoint;
-        //
-        // var hs = Instantiate(_hitSparks, new Vector3(
-        //         _impactPoint.x,
-        //         _impactPoint.y,
-        //         _impactPoint.z + -.2f),
-        //     Quaternion.identity) as GameObject;
+        Vector3 _impactPoint = global::OpponentRightPunch._playerImpactPoint;
+        
+        var hs = Instantiate(_hitSparks, new Vector3(
+                _impactPoint.x,
+                _impactPoint.y,
+                _impactPoint.z + -.2f),
+            Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
 
@@ -353,13 +353,13 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
-        // Vector3 _impactPoint = global::OpponentLeftPunch._playerImpactPoint;
-        //
-        // var hs = Instantiate(_hitSparks, new Vector3(
-        //         _impactPoint.x,
-        //         _impactPoint.y,
-        //         _impactPoint.z + -.2f),
-        //     Quaternion.identity) as GameObject;
+        Vector3 _impactPoint = global::OpponentLeftPunch._playerImpactPoint;
+        
+        var hs = Instantiate(_hitSparks, new Vector3(
+                _impactPoint.x,
+                _impactPoint.y,
+                _impactPoint.z + -.2f),
+            Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
 
@@ -373,13 +373,13 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
 
-        // Vector3 _impactPoint = global::OpponentHighKick._playerImpactPoint;
-        //
-        // var hs = Instantiate(_hitSparks, new Vector3(
-        //         _impactPoint.x,
-        //         _impactPoint.y,
-        //         _impactPoint.z + -.2f),
-        //     Quaternion.identity) as GameObject;
+        Vector3 _impactPoint = global::OpponentHighKick._playerImpactPoint;
+        
+        var hs = Instantiate(_hitSparks, new Vector3(
+                _impactPoint.x,
+                _impactPoint.y,
+                _impactPoint.z + -.2f),
+            Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
 
@@ -393,13 +393,13 @@ public class PlayerOneMovement : MonoBehaviour
         
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
 
-        // Vector3 _impactPoint = global::OpponentLowKick._playerImpactPoint;
-        //
-        // var hs = Instantiate(_hitSparks, new Vector3(
-        //     _impactPoint.x,
-        //     _impactPoint.y,
-        //     _impactPoint.z + -.2f),
-        //     Quaternion.identity) as GameObject;
+        Vector3 _impactPoint = global::OpponentLowKick._playerImpactPoint;
+        
+        var hs = Instantiate(_hitSparks, new Vector3(
+            _impactPoint.x,
+            _impactPoint.y,
+            _impactPoint.z + -.2f),
+            Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
     }
@@ -412,18 +412,25 @@ public class PlayerOneMovement : MonoBehaviour
     {
         Debug.Log(nameof(PlayerDefeated));
 
-        // _playerOneMoveDirection = 
-        //
-        // OpponentGravityIdle();
-        //
-        // if (_opponentAnimator.IsPlaying(_opponentDefeatedFinalHitAnim.name))
-        // {
-        //     return;
-        // }
-        //
-        // StopCoroutine(OpponentFSM());
+        _playerOneMoveDirection = new Vector3(0, _playersSpeedYAxis, 0);
+        
+        PlayerGravityIdle();
+        
+        if (_playerOneAnimator.IsPlaying(_playerDefeatedFinalHitAnim.name))
+        {
+            return;
+        }
+        
+        StopCoroutine(PlayerOneFSM());
     }
-    
+
+    private void PlayerGravityIdle()
+    {
+        _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
+
+        _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
+    }
+
     private void WaitForHitAnimations()
     {
         Debug.Log(nameof(WaitForHitAnimations));
