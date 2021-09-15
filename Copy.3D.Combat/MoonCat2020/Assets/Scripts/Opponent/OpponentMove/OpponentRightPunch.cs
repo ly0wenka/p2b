@@ -11,7 +11,7 @@ public class OpponentRightPunch : MonoBehaviour
 
     private Collider _headHitCollider;
 
-    private bool _returnIfOpponentIsHighKicking;
+    private bool _returnIfOpponentIsRightPunch;
     void Start()
     {
         _playerImpactPoint = Vector3.zero;
@@ -22,9 +22,9 @@ public class OpponentRightPunch : MonoBehaviour
 
     void Update()
     {
-        _returnIfOpponentIsHighKicking = PlayerOneMovement._playerIsKickingHigh;
+        _returnIfOpponentIsRightPunch = PlayerOneMovement._playerIsKickingHigh;
 
-        _headHitCollider.enabled = _returnIfOpponentIsHighKicking;
+        _headHitCollider.enabled = _returnIfOpponentIsRightPunch;
     }
     
     private void OnTriggerStay(Collider _playerOneHeadKick)

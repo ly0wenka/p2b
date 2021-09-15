@@ -11,7 +11,7 @@ public class OpponentLowKick : MonoBehaviour
 
     private Collider _headHitCollider;
 
-    private bool _returnIfOpponentIsHighKicking;
+    private bool _returnIfOpponentIsLowKick;
 
     void Start()
     {
