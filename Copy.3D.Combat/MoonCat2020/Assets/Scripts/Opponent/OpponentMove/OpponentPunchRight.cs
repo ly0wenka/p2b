@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentRightPunch : MonoBehaviour
+public class OpponentPunchRight : MonoBehaviour
 {
-    public static Vector3 _playerImpactPoint;
+    public static Vector3 _playerOneImpactPoint;
     
     public float _nextHighKickIsAllowed = -1.0f;
     public float _attackDelay = 1.0f;
@@ -14,7 +14,7 @@ public class OpponentRightPunch : MonoBehaviour
     private bool _returnIfOpponentIsRightPunch;
     void Start()
     {
-        _playerImpactPoint = Vector3.zero;
+        _playerOneImpactPoint = Vector3.zero;
 
         _headHitCollider = GetComponent<Collider>();
         _headHitCollider.enabled = false;
@@ -38,7 +38,7 @@ public class OpponentRightPunch : MonoBehaviour
 
         _playerOneHeadKick.ClosestPointOnBounds(transform.position);
 
-        _playerImpactPoint = _playerOneHeadKick.transform.position;
+        _playerOneImpactPoint = _playerOneHeadKick.transform.position;
     }
 
     private void HeadKick()

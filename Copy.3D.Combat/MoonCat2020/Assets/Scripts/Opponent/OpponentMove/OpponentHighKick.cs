@@ -32,18 +32,11 @@ public class OpponentHighKick : MonoBehaviour
     {
         if (_playerOneHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextHighKickIsAllowed)
         {
-            HeadKick();
-            
             _nextHighKickIsAllowed = Time.time + _attackDelay;
         }
 
         _playerOneHeadKick.ClosestPointOnBounds(transform.position);
 
         _playerImpactPoint = _playerOneHeadKick.transform.position;
-    }
-
-    private void HeadKick()
-    {
-        PlayerOneMovement._playerOneStates = PlayerOneStates.PlayerHitByHighKick;
     }
 }

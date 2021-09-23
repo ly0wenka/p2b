@@ -1,25 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OpponentLowKick : MonoBehaviour
 {
-    public static Vector3 _playerImpactPoint;
+    public static Vector3 _playerOneImpactPoint;
     
-    public float _nextHighKickIsAllowed = -1.0f;
+    [FormerlySerializedAs("_nextHighKickIsAllowed")] public float _nextLowKickIsAllowed = -1.0f;
     public float _attackDelay = 1.0f;
 
-    private Collider _headHitCollider;
+    private Collider _bodyHitCollider;
 
     private bool _returnIfOpponentIsLowKick;
 
     void Start()
     {
-        
+        _playerOneImpactPoint = Vector3.zero;
+
+        _bodyHitCollider = GetComponent<Collider>();
+        _bodyHitCollider.enabled = false;
     }
 
     void Update()
     {
         
+    }
+
+    private void OnTriggerStay(Collider _opponentBodyHit)
+    {
+        if (_opponentBodyHit.CompareTag("BodyHit")
+            && Time.time >= _nextLowKickIsAllowed)
+        {
+            _nextLowKickIsAllowed = Time.time + _attackDelay;
+        }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentLeftPunch : MonoBehaviour
+public class OpponentPunchLeft : MonoBehaviour
 {
     public static Vector3 _playerImpactPoint;
     

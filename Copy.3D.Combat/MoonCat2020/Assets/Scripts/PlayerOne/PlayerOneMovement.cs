@@ -333,7 +333,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
-        Vector3 _impactPoint = global::OpponentRightPunch._playerImpactPoint;
+        Vector3 _impactPoint = global::OpponentPunchRight._playerOneImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
                 _impactPoint.x,
@@ -353,7 +353,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
-        Vector3 _impactPoint = global::OpponentLeftPunch._playerImpactPoint;
+        Vector3 _impactPoint = global::OpponentPunchLeft._playerImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
                 _impactPoint.x,
@@ -393,7 +393,7 @@ public class PlayerOneMovement : MonoBehaviour
         
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
 
-        Vector3 _impactPoint = global::OpponentLowKick._playerImpactPoint;
+        Vector3 _impactPoint = global::OpponentLowKick._playerOneImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
             _impactPoint.x,
