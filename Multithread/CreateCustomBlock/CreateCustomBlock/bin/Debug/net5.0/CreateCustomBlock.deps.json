@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "CreateCustomBlock/1.0.0": {
+        "runtime": {
+          "CreateCustomBlock.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CreateCustomBlock/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

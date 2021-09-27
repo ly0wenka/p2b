@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aySZA2ot4mEduhdWbLS9Mte/E2CcZPRTDI6k+Xt9j7u7x8otEJo9+0IGeSFHfgISYFc29FL1lbrdSDxVVJ3+4g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\L\\Documents\\p2b\\Multithread\\MultithreadEventPattern\\MultithreadEventPattern\\MultithreadEventPattern.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\L\\.nuget\\packages\\system.reactive\\5.0.0\\system.reactive.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

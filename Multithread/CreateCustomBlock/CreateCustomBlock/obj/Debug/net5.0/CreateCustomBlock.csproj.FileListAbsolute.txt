@@ -1,0 +1,16 @@
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\CreateCustomBlock.exe
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\CreateCustomBlock.deps.json
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\CreateCustomBlock.runtimeconfig.json
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\CreateCustomBlock.runtimeconfig.dev.json
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\CreateCustomBlock.dll
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\ref\CreateCustomBlock.dll
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\bin\Debug\net5.0\CreateCustomBlock.pdb
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.csprojAssemblyReference.cache
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.AssemblyInfoInputs.cache
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.AssemblyInfo.cs
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.csproj.CoreCompileInputs.cache
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.dll
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\ref\CreateCustomBlock.dll
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.pdb
+C:\Users\L\Documents\p2b\Multithread\CreateCustomBlock\CreateCustomBlock\obj\Debug\net5.0\CreateCustomBlock.genruntimeconfig.cache
