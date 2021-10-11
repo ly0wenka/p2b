@@ -8,7 +8,7 @@ public class OpponentLowKick : MonoBehaviour
 {
     public static Vector3 _playerOneImpactPoint;
     
-    [FormerlySerializedAs("_nextHighKickIsAllowed")] public float _nextLowKickIsAllowed = -1.0f;
+    public float _nextLowKickIsAllowed = -1.0f;
     public float _attackDelay = 1.0f;
 
     private Collider _bodyHitCollider;
@@ -28,9 +28,9 @@ public class OpponentLowKick : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider _opponentBodyHit)
+    private void OnTriggerStay(Collider _playerOneBodyHit)
     {
-        if (_opponentBodyHit.CompareTag("BodyHit")
+        if (_playerOneBodyHit.CompareTag("BodyHit")
             && Time.time >= _nextLowKickIsAllowed)
         {
             _nextLowKickIsAllowed = Time.time + _attackDelay;

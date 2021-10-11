@@ -353,7 +353,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
-        Vector3 _impactPoint = global::OpponentPunchLeft._playerImpactPoint;
+        Vector3 _impactPoint = global::OpponentPunchLeft._playerOneImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
                 _impactPoint.x,

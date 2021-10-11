@@ -6,7 +6,7 @@ public class OpponentPunchRight : MonoBehaviour
 {
     public static Vector3 _playerOneImpactPoint;
     
-    public float _nextHighKickIsAllowed = -1.0f;
+    public float _nextRightPunchIsAllowed = -1.0f;
     public float _attackDelay = 1.0f;
 
     private Collider _headHitCollider;
@@ -29,11 +29,11 @@ public class OpponentPunchRight : MonoBehaviour
     
     private void OnTriggerStay(Collider _playerOneHeadKick)
     {
-        if (_playerOneHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextHighKickIsAllowed)
+        if (_playerOneHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextRightPunchIsAllowed)
         {
             HeadKick();
             
-            _nextHighKickIsAllowed = Time.time + _attackDelay;
+            _nextRightPunchIsAllowed = Time.time + _attackDelay;
         }
 
         _playerOneHeadKick.ClosestPointOnBounds(transform.position);
