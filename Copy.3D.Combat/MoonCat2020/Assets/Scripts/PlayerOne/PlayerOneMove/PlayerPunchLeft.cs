@@ -14,6 +14,8 @@ public class PlayerPunchLeft : MonoBehaviour
     private Collider _headHitCollider;
 
     private bool _returnIfPlayerIsPunchingLeft;
+
+    private int _leftPunchDamageValue;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,8 @@ public class PlayerPunchLeft : MonoBehaviour
 
         _headHitCollider = GetComponent<Collider>();
         _headHitCollider.enabled = false;
+
+        LeftPunchDamageSetup();
     }
 
     // Update is called once per frame
@@ -48,5 +52,15 @@ public class PlayerPunchLeft : MonoBehaviour
     private void HeadStruck()
     {
         OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLeftPunch;
+    }
+
+    private void LeftPunchDamageSetup()
+    {
+        Debug.Log(nameof(LeftPunchDamageSetup));
+
+        if (ChooseCharacterManager._robotBlack)
+        {
+            _leftPunchDamageValue = BlackRobotStats._leftPunchDamage;
+        }
     }
 }

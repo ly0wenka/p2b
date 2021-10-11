@@ -11,39 +11,101 @@ public class PlayerOneHealth : MonoBehaviour
     private bool _isPlayerDefeated;
     
     #region events
-
+    
     public delegate void OpponentDamageHandler(int damageDealtToOpponent);
     public event OpponentDamageHandler OnDecreaseCurrentOpponentHealth;
+    
+    public delegate void PlayerOneHealthDepletedCheckHandler();
+    public event PlayerOneHealthDepletedCheckHandler OnPlayerOneHealthDepletedCheck;
 
-    private void OnEnable() => OnDecreaseCurrentOpponentHealth += DecreaseCurrentOpponentHealth;
+    private void OnEnable()
+    {
+        OnDecreaseCurrentOpponentHealth += DecreaseCurrentOpponentHealth;
+        OnPlayerOneHealthDepletedCheck += PlayerOneHealthDepletedCheck;
+    }
 
-    private void OnDisable() => OnDecreaseCurrentOpponentHealth -= DecreaseCurrentOpponentHealth;
+    private void OnDisable()
+    {
+        OnDecreaseCurrentOpponentHealth -= DecreaseCurrentOpponentHealth;
+        OnPlayerOneHealthDepletedCheck -= PlayerOneHealthDepletedCheck;
+    }
 
     #endregion
-    // Start is called before the first frame update
+    
     void Start()
     {
         _currentPlayerHealth = _maximumPlayerHealth;
 
         _isPlayerDefeated = false;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void PlayerOneLowKickDamage(int damageDealtToOpponent)
     {
-        
-    }
-
-    public void PlayerDamage(int damageDealtToPlayer)
-    {
-        Debug.Log(nameof(PlayerDamage));
+        Debug.Log(nameof(PlayerOneLowKickDamage));
         
         if (_isPlayerDefeated)
         {
             return;
         }
 
-        OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToPlayer);
+        OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToOpponent);
+
+        SendMessageUpwards("PlayerHitByLowKick", SendMessageOptions.DontRequireReceiver);
+        
+        OnPlayerOneHealthDepletedCheck?.Invoke();
+    }
+
+    public void PlayerOneHighKickDamage(int damageDealtToOpponent)
+    {
+        Debug.Log(nameof(PlayerOneHighKickDamage));
+        
+        if (_isPlayerDefeated)
+        {
+            return;
+        }
+
+        OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToOpponent);
+
+        SendMessageUpwards("PlayerHitByHighKick", SendMessageOptions.DontRequireReceiver);
+        
+        OnPlayerOneHealthDepletedCheck?.Invoke();
+    }
+
+    public void PlayerOneLeftPunchDamage(int damageDealtToOpponent)
+    {
+        Debug.Log(nameof(PlayerOneLeftPunchDamage));
+        
+        if (_isPlayerDefeated)
+        {
+            return;
+        }
+
+        OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToOpponent);
+
+        SendMessageUpwards("PlayerHitByLeftPunch", SendMessageOptions.DontRequireReceiver);
+
+        OnPlayerOneHealthDepletedCheck?.Invoke();
+    }
+
+    public void PlayerOneRightPunchDamage(int damageDealtToOpponent)
+    {
+        Debug.Log(nameof(PlayerOneLeftPunchDamage));
+        
+        if (_isPlayerDefeated)
+        {
+            return;
+        }
+
+        OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToOpponent);
+        
+        SendMessageUpwards("PlayerHitByRightPunch", SendMessageOptions.DontRequireReceiver);
+
+        OnPlayerOneHealthDepletedCheck?.Invoke();
+    }
+
+    private void PlayerOneHealthDepletedCheck()
+    {
+        Debug.Log(nameof(PlayerOneHealthDepletedCheck));
 
         if (_currentPlayerHealth < _minimumPlayerHealth)
         {
@@ -54,11 +116,11 @@ public class PlayerOneHealth : MonoBehaviour
         {
             _isPlayerDefeated = true;
             
-            SendMessage("SetPlayerDefeated", SendMessageOptions.DontRequireReceiver);
+            SendMessageUpwards("SetPlayerDefeated", SendMessageOptions.DontRequireReceiver);
         }
     }
 
-    protected virtual void DecreaseCurrentOpponentHealth(int damageDealtToPlayer)
+    private void DecreaseCurrentOpponentHealth(int damageDealtToPlayer)
     {
         _currentPlayerHealth -= damageDealtToPlayer;
     }

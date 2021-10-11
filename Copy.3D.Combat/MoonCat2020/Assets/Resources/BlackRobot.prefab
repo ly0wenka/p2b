@@ -1112,6 +1112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd89a74a9f52b684eaa1ad6da3811d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationSpeed: 5
   _playerWalkSpeed: 1
   _playerRetreatSpeed: 0.75
   _playerJumpHeight: 5
@@ -1130,6 +1131,12 @@ MonoBehaviour:
   - {fileID: -203655887218126122, guid: f732734e0d701384cb8178979846c486, type: 3}
   - {fileID: -203655887218126122, guid: e25d668e1b93c2f4897b80885d4823d5, type: 3}
   - {fileID: -203655887218126122, guid: 3985b4319b684a747a6359028730f84e, type: 3}
+  _playerHitBodyAnim: {fileID: 0}
+  _playerHitHeadAnim: {fileID: 0}
+  _playerDefeatedFinalHitAnim: {fileID: 0}
+  _playerHeadHitAudio: {fileID: 0}
+  _playerBodyHitAudio: {fileID: 0}
+  _hitSparks: {fileID: 0}
   _controllerDeadZonePos: 0.1
   _controllerDeadZoneNeg: -0.1
   _playersGravity: 20
@@ -1159,14 +1166,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41e8f7ada30e7944b8f37c3055a9aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _positionDifferenceModifier: 2
+  _rotationSpeed: 5
+  _opponentWalkSpeed: 1
   _opponentIdleAnim: {fileID: -203655887218126122, guid: 0ec2865a125959449b64d5b0055bdc31, type: 3}
   _opponentHitBodyAnim: {fileID: -203655887218126122, guid: a8e82d27d9a29ae498c2c3c4f075d4c3, type: 3}
   _opponentHitHeadAnim: {fileID: -203655887218126122, guid: a8e82d27d9a29ae498c2c3c4f075d4c3, type: 3}
   _opponentDefeatedFinalHitAnim: {fileID: -203655887218126122, guid: b6c5fadc2dd52634193376473ff7870f, type: 3}
+  _opponentWalkAnim: {fileID: 0}
+  _opponentJumpAnim: {fileID: 0}
+  _opponentPunchLeftAnim: {fileID: 0}
+  _opponentPunchRightAnim: {fileID: 0}
+  _opponentKickHighAnim: {fileID: 0}
+  _opponentKickLowAnim: {fileID: 0}
   _opponentHeadHitAudio: {fileID: 0}
   _opponentBodyHitAudio: {fileID: 0}
   _hitSparks: {fileID: 100006, guid: 78de02e4f0c761d4ab61a4fcaa4fa80a, type: 3}
+  _opponentJumpHeight: 0.5
+  _opponentJumpSpeed: 1
+  _opponentJumpHorizontal: 1
+  _tippingPointDecideValue: 0
   _assessingTime: 3
+  _punchKickPivotValue: 0
+  _chooseAttackDistanceModifier: 0.75
+  _leftPunchRangeMin: 0
+  _leftPunchRangeMax: 0
+  _rightPunchRangeMin: 0
+  _rightPunchRangeMax: 0
+  _lowKickRangeMin: 0
+  _lowKickRangeMax: 0
+  _highKickRangeMin: 0
+  _highKickRangeMax: 0
   _temp: 0
 --- !u!114 &802877583335022935
 MonoBehaviour:
