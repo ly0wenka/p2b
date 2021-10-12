@@ -9,9 +9,11 @@ TagManager:
   - BackgroundManager
   - OpponentManager
   - ControllerManager
-  - HeadHit
-  - BodyHit
   - EnemyTest
+  - PlayerHeadHit
+  - PlayerBodyHit
+  - OpponentHeadHit
+  - OpponentBodyHit
   layers:
   - Default
   - TransparentFX

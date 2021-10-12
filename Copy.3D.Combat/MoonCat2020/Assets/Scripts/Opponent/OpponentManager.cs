@@ -20,6 +20,11 @@ public class OpponentManager : GameManager
     private bool _returnRobotPink;
     private bool _returnRobotGold;
 
+    private GameObject _playerHeadHit;
+    private GameObject _playerBodyHit;
+    private GameObject _opponentHeadHit;
+    private GameObject _opponentBodyHit;
+
     public int _opponentCounter;
 
     public string[] _opponentOrder = new[]
@@ -121,11 +126,10 @@ public class OpponentManager : GameManager
         OpponentAI._opponent = _currentOpponent;
         PlayerOneMovement._opponent = _currentOpponent;
 
-        _currentOpponent.GetComponent<PlayerOneMovement>().enabled = false;
-        _currentOpponent.GetComponent<PlayerOneHealth>().enabled = false;
-        
-        _currentOpponent.GetComponent<OpponentAI>().enabled = true;
-        _currentOpponent.GetComponent<OpponentHealth>().enabled = true;
+        SetPlayerScriptsToInactive();
+        SetOpponentScriptsToActive();
+        SetPlayerGameObjectsToInactive();
+        SetPlayerGameObjectsToActive();
     }
 
     private bool TryInstantiateAltOpponent(string selectedOpponent, string pathResource, string altPathResource, bool isReturnOpponent)
@@ -142,5 +146,41 @@ public class OpponentManager : GameManager
         }
 
         return false;
+    }
+
+    private void SetPlayerScriptsToInactive()
+    {
+        _currentOpponent.GetComponent<PlayerOneMovement>().enabled = false;
+        _currentOpponent.GetComponent<PlayerOneHealth>().enabled = false;
+        _currentOpponent.GetComponentInChildren<PlayerHighKick>().enabled = false;
+        _currentOpponent.GetComponentInChildren<PlayerLowKick>().enabled = false;
+        _currentOpponent.GetComponentInChildren<PlayerPunchLeft>().enabled = false;
+        _currentOpponent.GetComponentInChildren<PlayerPunchRight>().enabled = false;
+    }
+
+    private void SetOpponentScriptsToActive()
+    {
+        _currentOpponent.GetComponent<OpponentAI>().enabled = true;
+        _currentOpponent.GetComponent<OpponentHealth>().enabled = true;
+        _currentOpponent.GetComponentInChildren<OpponentHighKick>().enabled = true;
+        _currentOpponent.GetComponentInChildren<OpponentLowKick>().enabled = true;
+        _currentOpponent.GetComponentInChildren<OpponentPunchLeft>().enabled = true;
+        _currentOpponent.GetComponentInChildren<OpponentPunchRight>().enabled = true;
+    }
+
+    private void SetPlayerGameObjectsToInactive()
+    {
+        _playerHeadHit = _currentOpponent.transform.Find("PlayerHeadHit").gameObject;
+        _playerBodyHit = _currentOpponent.transform.Find("PlayerBodyHit").gameObject;
+        _playerHeadHit.SetActive(false);
+        _playerBodyHit.SetActive(false);
+    }
+
+    private void SetPlayerGameObjectsToActive()
+    {
+        _opponentHeadHit = _currentOpponent.transform.Find("OpponentHeadHit").gameObject;
+        _opponentBodyHit = _currentOpponent.transform.Find("OpponentBodyHit").gameObject;
+        _opponentHeadHit.SetActive(true);
+        _opponentBodyHit.SetActive(true);
     }
 }

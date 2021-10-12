@@ -95,9 +95,9 @@ public class OpponentHealth : MonoBehaviour
         OnPlayerOneHealthDepletedCheck?.Invoke();
     }
 
-    public void OpponentHighPunchDamage(int damageDealtToOpponent)
+    public void OpponentRightPunchDamage(int damageDealtToOpponent)
     {
-        Debug.Log(nameof(OpponentHighPunchDamage));
+        Debug.Log(nameof(OpponentRightPunchDamage));
         
         if (_isOpponentDefeated)
         {
@@ -106,15 +106,15 @@ public class OpponentHealth : MonoBehaviour
 
         OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToOpponent);
         
-        SendMessageUpwards("OpponentHitByHighPunch",
+        SendMessageUpwards("OpponentHitByRightPunch",
             SendMessageOptions.DontRequireReceiver);
         
         OnPlayerOneHealthDepletedCheck?.Invoke();
     }
 
-    public void OpponentLowPunchDamage(int damageDealtToOpponent)
+    public void OpponentLeftPunchDamage(int damageDealtToOpponent)
     {
-        Debug.Log(nameof(OpponentHighPunchDamage));
+        Debug.Log(nameof(OpponentLeftPunchDamage));
         
         if (_isOpponentDefeated)
         {
@@ -123,7 +123,7 @@ public class OpponentHealth : MonoBehaviour
 
         OnDecreaseCurrentOpponentHealth?.Invoke(damageDealtToOpponent);
         
-        SendMessageUpwards("OpponentHitByLowPunch",
+        SendMessageUpwards("OpponentHitByLeftPunch",
             SendMessageOptions.DontRequireReceiver);
         
         OnPlayerOneHealthDepletedCheck?.Invoke();

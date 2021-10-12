@@ -15,6 +15,11 @@ public class OnePlayerManager : GameManager
     private bool _returnRobotPink;
     private bool _returnRobotGold;
 
+    private GameObject _playerHeadHit;
+    private GameObject _playerBodyHit;
+    private GameObject _opponentHeadHit;
+    private GameObject _opponentBodyHit;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -98,16 +103,51 @@ public class OnePlayerManager : GameManager
         OpponentAI._playerOne = _playerOneCharacter;
         PlayerOneMovement._playerOne = _playerOneCharacter;
         
+        SetPlayerScriptsToActive();
+        SetOpponentScriptsToInactive();
+        SetPlayerGameObjectsToActive();
+        SetPlayerGameObjectsToInactive();
+    }
+
+    private void SetPlayerScriptsToActive()
+    {
         _playerOneCharacter.GetComponent<PlayerOneMovement>().enabled = true;
         _playerOneCharacter.GetComponent<PlayerOneHealth>().enabled = true;
-        
+        _playerOneCharacter.GetComponentInChildren<PlayerHighKick>().enabled = true;
+        _playerOneCharacter.GetComponentInChildren<PlayerLowKick>().enabled = true;
+        _playerOneCharacter.GetComponentInChildren<PlayerPunchLeft>().enabled = true;
+        _playerOneCharacter.GetComponentInChildren<PlayerPunchRight>().enabled = true;
+    }
+
+    private void SetOpponentScriptsToInactive()
+    {
         _playerOneCharacter.GetComponent<OpponentAI>().enabled = false;
         _playerOneCharacter.GetComponent<OpponentHealth>().enabled = false;
+        _playerOneCharacter.GetComponentInChildren<OpponentHighKick>().enabled = false;
+        _playerOneCharacter.GetComponentInChildren<OpponentLowKick>().enabled = false;
+        _playerOneCharacter.GetComponentInChildren<OpponentPunchLeft>().enabled = false;
+        _playerOneCharacter.GetComponentInChildren<OpponentPunchRight>().enabled = false;
     }
 
     private void SetPlayerOneCharacterTransform()
     {
         _playerOneCharacter.transform.position = _playerStartingPosition;
         _playerOneCharacter.transform.eulerAngles = _playerStartingRotation;
+    }
+
+    private void SetPlayerGameObjectsToActive()
+    {
+        _playerHeadHit = _playerOneCharacter.transform.Find("PlayerHeadHit").gameObject;
+        _playerBodyHit = _playerOneCharacter.transform.Find("PlayerBodyHit").gameObject;
+        _playerHeadHit.SetActive(true);
+        _playerBodyHit.SetActive(true);
+    }
+
+    private void SetPlayerGameObjectsToInactive()
+    {
+        _opponentHeadHit = _playerOneCharacter.transform.Find("OpponentHeadHit").gameObject;
+        _opponentBodyHit = _playerOneCharacter.transform.Find("OpponentBodyHit").gameObject;
+        _opponentHeadHit.SetActive(false);
+        _opponentBodyHit.SetActive(false);
     }
 }

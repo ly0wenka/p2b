@@ -52,6 +52,48 @@ public class PlayerPunchLeft : MonoBehaviour
     private void HeadStruck()
     {
         OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLeftPunch;
+
+        OpponentHealth _tempDamage = FightCamera._opponent.GetComponent<OpponentHealth>();
+
+        if (ChooseCharacterManager._robotBlack)
+        {
+            _tempDamage.OpponentRightPunchDamage(BlackRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotBlue)
+        {
+            _tempDamage.OpponentRightPunchDamage(BlueRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotBrown)
+        {
+            _tempDamage.OpponentRightPunchDamage(BrownRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotGold)
+        {
+            _tempDamage.OpponentRightPunchDamage(GoldRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotGreen)
+        {
+            _tempDamage.OpponentRightPunchDamage(GreenRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotPink)
+        {
+            _tempDamage.OpponentRightPunchDamage(PinkRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotRed)
+        {
+            _tempDamage.OpponentRightPunchDamage(RedRobotStats._leftPunchDamage);
+        }
+
+        if (ChooseCharacterManager._robotWhite)
+        {
+            _tempDamage.OpponentRightPunchDamage(WhiteRobotStats._leftPunchDamage);
+        }
     }
 
     private void LeftPunchDamageSetup()

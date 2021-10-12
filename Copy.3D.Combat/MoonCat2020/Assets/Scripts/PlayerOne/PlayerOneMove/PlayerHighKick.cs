@@ -48,5 +48,47 @@ public class PlayerHighKick : MonoBehaviour
     private void HeadKick()
     {
         OpponentAI._opponentAIState = OpponentAIState.OpponentHitByHighKick;
+
+        OpponentHealth _tempDamage = FightCamera._opponent.GetComponent<OpponentHealth>();
+
+        if (ChooseCharacterManager._robotBlack)
+        {
+            _tempDamage.OpponentRightPunchDamage(BlackRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotBlue)
+        {
+            _tempDamage.OpponentRightPunchDamage(BlueRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotBrown)
+        {
+            _tempDamage.OpponentRightPunchDamage(BrownRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotGold)
+        {
+            _tempDamage.OpponentRightPunchDamage(GoldRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotGreen)
+        {
+            _tempDamage.OpponentRightPunchDamage(GreenRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotPink)
+        {
+            _tempDamage.OpponentRightPunchDamage(PinkRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotRed)
+        {
+            _tempDamage.OpponentRightPunchDamage(RedRobotStats._highKickDamage);
+        }
+
+        if (ChooseCharacterManager._robotWhite)
+        {
+            _tempDamage.OpponentRightPunchDamage(WhiteRobotStats._highKickDamage);
+        }
     }
 }
