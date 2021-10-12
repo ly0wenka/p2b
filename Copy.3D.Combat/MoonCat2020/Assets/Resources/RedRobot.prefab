@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: -2670937573292810865}
   - component: {fileID: 8074194795739046202}
   - component: {fileID: -2245944447098438289}
+  - component: {fileID: -6434532355754215980}
   m_Layer: 0
   m_Name: RedRobot
   m_TagString: Untagged
@@ -545,6 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd89a74a9f52b684eaa1ad6da3811d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationSpeed: 5
   _playerWalkSpeed: 1
   _playerRetreatSpeed: 0.75
   _playerJumpHeight: 5
@@ -555,6 +557,12 @@ MonoBehaviour:
   _playerOneJumpAnim: {fileID: 0}
   _playerOneDemoAnim: {fileID: 0}
   _playerAttackAnim: []
+  _playerHitBodyAnim: {fileID: 0}
+  _playerHitHeadAnim: {fileID: 0}
+  _playerDefeatedFinalHitAnim: {fileID: 0}
+  _playerHeadHitAudio: {fileID: 0}
+  _playerBodyHitAudio: {fileID: 0}
+  _hitSparks: {fileID: 0}
   _controllerDeadZonePos: 0.1
   _controllerDeadZoneNeg: -0.1
   _playersGravity: 20
@@ -574,6 +582,50 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &-6434532355754215980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949726893266749326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cfb435b6464ac34ca868c34c03ad339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blackRobotLeftPunchDamage: 5
+  _blackRobotRightPunchDamage: 7
+  _blackRobotLowKickDamage: 3
+  _blackRobotHighKickDamage: 9
+  _blueRobotLeftPunchDamage: 5
+  _blueRobotRightPunchDamage: 7
+  _blueRobotLowKickDamage: 3
+  _blueRobotHighKickDamage: 9
+  _brownRobotLeftPunchDamage: 5
+  _brownRobotRightPunchDamage: 7
+  _brownRobotLowKickDamage: 3
+  _brownRobotHighKickDamage: 9
+  _goldRobotLeftPunchDamage: 5
+  _goldRobotRightPunchDamage: 7
+  _goldRobotLowKickDamage: 3
+  _goldRobotHighKickDamage: 9
+  _greenRobotLeftPunchDamage: 5
+  _greenRobotRightPunchDamage: 7
+  _greenRobotLowKickDamage: 3
+  _greenRobotHighKickDamage: 9
+  _pinkRobotLeftPunchDamage: 5
+  _pinkRobotRightPunchDamage: 7
+  _pinkRobotLowKickDamage: 3
+  _pinkRobotHighKickDamage: 9
+  _redRobotLeftPunchDamage: 5
+  _redRobotRightPunchDamage: 7
+  _redRobotLowKickDamage: 3
+  _redRobotHighKickDamage: 9
+  _whiteRobotLeftPunchDamage: 5
+  _whiteRobotRightPunchDamage: 7
+  _whiteRobotLowKickDamage: 3
+  _whiteRobotHighKickDamage: 9
 --- !u!1 &2244422094947996233
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,23 @@ public class GreenRobotStats : Stats
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown("space"))
+        {
+            RefreshStats();
+        }
+
+        Debug.Log(_leftPunchDamage);
+#endif
+    }
+
+    private void RefreshStats()
+    {
+        Debug.Log(nameof(RefreshStats));
         
+        _leftPunchDamage = _greenRobotLeftPunchDamage;
+        _rightPunchDamage = _greenRobotRightPunchDamage;
+        _lowKickDamage = _greenRobotLowKickDamage;
+        _highKickDamage = _greenRobotHighKickDamage;
     }
 }

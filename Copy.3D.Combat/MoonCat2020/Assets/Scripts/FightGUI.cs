@@ -19,12 +19,12 @@ public class FightGUI : MonoBehaviour
 
     public Texture2D _healthBarMinTexture;
     public Texture2D _healthBarMaxTexture;
+    public Texture2D _healthBarOutlineTexture;
 
     public float _fightGUIHeightPos;
-
     private float _fightGUIOffSet;
-
-
+    private float _fightGUIPosModifier;
+    
     private GUIStyle _fightGUISkin;
 
     // Start is called before the first frame update
@@ -82,18 +82,56 @@ public class FightGUI : MonoBehaviour
                 "0" + _returnedCurrentTimerValue.ToString(), _fightGUISkin);
         }
 
+        DrawPlayerHealth();
+        DrawOpponentHealth();
+    }
+
+    private void DrawPlayerHealth()
+    {
+        GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
+
+        GUI.DrawTexture(new Rect(
+                _fightGUIOffSet, _fightGUIOffSet / 2,
+                _healthBarSize.x, _healthBarSize.y),
+            _healthBarMinTexture);
+
+        GUI.DrawTexture(new Rect(
+                _fightGUIOffSet, _fightGUIOffSet / 2,
+                _healthBarSize.x * _playerHealthBarLength, _healthBarSize.y),
+            _healthBarMaxTexture);
+
+        GUI.DrawTexture(new Rect(
+                _fightGUIOffSet - _fightGUIPosModifier / 2, 
+                _fightGUIOffSet / 2 - _fightGUIPosModifier / 2,
+                _healthBarSize.x + _fightGUIPosModifier,
+                _healthBarSize.y + _fightGUIPosModifier),
+            _healthBarOutlineTexture);
+
+        GUI.EndGroup();
+    }
+
+    private void DrawOpponentHealth()
+    {
         GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
 
         GUI.DrawTexture(new Rect(
                 Screen.width - (_fightGUIOffSet + _healthBarSize.x),
                 _fightGUIOffSet / 2,
-                _healthBarSize.x * _playerHealthBarLength, _healthBarSize.y),
+                _healthBarSize.x, _healthBarSize.y),
             _healthBarMinTexture);
 
         GUI.DrawTexture(new Rect(
                 Screen.width - (_fightGUIOffSet + _healthBarSize.x),
                 _fightGUIOffSet / 2,
-                _healthBarSize.x * _opponentHealthBarLength, _healthBarSize.y),
+                _healthBarSize.x + _opponentHealthBarLength, _healthBarSize.y),
+            _healthBarMaxTexture);
+
+        GUI.DrawTexture(new Rect(
+                Screen.width - (
+                    _fightGUIOffSet + _healthBarSize.x + _fightGUIPosModifier / 2),
+                _fightGUIOffSet / 2 - _fightGUIPosModifier / 2,
+                _healthBarSize.x + _fightGUIPosModifier, 
+                _healthBarSize.y + _fightGUIPosModifier),
             _healthBarMinTexture);
 
         GUI.EndGroup();

@@ -1024,6 +1024,7 @@ GameObject:
   - component: {fileID: 802877583335022935}
   - component: {fileID: 1893217979407432256}
   - component: {fileID: 1173932810335587561}
+  - component: {fileID: 5159221966393161800}
   m_Layer: 0
   m_Name: BlackRobot
   m_TagString: Untagged
@@ -1320,6 +1321,50 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &5159221966393161800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622610877394542054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88741af8f93757548939920d6097ca02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blackRobotLeftPunchDamage: 5
+  _blackRobotRightPunchDamage: 7
+  _blackRobotLowKickDamage: 3
+  _blackRobotHighKickDamage: 9
+  _blueRobotLeftPunchDamage: 5
+  _blueRobotRightPunchDamage: 7
+  _blueRobotLowKickDamage: 3
+  _blueRobotHighKickDamage: 9
+  _brownRobotLeftPunchDamage: 5
+  _brownRobotRightPunchDamage: 7
+  _brownRobotLowKickDamage: 3
+  _brownRobotHighKickDamage: 9
+  _goldRobotLeftPunchDamage: 5
+  _goldRobotRightPunchDamage: 7
+  _goldRobotLowKickDamage: 3
+  _goldRobotHighKickDamage: 9
+  _greenRobotLeftPunchDamage: 5
+  _greenRobotRightPunchDamage: 7
+  _greenRobotLowKickDamage: 3
+  _greenRobotHighKickDamage: 9
+  _pinkRobotLeftPunchDamage: 5
+  _pinkRobotRightPunchDamage: 7
+  _pinkRobotLowKickDamage: 3
+  _pinkRobotHighKickDamage: 9
+  _redRobotLeftPunchDamage: 5
+  _redRobotRightPunchDamage: 7
+  _redRobotLowKickDamage: 3
+  _redRobotHighKickDamage: 9
+  _whiteRobotLeftPunchDamage: 5
+  _whiteRobotRightPunchDamage: 7
+  _whiteRobotLowKickDamage: 3
+  _whiteRobotHighKickDamage: 9
 --- !u!1 &5811022139334298594
 GameObject:
   m_ObjectHideFlags: 0

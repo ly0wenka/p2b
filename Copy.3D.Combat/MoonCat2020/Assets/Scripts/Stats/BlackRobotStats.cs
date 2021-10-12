@@ -20,6 +20,23 @@ public class BlackRobotStats : Stats
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown("space"))
+        {
+            RefreshStats();
+        }
+
+        Debug.Log(_leftPunchDamage);
+#endif
+    }
+
+    private void RefreshStats()
+    {
+        Debug.Log(nameof(RefreshStats));
         
+        _leftPunchDamage = _blackRobotLeftPunchDamage;
+        _rightPunchDamage = _blackRobotRightPunchDamage;
+        _lowKickDamage = _blackRobotLowKickDamage;
+        _highKickDamage = _blackRobotHighKickDamage;
     }
 }
