@@ -11,7 +11,7 @@ public class PlayerLowKick : MonoBehaviour
     public float _nextLowKickIsAllowed = -1.0f;
     public float _attackDelay = 1.0f;
 
-    private Collider _headHitCollider;
+    private Collider _bodyHitCollider;
 
     private bool _returnIfPlayerIsLowKicking;
     // Start is called before the first frame update
@@ -19,16 +19,23 @@ public class PlayerLowKick : MonoBehaviour
     {
         _opponentImpactPoint = Vector3.zero;
 
-        _headHitCollider = GetComponent<Collider>();
-        _headHitCollider.enabled = false;
+        _bodyHitCollider = GetComponent<Collider>();
+        _bodyHitCollider.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         _returnIfPlayerIsLowKicking = PlayerOneMovement._playerIsKickingLow;
+
+        if (_returnIfPlayerIsLowKicking)
+        {
+            gameObject.GetComponentInChildren<PlayerHighKick>().enabled = false;
+            
+            _bodyHitCollider.enabled = true;
+        }
         
-        _headHitCollider.enabled = _returnIfPlayerIsLowKicking;
+        _bodyHitCollider.enabled = _returnIfPlayerIsLowKicking;
     }
     
     private void OnTriggerEnter(Collider _opponentHeadKick)
