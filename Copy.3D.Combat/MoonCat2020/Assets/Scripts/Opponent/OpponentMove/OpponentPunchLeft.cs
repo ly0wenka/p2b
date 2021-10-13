@@ -12,7 +12,7 @@ public class OpponentPunchLeft : MonoBehaviour
 
     private Collider _headHitCollider;
 
-    private bool _returnIfOpponentIsHighKicking;
+    private bool _returnIfOpponentIsPunchLeft;
 
     void Start()
     {
@@ -24,11 +24,12 @@ public class OpponentPunchLeft : MonoBehaviour
 
     void Update()
     {
+        _returnIfOpponentIsPunchLeft = OpponentAI._ooponentIsPunchingLeft;
     }
 
     private void OnTriggerStay(Collider _playerOneHeadHit)
     {
-        if (_playerOneHeadHit.tag == "HeadHit" && Time.time >= _nextLeftPunchIsAllowed)
+        if (_playerOneHeadHit.tag == "PlayerHeadHit" && Time.time >= _nextLeftPunchIsAllowed)
         {
 
             _nextLeftPunchIsAllowed = Time.time + _attackDelay;

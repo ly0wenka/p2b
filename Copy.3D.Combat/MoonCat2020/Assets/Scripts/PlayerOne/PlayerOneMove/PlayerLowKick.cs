@@ -27,20 +27,13 @@ public class PlayerLowKick : MonoBehaviour
     void Update()
     {
         _returnIfPlayerIsLowKicking = PlayerOneMovement._playerIsKickingLow;
-
-        if (_returnIfPlayerIsLowKicking)
-        {
-            gameObject.GetComponentInChildren<PlayerHighKick>().enabled = false;
-            
-            _bodyHitCollider.enabled = true;
-        }
-        
+        gameObject.GetComponentInChildren<PlayerLowKick>().enabled = !_returnIfPlayerIsLowKicking;
         _bodyHitCollider.enabled = _returnIfPlayerIsLowKicking;
     }
     
     private void OnTriggerEnter(Collider _opponentHeadKick)
     {
-        if (_opponentHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextLowKickIsAllowed)
+        if (_opponentHeadKick.CompareTag(("OpponentHeadHit")) && Time.time >= _nextLowKickIsAllowed)
         {
             HeadKick();
             

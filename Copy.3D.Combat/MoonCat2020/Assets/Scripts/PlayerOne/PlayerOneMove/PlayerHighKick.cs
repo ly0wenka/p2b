@@ -27,13 +27,13 @@ public class PlayerHighKick : MonoBehaviour
     void Update()
     {
         _returnIfPlayerIsHighKicking = PlayerOneMovement._playerIsKickingHigh;
-
+        gameObject.GetComponentInChildren<PlayerHighKick>().enabled = !_returnIfPlayerIsHighKicking;
         _headHitCollider.enabled = _returnIfPlayerIsHighKicking;
     }
 
     private void OnTriggerStay(Collider _opponentHeadKick)
     {
-        if (_opponentHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextHighKickIsAllowed)
+        if (_opponentHeadKick.CompareTag(("OpponentHeadHit")) && Time.time >= _nextHighKickIsAllowed)
         {
             HeadKick();
             

@@ -28,8 +28,16 @@ public class PlayerPunchRight : MonoBehaviour
     void Update()
     {
         _returnIfPlayerIsPunchingRight = PlayerOneMovement._playerIsPunchingRight;
-        
-        _headHitCollider.enabled = _returnIfPlayerIsPunchingRight;
+
+        if (_returnIfPlayerIsPunchingRight)
+        {
+            _headHitCollider.enabled = true;
+        }
+
+        if (!_returnIfPlayerIsPunchingRight)
+        {
+            _headHitCollider.enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider _opponentHeadHit)

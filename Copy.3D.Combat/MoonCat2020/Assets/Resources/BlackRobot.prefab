@@ -1726,7 +1726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextHighKickIsAllowed: -1
-  _attackDelay: 1
+  _attackDelay: 2
 --- !u!114 &1378991543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextLowKickIsAllowed: -1
-  _attackDelay: 1
+  _attackDelay: 2
 --- !u!114 &103255279947067387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1754,7 +1754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextHighKickIsAllowed: -1
-  _attackDelay: 1
+  _attackDelay: 2
 --- !u!114 &104284655740758073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1768,7 +1768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextLowKickIsAllowed: -1
-  _attackDelay: 1
+  _attackDelay: 2
 --- !u!1 &6887251991354336095
 GameObject:
   m_ObjectHideFlags: 0

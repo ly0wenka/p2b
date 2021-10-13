@@ -23,8 +23,8 @@ public class OpponentHighKick : MonoBehaviour
 
     void Update()
     {
-        _returnIfOpponentIsHighKicking = PlayerOneMovement._playerIsKickingHigh;
-
+        _returnIfOpponentIsHighKicking = OpponentAI._ooponentIsKickingHigh;
+        gameObject.GetComponent<OpponentLowKick>().enabled = !_returnIfOpponentIsHighKicking;
         _headHitCollider.enabled = _returnIfOpponentIsHighKicking;
     }
     

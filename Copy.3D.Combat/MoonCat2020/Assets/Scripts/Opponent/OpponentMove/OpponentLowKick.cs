@@ -25,7 +25,9 @@ public class OpponentLowKick : MonoBehaviour
 
     void Update()
     {
-        
+        _returnIfOpponentIsLowKick = OpponentAI._opponentIsKickingLow;
+        gameObject.GetComponent<OpponentHighKick>().enabled = !_returnIfOpponentIsLowKick;
+        _bodyHitCollider.enabled = _returnIfOpponentIsLowKick;
     }
 
     private void OnTriggerStay(Collider _playerOneBodyHit)

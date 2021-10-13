@@ -22,14 +22,12 @@ public class OpponentPunchRight : MonoBehaviour
 
     void Update()
     {
-        _returnIfOpponentIsRightPunch = PlayerOneMovement._playerIsKickingHigh;
-
-        _headHitCollider.enabled = _returnIfOpponentIsRightPunch;
+        _returnIfOpponentIsRightPunch = OpponentAI._opponentIsPunchingRight;
     }
     
     private void OnTriggerStay(Collider _playerOneHeadKick)
     {
-        if (_playerOneHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextRightPunchIsAllowed)
+        if (_playerOneHeadKick.CompareTag(("PlayerHeadHit")) && Time.time >= _nextRightPunchIsAllowed)
         {
             HeadKick();
             

@@ -85,6 +85,11 @@ public class OpponentAI : MonoBehaviour
     public int _rightPunchRangeMin, _rightPunchRangeMax;
     public int _lowKickRangeMin, _lowKickRangeMax;
     public int _highKickRangeMin, _highKickRangeMax;
+
+    public static bool _ooponentIsPunchingLeft;
+    public static bool _opponentIsPunchingRight;
+    public static bool _opponentIsKickingLow;
+    public static bool _ooponentIsKickingHigh;
     
     private bool _returnFightIntroFinished;
 
@@ -122,7 +127,17 @@ public class OpponentAI : MonoBehaviour
         _minimumDecideValue = 1;
         _maximumDecideValue = 10;
 
+        OpponentIsMovesInit();
+
         StartCoroutine(OpponentFSM());
+    }
+
+    private void OpponentIsMovesInit()
+    {
+        _ooponentIsPunchingLeft = false;
+        _opponentIsPunchingRight = false;
+        _opponentIsKickingLow = false;
+        _ooponentIsKickingHigh = false;
     }
 
     // Update is called once per frame
@@ -591,8 +606,8 @@ public class OpponentAI : MonoBehaviour
     private void OpponentHitByLowKick()
     {
         Debug.Log(nameof(OpponentHitByLowKick));
-
-        OpponentHitHeadAnimation();
+        OpponentIsMovesInit();
+        OpponentHitBodyAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
 
@@ -607,8 +622,8 @@ public class OpponentAI : MonoBehaviour
     private void OpponentHitByHighKick()
     {
         Debug.Log(nameof(OpponentHitByHighKick));
-
-        OpponentHitHeadAnimation();
+        OpponentIsMovesInit();
+        OpponentHitBodyAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
 
@@ -632,7 +647,7 @@ public class OpponentAI : MonoBehaviour
     private void OpponentHitByLeftPunch()
     {
         Debug.Log(nameof(OpponentHitByLeftPunch));
-
+        OpponentIsMovesInit();
         OpponentHitHeadAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
@@ -648,7 +663,7 @@ public class OpponentAI : MonoBehaviour
     private void OpponentHitByRightPunch()
     {
         Debug.Log(nameof(OpponentHitByRightPunch));
-
+        OpponentIsMovesInit();
         OpponentHitHeadAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
@@ -741,36 +756,32 @@ public class OpponentAI : MonoBehaviour
     private void OpponentLeftPunch()
     {
         Debug.Log(nameof(OpponentLeftPunch));
-        
+        _ooponentIsPunchingLeft = true;
         OpponentPunchLeftAnimation();
-
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
     }
 
     private void OpponentRightPunch()
     {
         Debug.Log(nameof(OpponentRightPunch));
-        
+        _opponentIsPunchingRight = true;
         OpponentPunchRightAnimation();
-
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
     }
 
     private void OpponentLowKick()
     {
         Debug.Log(nameof(OpponentLowKick));
-        
+        _opponentIsKickingLow = true;
         OpponentKickLowAnimation();
-
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
     }
 
     private void OpponentHighKick()
     {
         Debug.Log(nameof(OpponentHighKick));
-        
+        _ooponentIsKickingHigh = true;
         OpponentHighKick();
-
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
     }
     #endregion
@@ -815,7 +826,12 @@ public class OpponentAI : MonoBehaviour
         {
             return;
         }
-
+        
+        _ooponentIsPunchingLeft = false;
+        _opponentIsPunchingRight = false;
+        _opponentIsKickingLow = false;
+        _ooponentIsKickingHigh = false;
+        
         _opponentAIState = OpponentAIState.OpponentIdle;
     }
 
