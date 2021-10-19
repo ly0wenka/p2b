@@ -229,7 +229,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneJumpForward()
     {
-        Debug.Log(nameof(PlayerOneJumpForward));
+        //Debug.Log(nameof(PlayerOneJumpForward));
 
         PlayerOneJumpForwardAnim();
 
@@ -247,12 +247,12 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneJumpForwardAnim()
     {
-        Debug.Log(nameof(PlayerOneJumpForwardAnim));
+        //Debug.Log(nameof(PlayerOneJumpForwardAnim));
     }
 
     private void PlayerOneJumpBackwards()
     {
-        Debug.Log(nameof(PlayerOneJumpBackwards));
+        //Debug.Log(nameof(PlayerOneJumpBackwards));
 
         PlayerOneJumpBackwardsAnim();
 
@@ -270,12 +270,12 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneJumpBackwardsAnim()
     {
-        Debug.Log(nameof(PlayerOneJumpBackwardsAnim));
+        //Debug.Log(nameof(PlayerOneJumpBackwardsAnim));
     }
 
     private void PlayerOneComeDownForwards()
     {
-        Debug.Log(nameof(PlayerOneComeDownForwards));
+        //Debug.Log(nameof(PlayerOneComeDownForwards));
 
         PlayerOneComeDownForwardsAnim();
 
@@ -294,12 +294,12 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneComeDownForwardsAnim()
     {
-        Debug.Log(nameof(PlayerOneComeDownForwardsAnim));
+        //Debug.Log(nameof(PlayerOneComeDownForwardsAnim));
     }
 
     private void PlayerOneComeDownBackwards()
     {
-        Debug.Log(nameof(PlayerOneComeDownBackwards));
+        //Debug.Log(nameof(PlayerOneComeDownBackwards));
 
         PlayerOneComeDownBackwardsAnim();
 
@@ -318,7 +318,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneComeDownBackwardsAnim()
     {
-        Debug.Log(nameof(PlayerOneComeDownBackwardsAnim));
+        //Debug.Log(nameof(PlayerOneComeDownBackwardsAnim));
     }
 
     #endregion
@@ -327,7 +327,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerHitByRightPunch()
     {
-        Debug.Log(nameof(PlayerHitByRightPunch));
+        //Debug.Log(nameof(PlayerHitByRightPunch));
         
         PlayerHitHeadAnimation();
 
@@ -347,7 +347,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerHitByLeftPunch()
     {
-        Debug.Log(nameof(PlayerHitByLeftPunch));
+        //Debug.Log(nameof(PlayerHitByLeftPunch));
         
         PlayerHitHeadAnimation();
 
@@ -367,7 +367,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerHitByHighKick()
     {
-        Debug.Log(nameof(PlayerHitByHighKick));
+        //Debug.Log(nameof(PlayerHitByHighKick));
         
         PlayerHitBodyAnimation();
 
@@ -387,7 +387,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerHitByLowKick()
     {
-        Debug.Log(nameof(PlayerHitByLowKick));
+        //Debug.Log(nameof(PlayerHitByLowKick));
         
         PlayerHitBodyAnimation();
         
@@ -410,7 +410,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerDefeated()
     {
-        Debug.Log(nameof(PlayerDefeated));
+        //Debug.Log(nameof(PlayerDefeated));
 
         _playerOneMoveDirection = new Vector3(0, _playersSpeedYAxis, 0);
         
@@ -433,7 +433,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void WaitForHitAnimations()
     {
-        Debug.Log(nameof(WaitForHitAnimations));
+        //Debug.Log(nameof(WaitForHitAnimations));
 
         if (_playerOneAnimator.IsPlaying(_playerHitBodyAnim.name))
         {
@@ -450,7 +450,7 @@ public class PlayerOneMovement : MonoBehaviour
     
     private void WaitForAnimations()
     {
-        Debug.Log(nameof(WaitForAnimations));
+        //Debug.Log(nameof(WaitForAnimations));
 
         WaitForAnimationsAnim();
 
@@ -472,12 +472,12 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void WaitForAnimationsAnim()
     {
-        Debug.Log(nameof(WaitForAnimationsAnim));
+        //Debug.Log(nameof(WaitForAnimationsAnim));
     }
 
     private void PlayerDemo()
     {
-        Debug.Log(nameof(PlayerDemo));
+        //Debug.Log(nameof(PlayerDemo));
 
         PlayerDemoAnim();
 
@@ -494,14 +494,14 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerDemoAnim()
     {
-        Debug.Log(nameof(PlayerDemoAnim));
+        //Debug.Log(nameof(PlayerDemoAnim));
 
         _playerOneAnimator.CrossFade(_playerOneDemoAnim.name);
     }
 
     private void PlayerOneIdle()
     {
-        Debug.Log(nameof(PlayerOneIdle));
+        //Debug.Log(nameof(PlayerOneIdle));
 
         PlayerOneIdleAnim();
 
@@ -518,7 +518,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     public void SetPlayerDefeated()
     {
-        Debug.Log(nameof(SetPlayerDefeated));
+        //Debug.Log(nameof(SetPlayerDefeated));
 
         PlayerFinalHitAnimation();
 
@@ -527,28 +527,28 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerFinalHitAnimation()
     {
-        Debug.Log(nameof(PlayerFinalHitAnimation));
+        //Debug.Log(nameof(PlayerFinalHitAnimation));
 
         _playerOneAnimator.CrossFade(_playerDefeatedFinalHitAnim.name);
     }
 
     private void PlayerHitBodyAnimation()
     {
-        Debug.Log(nameof(PlayerHitBodyAnimation));
+        //Debug.Log(nameof(PlayerHitBodyAnimation));
         
         _playerOneAnimator.CrossFade(_playerHitBodyAnim.name);
     }
 
     private void PlayerHitHeadAnimation()
     {
-        Debug.Log(nameof(PlayerHitHeadAnimation));
+        //Debug.Log(nameof(PlayerHitHeadAnimation));
         
         _playerOneAnimator.CrossFade(_playerHitHeadAnim.name);
     }
 
     private void PlayerOneIdleAnim()
     {
-        Debug.Log(nameof(PlayerOneIdleAnim));
+        //Debug.Log(nameof(PlayerOneIdleAnim));
 
         _playerOneAnimator.CrossFade(_playerOneIdleAnim.name);
     }
@@ -558,7 +558,7 @@ public class PlayerOneMovement : MonoBehaviour
     #region Walk
     private void PlayerOneWalkLeft()
     {
-        Debug.Log(nameof(PlayerOneWalkLeft));
+        //Debug.Log(nameof(PlayerOneWalkLeft));
 
         PlayerOneRetreatAnim();
 
@@ -581,7 +581,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneWalkRight()
     {
-        Debug.Log(nameof(PlayerOneWalkRight));
+        //Debug.Log(nameof(PlayerOneWalkRight));
 
         PlayerOneWalkAnim();
 
@@ -600,7 +600,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneWalkAnim()
     {
-        Debug.Log(nameof(PlayerOneWalkAnim));
+        //Debug.Log(nameof(PlayerOneWalkAnim));
 
         _playerOneAnimator.CrossFade(_playerOneWalkAnim.name);
 
@@ -619,7 +619,7 @@ public class PlayerOneMovement : MonoBehaviour
     #region Jump
     private void PlayerJump()
     {
-        Debug.Log(nameof(PlayerJump));
+        //Debug.Log(nameof(PlayerJump));
 
         PlayerOneJumpAnim();
 
@@ -637,7 +637,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneComeDown()
     {
-        Debug.Log(nameof(PlayerOneComeDown));
+        //Debug.Log(nameof(PlayerOneComeDown));
 
         PlayerOneComeDownAnim();
 
@@ -656,7 +656,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneJumpAnim()
     {
-        Debug.Log(nameof(PlayerOneJumpAnim));
+        //Debug.Log(nameof(PlayerOneJumpAnim));
 
         _playerOneAnimator.CrossFade(_playerOneJumpAnim.name);
     }
@@ -665,14 +665,14 @@ public class PlayerOneMovement : MonoBehaviour
     #region Punch
     private void PlayerHighPunchAnim()
     {
-        Debug.Log(nameof(PlayerHighPunchAnim));
+        //Debug.Log(nameof(PlayerHighPunchAnim));
 
         _playerOneAnimator.CrossFade(_playerAttackAnim[0].name);
     }
 
     private void PlayerLowPunchAnim()
     {
-        Debug.Log(nameof(PlayerLowPunchAnim));
+        //Debug.Log(nameof(PlayerLowPunchAnim));
 
         _playerOneAnimator.CrossFade(_playerAttackAnim[1].name);
     }
@@ -681,14 +681,14 @@ public class PlayerOneMovement : MonoBehaviour
     #region Kick
     private void PlayerLowKickAnim()
     {
-        Debug.Log(nameof(PlayerLowKickAnim));
+        //Debug.Log(nameof(PlayerLowKickAnim));
 
         _playerOneAnimator.CrossFade(_playerAttackAnim[2].name);
     }
 
     private void PlayerHighKickAnim()
     {
-        Debug.Log(nameof(PlayerHighKickAnim));
+        //Debug.Log(nameof(PlayerHighKickAnim));
 
         _playerOneAnimator.CrossFade(_playerAttackAnim[3].name);
     }
@@ -698,7 +698,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneRetreatAnim()
     {
-        Debug.Log(nameof(PlayerOneRetreatAnim));
+        //Debug.Log(nameof(PlayerOneRetreatAnim));
 
         _playerOneAnimator.CrossFade(_playerOneWalkAnim.name);
 
@@ -715,7 +715,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerHighPunch()
     {
-        Debug.Log(nameof(PlayerHighPunch));
+        //Debug.Log(nameof(PlayerHighPunch));
 
         PlayerHighPunchAnim();
 
@@ -724,7 +724,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerLowPunch()
     {
-        Debug.Log(nameof(PlayerLowPunch));
+        //Debug.Log(nameof(PlayerLowPunch));
 
         PlayerLowPunchAnim();
 
@@ -733,7 +733,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerHighKick()
     {
-        Debug.Log(nameof(PlayerHighKick));
+        //Debug.Log(nameof(PlayerHighKick));
 
         PlayerHighKickAnim();
 
@@ -742,7 +742,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerLowKick()
     {
-        Debug.Log(nameof(PlayerLowKick));
+        //Debug.Log(nameof(PlayerLowKick));
 
         PlayerLowKickAnim();
 
@@ -755,7 +755,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void AttackInputManager()
     {
-        Debug.Log(nameof(AttackInputManager));
+        //Debug.Log(nameof(AttackInputManager));
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -787,7 +787,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerInputController()
     {
-        Debug.Log(nameof(PlayerInputController));
+        //Debug.Log(nameof(PlayerInputController));
 
         _xAxis = Input.GetAxis("Horizontal");
         _yAxis = Input.GetAxis("Vertical");
@@ -800,7 +800,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void HorizontalJumpInputManager()
     {
-        Debug.Log(nameof(HorizontalJumpInputManager));
+        //Debug.Log(nameof(HorizontalJumpInputManager));
 
         if (Input.GetAxis("Vertical") > _controllerDeadZonePos && Input.GetAxis("Horizontal") > _controllerDeadZoneNeg)
         {
@@ -832,12 +832,12 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void HorizontalInputManagerAnim()
     {
-        Debug.Log(nameof(HorizontalInputManagerAnim));
+        //Debug.Log(nameof(HorizontalInputManagerAnim));
     }
 
     private void StandardInputManager()
     {
-        Debug.Log(nameof(StandardInputManager));
+        //Debug.Log(nameof(StandardInputManager));
 
         if (Input.GetAxis("Horizontal") < _controllerDeadZoneNeg)
         {
@@ -885,19 +885,19 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void StandardInputManagerAnim()
     {
-        Debug.Log(nameof(StandardInputManagerAnim));
+        //Debug.Log(nameof(StandardInputManagerAnim));
     }
 
     private void AttackInputManagerAnim()
     {
-        Debug.Log(nameof(AttackInputManagerAnim));
+        //Debug.Log(nameof(AttackInputManagerAnim));
     }
 
     #endregion
     
     private void UpdatePlayersPlanePosition()
     {
-        Debug.Log(nameof(UpdatePlayersPlanePosition));
+        //Debug.Log(nameof(UpdatePlayersPlanePosition));
 
         var TOLERANCE = 0.01f;
         if (Math.Abs(_playerController.transform.position.z - GameManager._playerStartingPosition.z) > TOLERANCE)
@@ -911,7 +911,7 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void ApplyGravity()
     {
-        Debug.Log(nameof(ApplyGravity));
+        //Debug.Log(nameof(ApplyGravity));
 
         if (PlayerOneIsGrounded())
         {
@@ -933,21 +933,21 @@ public class PlayerOneMovement : MonoBehaviour
     #region UpdateRotation
     private void UpdatePlayerPosition()
     {
-        Debug.Log(nameof(UpdatePlayerPosition));
+        //Debug.Log(nameof(UpdatePlayerPosition));
 
         _playersPosition = new Vector3(_playerOne.transform.position.x, _playerOne.transform.position.y, _playerOne.transform.position.z);
     }
 
     private void UpdateOpponentsPosition()
     {
-        Debug.Log(nameof(UpdateOpponentsPosition));
+        //Debug.Log(nameof(UpdateOpponentsPosition));
 
         _opponentPosition = new Vector3(_opponent.transform.position.x, _opponent.transform.position.y, _opponent.transform.position.z);
     }
 
     private void UpdatePlayersRotation()
     {
-        Debug.Log(nameof(UpdatePlayersRotation));
+        //Debug.Log(nameof(UpdatePlayersRotation));
 
         if (_playerOne.transform.position.x < _opponent.transform.position.x)
         {
@@ -993,6 +993,6 @@ public class PlayerOneMovement : MonoBehaviour
 
     private void PlayerOneComeDownAnim()
     {
-        Debug.Log(nameof(PlayerOneComeDownAnim));
+        //Debug.Log(nameof(PlayerOneComeDownAnim));
     }
 }

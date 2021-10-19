@@ -32,7 +32,7 @@ public class OpponentLowKick : MonoBehaviour
 
     private void OnTriggerStay(Collider _playerOneBodyHit)
     {
-        if (_playerOneBodyHit.CompareTag("BodyHit")
+        if (_playerOneBodyHit.CompareTag("PlayerBodyHit")
             && Time.time >= _nextLowKickIsAllowed)
         {
             _nextLowKickIsAllowed = Time.time + _attackDelay;

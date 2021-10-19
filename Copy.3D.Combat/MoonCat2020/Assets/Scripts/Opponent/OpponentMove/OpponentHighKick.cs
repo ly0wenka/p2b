@@ -30,7 +30,7 @@ public class OpponentHighKick : MonoBehaviour
     
     private void OnTriggerStay(Collider _playerOneHeadKick)
     {
-        if (_playerOneHeadKick.CompareTag(("HeadHit")) && Time.time >= _nextHighKickIsAllowed)
+        if (_playerOneHeadKick.CompareTag(("PlayerHeadHit")) && Time.time >= _nextHighKickIsAllowed)
         {
             _nextHighKickIsAllowed = Time.time + _attackDelay;
         }
