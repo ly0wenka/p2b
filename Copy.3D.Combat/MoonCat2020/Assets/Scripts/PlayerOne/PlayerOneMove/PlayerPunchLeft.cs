@@ -37,6 +37,11 @@ public class PlayerPunchLeft : MonoBehaviour
 
     private void OnTriggerStay(Collider _opponentHeadHit)
     {
+        if (!_returnIfPlayerIsPunchingLeft)
+        {
+            return;
+        }
+        
         if (_opponentHeadHit.CompareTag(("HeadHit")) && Time.time >= _nextLeftPunchIsAllowed)
         {
             HeadStruck();
@@ -57,42 +62,42 @@ public class PlayerPunchLeft : MonoBehaviour
 
         if (ChooseCharacterManager._robotBlack)
         {
-            _tempDamage.OpponentRightPunchDamage(BlackRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(BlackRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotBlue)
         {
-            _tempDamage.OpponentRightPunchDamage(BlueRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(BlueRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotBrown)
         {
-            _tempDamage.OpponentRightPunchDamage(BrownRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(BrownRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotGold)
         {
-            _tempDamage.OpponentRightPunchDamage(GoldRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(GoldRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotGreen)
         {
-            _tempDamage.OpponentRightPunchDamage(GreenRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(GreenRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotPink)
         {
-            _tempDamage.OpponentRightPunchDamage(PinkRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(PinkRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotRed)
         {
-            _tempDamage.OpponentRightPunchDamage(RedRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(RedRobotStats._leftPunchDamage);
         }
 
         if (ChooseCharacterManager._robotWhite)
         {
-            _tempDamage.OpponentRightPunchDamage(WhiteRobotStats._leftPunchDamage);
+            _tempDamage.OpponentLeftPunchDamage(WhiteRobotStats._leftPunchDamage);
         }
     }
 

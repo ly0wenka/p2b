@@ -27,6 +27,10 @@ public class OpponentPunchRight : MonoBehaviour
     
     private void OnTriggerStay(Collider _playerOneHeadKick)
     {
+        if (!_returnIfOpponentIsRightPunch)
+        {
+            return;
+        }
         if (_playerOneHeadKick.CompareTag(("PlayerHeadHit")) && Time.time >= _nextRightPunchIsAllowed)
         {
             HeadKick();

@@ -33,6 +33,12 @@ public class PlayerLowKick : MonoBehaviour
     
     private void OnTriggerEnter(Collider _opponentHeadKick)
     {
+        
+        if (!_returnIfPlayerIsLowKicking)
+        {
+            return;
+        }
+        
         if (_opponentHeadKick.CompareTag(("OpponentHeadHit")) && Time.time >= _nextLowKickIsAllowed)
         {
             HeadKick();
@@ -53,42 +59,42 @@ public class PlayerLowKick : MonoBehaviour
 
         if (ChooseCharacterManager._robotBlack)
         {
-            _tempDamage.OpponentRightPunchDamage(BlackRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(BlackRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotBlue)
         {
-            _tempDamage.OpponentRightPunchDamage(BlueRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(BlueRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotBrown)
         {
-            _tempDamage.OpponentRightPunchDamage(BrownRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(BrownRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotGold)
         {
-            _tempDamage.OpponentRightPunchDamage(GoldRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(GoldRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotGreen)
         {
-            _tempDamage.OpponentRightPunchDamage(GreenRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(GreenRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotPink)
         {
-            _tempDamage.OpponentRightPunchDamage(PinkRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(PinkRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotRed)
         {
-            _tempDamage.OpponentRightPunchDamage(RedRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(RedRobotStats._lowKickDamage);
         }
 
         if (ChooseCharacterManager._robotWhite)
         {
-            _tempDamage.OpponentRightPunchDamage(WhiteRobotStats._lowKickDamage);
+            _tempDamage.OpponentLowKickDamage(WhiteRobotStats._lowKickDamage);
         }
     }
 }

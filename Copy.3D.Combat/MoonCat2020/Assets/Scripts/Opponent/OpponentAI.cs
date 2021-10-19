@@ -240,7 +240,7 @@ public class OpponentAI : MonoBehaviour
 
     private void Initialise()
     {
-        Debug.Log(nameof(Initialise));
+        // Debug.Log(nameof(Initialise));
 
         _decideAggressionPriority = 2; //Random.Range(1, 9);
 
@@ -294,32 +294,32 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentJumpAnimation()
     {
-        Debug.Log(nameof(OpponentJumpAnimation));
+        // Debug.Log(nameof(OpponentJumpAnimation));
 
         _opponentAnimator.CrossFade(_opponentJumpAnim.name);
     }
     
     private void OpponentPunchLeftAnimation()
     {
-        Debug.Log(nameof(OpponentPunchLeftAnimation));
+        // Debug.Log(nameof(OpponentPunchLeftAnimation));
         
         _opponentAnimator.CrossFade(_opponentPunchLeftAnim.name);    
     }
     private void OpponentPunchRightAnimation()
     {
-        Debug.Log(nameof(OpponentPunchRightAnimation));
+        // Debug.Log(nameof(OpponentPunchRightAnimation));
         
         _opponentAnimator.CrossFade(_opponentPunchRightAnim.name);    
     }
     private void OpponentKickHighAnimation()
     {
-        Debug.Log(nameof(OpponentKickHighAnimation));
+        // Debug.Log(nameof(OpponentKickHighAnimation));
         
         _opponentAnimator.CrossFade(_opponentKickHighAnim.name);    
     }
     private void OpponentKickLowAnimation()
     {
-        Debug.Log(nameof(OpponentKickLowAnimation));
+        // Debug.Log(nameof(OpponentKickLowAnimation));
         
         _opponentAnimator.CrossFade(_opponentKickLowAnim.name);    
     }
@@ -434,12 +434,12 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentIdle()
     {
-        Debug.Log(nameof(OpponentIdle));
-
-        if (OpponentIsGrounded())
-        {
-            return;
-        }
+        // Debug.Log(nameof(OpponentIdle));
+        OpponentIsMovesInit();
+        // if (OpponentIsGrounded())
+        // {
+        //     return;
+        // }
 
         OpponentIdleAnimation();
 
@@ -480,6 +480,8 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentGravityIdle()
     {
+        // Debug.Log(nameof(OpponentGravityIdle));
+
         _opponentMoveDirection = new Vector3(0, _opponentVerticalSpeed, 0);
 
         _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection);
@@ -489,7 +491,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentIdleAnimation()
     {
-        Debug.Log(nameof(OpponentIdleAnimation));
+        // Debug.Log(nameof(OpponentIdleAnimation));
 
         _opponentAnimator.CrossFade(_opponentIdleAnim.name);
     }
@@ -501,7 +503,7 @@ public class OpponentAI : MonoBehaviour
 
     private void AdvanceOnThePlayer()
     {
-        Debug.Log(nameof(AdvanceOnThePlayer));
+        // Debug.Log(nameof(AdvanceOnThePlayer));
 
         _decideForwardMovement = Random.Range(1, 10);
 
@@ -527,7 +529,7 @@ public class OpponentAI : MonoBehaviour
 
     private void RetreatFromThePlayer()
     {
-        Debug.Log(nameof(RetreatFromThePlayer));
+        // Debug.Log(nameof(RetreatFromThePlayer));
 
         _decideForwardMovement = Random.Range(1, 10);
 
@@ -544,7 +546,7 @@ public class OpponentAI : MonoBehaviour
 
     private void WalkAwayFromThePlayer()
     {
-        Debug.Log(nameof(WalkAwayFromThePlayer));
+        // Debug.Log(nameof(WalkAwayFromThePlayer));
 
         _opponentMoveDirection =
             (transform.position - _playersPosition)
@@ -564,7 +566,7 @@ public class OpponentAI : MonoBehaviour
 
     private void WalkTowardsThePlayer()
     {
-        Debug.Log(nameof(WalkTowardsThePlayer));
+        // Debug.Log(nameof(WalkTowardsThePlayer));
 
         if (Mathf.Abs(_playerOne.transform.position.x - _opponent.transform.position.x) <= _chooseAttackDistanceModifier)
         {
@@ -589,14 +591,14 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentWalkAnimation()
     {
-        Debug.Log(nameof(OpponentWalkAnimation));
+        // Debug.Log(nameof(OpponentWalkAnimation));
 
         _opponentAnimator.CrossFade(_opponentWalkAnim.name);
     }
 
     private IEnumerator AssessThePlayer()
     {
-        Debug.Log(nameof(AssessThePlayer));
+        // Debug.Log(nameof(AssessThePlayer));
 
         yield return new WaitForSeconds(_assessingTime);
 
@@ -605,8 +607,8 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHitByLowKick()
     {
-        Debug.Log(nameof(OpponentHitByLowKick));
-        OpponentIsMovesInit();
+        // Debug.Log(nameof(OpponentHitByLowKick));
+        //OpponentIsMovesInit();
         OpponentHitBodyAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
@@ -621,8 +623,8 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHitByHighKick()
     {
-        Debug.Log(nameof(OpponentHitByHighKick));
-        OpponentIsMovesInit();
+        // Debug.Log(nameof(OpponentHitByHighKick));
+        //OpponentIsMovesInit();
         OpponentHitBodyAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
@@ -637,7 +639,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHitBodyAnimation()
     {
-        Debug.Log(nameof(OpponentHitBodyAnimation));
+        // Debug.Log(nameof(OpponentHitBodyAnimation));
 
         _opponentAnimator.CrossFade(_opponentHitBodyAnim.name);
     }
@@ -646,8 +648,8 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHitByLeftPunch()
     {
-        Debug.Log(nameof(OpponentHitByLeftPunch));
-        OpponentIsMovesInit();
+        // Debug.Log(nameof(OpponentHitByLeftPunch));
+        //OpponentIsMovesInit();
         OpponentHitHeadAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
@@ -662,8 +664,8 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHitByRightPunch()
     {
-        Debug.Log(nameof(OpponentHitByRightPunch));
-        OpponentIsMovesInit();
+        // Debug.Log(nameof(OpponentHitByRightPunch));
+        //OpponentIsMovesInit();
         OpponentHitHeadAnimation();
 
         _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
@@ -678,14 +680,14 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHitHeadAnimation()
     {
-        Debug.Log(nameof(OpponentHitHeadAnimation));
+        // Debug.Log(nameof(OpponentHitHeadAnimation));
 
         _opponentAnimator.CrossFade(_opponentHitHeadAnim.name);
     }
 
     private void ChooseAttackState()
     {
-        Debug.Log(nameof(ChooseAttackState));
+        // Debug.Log(nameof(ChooseAttackState));
         
         OpponentIdleAnimation();
         
@@ -755,7 +757,7 @@ public class OpponentAI : MonoBehaviour
     #region PunchKick
     private void OpponentLeftPunch()
     {
-        Debug.Log(nameof(OpponentLeftPunch));
+        // Debug.Log(nameof(OpponentLeftPunch));
         _ooponentIsPunchingLeft = true;
         OpponentPunchLeftAnimation();
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
@@ -763,7 +765,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentRightPunch()
     {
-        Debug.Log(nameof(OpponentRightPunch));
+        // Debug.Log(nameof(OpponentRightPunch));
         _opponentIsPunchingRight = true;
         OpponentPunchRightAnimation();
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
@@ -771,7 +773,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentLowKick()
     {
-        Debug.Log(nameof(OpponentLowKick));
+        // Debug.Log(nameof(OpponentLowKick));
         _opponentIsKickingLow = true;
         OpponentKickLowAnimation();
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
@@ -779,7 +781,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentHighKick()
     {
-        Debug.Log(nameof(OpponentHighKick));
+        // Debug.Log(nameof(OpponentHighKick));
         _ooponentIsKickingHigh = true;
         OpponentHighKick();
         _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
@@ -788,7 +790,8 @@ public class OpponentAI : MonoBehaviour
 
     private void WaitForHitAnimations()
     {
-        Debug.Log(nameof(WaitForHitAnimations));
+        // Debug.Log(nameof(WaitForHitAnimations));
+        OpponentIsMovesInit();
 
         if (_opponentAnimator.IsPlaying(_opponentHitBodyAnim.name))
         {
@@ -805,7 +808,8 @@ public class OpponentAI : MonoBehaviour
 
     private void WaitForStrikeAnimations()
     {
-        Debug.Log(nameof(WaitForStrikeAnimations));
+        // Debug.Log(nameof(WaitForStrikeAnimations));
+        OpponentIsMovesInit();
 
         if (_opponentAnimator.IsPlaying(_opponentPunchLeftAnim.name))
         {
@@ -837,7 +841,7 @@ public class OpponentAI : MonoBehaviour
 
     private void WaitForHitAnimationsAnimation()
     {
-        Debug.Log(nameof(WaitForHitAnimationsAnimation));
+        // Debug.Log(nameof(WaitForHitAnimationsAnimation));
 
         if (_opponentAnimator.IsPlaying(_opponentHitBodyAnim.name))
         {
@@ -854,7 +858,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentDefeated()
     {
-        Debug.Log(nameof(OpponentDefeated));
+        // Debug.Log(nameof(OpponentDefeated));
 
         OpponentGravityIdle();
 
@@ -868,7 +872,7 @@ public class OpponentAI : MonoBehaviour
 
     public void SetOpponentDefeated()
     {
-        Debug.Log(nameof(SetOpponentDefeated));
+        // Debug.Log(nameof(SetOpponentDefeated));
 
         OpponentFinalHitAnimation();
 
@@ -877,7 +881,7 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentFinalHitAnimation()
     {
-        Debug.Log(nameof(OpponentFinalHitAnimation));
+        // Debug.Log(nameof(OpponentFinalHitAnimation));
 
         _opponentAnimator.CrossFade(_opponentDefeatedFinalHitAnim.name);
     }
@@ -896,7 +900,7 @@ public class OpponentAI : MonoBehaviour
 
     private void UpdatePlayerPosition()
     {
-        Debug.Log(nameof(UpdatePlayerPosition));
+        // Debug.Log(nameof(UpdatePlayerPosition));
 
         _playersPosition = new Vector3(_playerOne.transform.position.x, _playerOne.transform.position.y,
             _playerOne.transform.position.z);
@@ -904,7 +908,7 @@ public class OpponentAI : MonoBehaviour
 
     private void UpdateOpponentsPosition()
     {
-        Debug.Log(nameof(UpdateOpponentsPosition));
+        // Debug.Log(nameof(UpdateOpponentsPosition));
 
         _opponentPosition = new Vector3(_opponent.transform.position.x, _opponent.transform.position.y,
             _opponent.transform.position.z);
@@ -912,7 +916,7 @@ public class OpponentAI : MonoBehaviour
 
     private void UpdatePositionDifference()
     {
-        Debug.Log(nameof(UpdateOpponentsPosition));
+        // Debug.Log(nameof(UpdateOpponentsPosition));
 
         if (_playerOne.transform.position.x < _opponent.transform.position.x)
         {
@@ -927,7 +931,7 @@ public class OpponentAI : MonoBehaviour
 
     private void UpdateOpponentsRotation()
     {
-        Debug.Log(nameof(UpdateOpponentsRotation));
+        // Debug.Log(nameof(UpdateOpponentsRotation));
 
         if (_playerOne.transform.position.x < _opponent.transform.position.x)
         {
@@ -970,7 +974,7 @@ public class OpponentAI : MonoBehaviour
 
     private void UpdateOpponentsPlanePosition()
     {
-        Debug.Log(nameof(UpdateOpponentsPlanePosition));
+        // Debug.Log(nameof(UpdateOpponentsPlanePosition));
 
         if (_opponentController.transform.position.z != GameManager._opponentsStartingPosition.z)
         {

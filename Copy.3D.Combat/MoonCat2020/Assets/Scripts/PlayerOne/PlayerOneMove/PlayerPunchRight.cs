@@ -40,8 +40,13 @@ public class PlayerPunchRight : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider _opponentHeadHit)
+    private void OnTriggerStay(Collider _opponentHeadHit)
     {
+        if (!_returnIfPlayerIsPunchingRight)
+        {
+            return;
+        }
+        
         if (_opponentHeadHit.CompareTag(("HeadHit")) && Time.time >= _nextRightPunchIsAllowed)
         {
             HeadStruck();

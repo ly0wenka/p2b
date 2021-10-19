@@ -33,6 +33,10 @@ public class PlayerHighKick : MonoBehaviour
 
     private void OnTriggerStay(Collider _opponentHeadKick)
     {
+        if (!_returnIfPlayerIsHighKicking)
+        {
+            return;
+        }
         if (_opponentHeadKick.CompareTag(("OpponentHeadHit")) && Time.time >= _nextHighKickIsAllowed)
         {
             HeadKick();
@@ -53,42 +57,42 @@ public class PlayerHighKick : MonoBehaviour
 
         if (ChooseCharacterManager._robotBlack)
         {
-            _tempDamage.OpponentRightPunchDamage(BlackRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(BlackRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotBlue)
         {
-            _tempDamage.OpponentRightPunchDamage(BlueRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(BlueRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotBrown)
         {
-            _tempDamage.OpponentRightPunchDamage(BrownRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(BrownRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotGold)
         {
-            _tempDamage.OpponentRightPunchDamage(GoldRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(GoldRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotGreen)
         {
-            _tempDamage.OpponentRightPunchDamage(GreenRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(GreenRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotPink)
         {
-            _tempDamage.OpponentRightPunchDamage(PinkRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(PinkRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotRed)
         {
-            _tempDamage.OpponentRightPunchDamage(RedRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(RedRobotStats._highKickDamage);
         }
 
         if (ChooseCharacterManager._robotWhite)
         {
-            _tempDamage.OpponentRightPunchDamage(WhiteRobotStats._highKickDamage);
+            _tempDamage.OpponentHighKickDamage(WhiteRobotStats._highKickDamage);
         }
     }
 }
