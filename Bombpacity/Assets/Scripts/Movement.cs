@@ -1,57 +1,67 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public abstract class Movement : MonoBehaviour
 {
+    private const double TOLERANCE = 0.01;
     public int speed = 5;
     public Vector2 movement, endPos;
 
     protected bool isMoving = false;
     private float minClamp = 0f;
     private float maxClamp = 1f;
-    private float deltaTimeSpeed { get { return speed * Time.deltaTime; } }
+    [SerializeField] private float DeltaTimeSpeed => speed * Time.deltaTime;
 
     protected IEnumerator MoveHorizontal(float x, Rigidbody2D rigidBody)
     {
         isMoving = true;
 
-        transform.position = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
-        transform.rotation = Quaternion.Euler(0, 0, -x * 90f);
-
+        SetTransform(x);
 
         for (var movementProgress = 0f; movementProgress < Mathf.Abs(x);)
         {
-            movementProgress += deltaTimeSpeed;
+            movementProgress += DeltaTimeSpeed;
             movementProgress = Mathf.Clamp(movementProgress, minClamp, maxClamp);
-            movement = new Vector2(deltaTimeSpeed * x, 0f);
+            movement = new Vector2(DeltaTimeSpeed * x, 0f);
             endPos = rigidBody.position + movement;
 
-            if (movementProgress == 1) endPos = new Vector2(Mathf.Round(endPos.x), endPos.y);
+            if (Math.Abs(movementProgress - 1) < TOLERANCE) endPos = new Vector2(Mathf.RoundToInt(endPos.x), endPos.y);
             rigidBody.MovePosition(endPos);
             yield return new WaitForFixedUpdate();
         }
 
         isMoving = false;
+    }
+
+    private void SetTransform(float x)
+    {
+        var position = transform.position;
+        position = new Vector2(Mathf.Round(position.x), Mathf.Round(position.y));
+        transform.position = position;
+        transform.rotation = Quaternion.Euler(0, 0, -x * 90f);
     }
 
     protected IEnumerator MoveVertical(float y, Rigidbody2D rigidBody)
     {
         isMoving = true;
 
-        transform.position = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+        var position = transform.position;
+        position = new Vector2(Mathf.Round(position.x), Mathf.Round(position.y));
+        transform.position = position;
         transform.rotation = y < 0 ? Quaternion.Euler(0, 0, y * 180f) : Quaternion.Euler(0, 0, 0);
 
         //Vector2 endPos, movement;
 
         for (var movementProgress = 0f; movementProgress < Mathf.Abs(y);)
         {
-            movementProgress += deltaTimeSpeed;
+            movementProgress += DeltaTimeSpeed;
             movementProgress = Mathf.Clamp(movementProgress, minClamp, maxClamp);
 
-            movement = new Vector2(0f, deltaTimeSpeed * y);
+            movement = new Vector2(0f, DeltaTimeSpeed * y);
             endPos = rigidBody.position + movement;
 
-            if (movementProgress == 1) endPos = new Vector2(endPos.x, Mathf.Round(endPos.y));
+            if (Math.Abs(movementProgress - 1) < TOLERANCE) endPos = new Vector2(endPos.x, Mathf.RoundToInt(endPos.y));
             rigidBody.MovePosition(endPos);
             yield return new WaitForFixedUpdate();
         }
@@ -59,11 +69,13 @@ public abstract class Movement : MonoBehaviour
         isMoving = false;
     }
 
-    protected IEnumerator Move(float x, float y, Rigidbody2D rigidBody)
+    [Obsolete] protected IEnumerator Move(float x, float y, Rigidbody2D rigidBody)
     {
         isMoving = true;
 
-        transform.position = new Vector2(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+        var position = transform.position;
+        position = new Vector2(Mathf.Round(position.x), Mathf.Round(position.y));
+        transform.position = position;
         if (x == 0)
             transform.rotation = Quaternion.Euler(0, 0, -x * 90f);
         else
@@ -74,20 +86,20 @@ public abstract class Movement : MonoBehaviour
 
         for (var movementProgress = 0f; movementProgress < Mathf.Abs(y);)
         {
-            movementProgress += deltaTimeSpeed;
+            movementProgress += DeltaTimeSpeed;
             movementProgress = Mathf.Clamp(movementProgress, minClamp, maxClamp);
 
             if (x == 0) 
-                movement = new Vector2(deltaTimeSpeed * x, 0f);
+                movement = new Vector2(DeltaTimeSpeed * x, 0f);
             else
-                movement = new Vector2(0f, deltaTimeSpeed * y);
+                movement = new Vector2(0f, DeltaTimeSpeed * y);
 
             endPos = rigidBody.position + movement;
 
             if (x == 0)
-                if (movementProgress == 1) endPos = new Vector2(endPos.x, Mathf.Round(endPos.y));
+                if (Math.Abs(movementProgress - 1) < TOLERANCE) endPos = new Vector2(endPos.x, Mathf.Round(endPos.y));
             else
-                if (movementProgress == 1) endPos = new Vector2(Mathf.Round(endPos.x), endPos.y);
+                if (Math.Abs(movementProgress - 1) < TOLERANCE) endPos = new Vector2(Mathf.Round(endPos.x), endPos.y);
 
             rigidBody.MovePosition(endPos);
             yield return new WaitForFixedUpdate();
