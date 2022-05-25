@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Opponent.OpponentAIState;
 using UnityEngine;
 
 public class OpponentBodyHit : MonoBehaviour
@@ -26,6 +27,6 @@ public class OpponentBodyHit : MonoBehaviour
 
     private void BodyStruck()
     {
-        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLowKick;
+        OpponentAI._opponentAIState = new OpponentAIStateOpponentHitByLowKick();
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Opponent.OpponentAIState;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -8,17 +9,19 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(AudioSource))]
 public class OpponentAI : MonoBehaviour
 {
-    private Transform _opponentTransform;
-    private CharacterController _opponentController;
+    #region fieldsStartUpdate
+
+    protected Transform _opponentTransform;
+    protected CharacterController _opponentController;
 
     #region Rotation
 
     public static GameObject _playerOne;
     public static GameObject _opponent;
 
-    private Vector3 _playersPosition;
+    private protected Vector3 _playersPosition;
     private Vector3 _opponentPosition;
-    private Vector3 _positionDifference;
+    protected Vector3 _positionDifference;
     public float _positionDifferenceModifier = 2.0f; 
 
     private Quaternion _targetRotation;
@@ -29,7 +32,7 @@ public class OpponentAI : MonoBehaviour
 
     #endregion
 
-    private Animator _opponentAnimator;
+    protected Animator _opponentAnimator;
 
     public AnimationClip _opponentIdleAnim;
     public AnimationClip _opponentHitBodyAnim;
@@ -43,41 +46,41 @@ public class OpponentAI : MonoBehaviour
     public AnimationClip _opponentKickHighAnim;
     public AnimationClip _opponentKickLowAnim;
 
-    private AudioSource _opponentAIAudioSource;
+    protected AudioSource _opponentAIAudioSource;
     public AudioClip _opponentHeadHitAudio;
     public AudioClip _opponentBodyHitAudio;
 
     public GameObject _hitSparks;
 
-    private Vector3 _opponentMoveDirection = Vector3.zero;
+    protected Vector3 _opponentMoveDirection = Vector3.zero;
 
     public float _opponentJumpHeight = .5f;
     public float _opponentJumpSpeed = 1f;
     public float _opponentJumpHorizontal = 1f;
-    private Vector3 _jumpHeightTemp;
+    protected Vector3 _jumpHeightTemp;
 
     private float _opponentGravity = 5f;
     private float _opponentGravityModifier = 5f;
-    private float _opponentVerticalSpeed = .0f;
+    protected float _opponentVerticalSpeed = .0f;
 
     public RangeInt _offensivePriority = new RangeInt(1, 3);
     public RangeInt _assessPriority = new RangeInt(4, 6);
     public RangeInt _defensivePriority = new RangeInt(7, 9);
 
-    private int _decideForwardMovement;
-    private int _decideBackwardMovement;
+    protected int _decideForwardMovement;
+    protected int _decideBackwardMovement;
 
-    private int _minimumDecideValue;
-    private int _maximumDecideValue;
+    protected int _minimumDecideValue;
+    protected int _maximumDecideValue;
     public int _tippingPointDecideValue;
-    private int _decideAggressionPriority;
+    protected int _decideAggressionPriority;
 
-    private bool _assessingThePlayer;
+    protected bool _assessingThePlayer;
     public float _assessingTime = 3;
 
-    private ChooseAttack _chooseAttack;
-    private int _switchAttackValue;
-    private int _switchAttackStateValue;
+    protected ChooseAttack _chooseAttack;
+    protected int _switchAttackValue;
+    protected int _switchAttackStateValue;
     public int _punchKickPivotValue;
     public float _chooseAttackDistanceModifier = .75f;
     
@@ -90,14 +93,14 @@ public class OpponentAI : MonoBehaviour
     public static bool _opponentIsPunchingRight;
     public static bool _opponentIsKickingLow;
     public static bool _ooponentIsKickingHigh;
-    
-    private bool _returnFightIntroFinished;
 
-    private CollisionFlags _collisionFlagsOpponent;
+    protected bool _returnFightIntroFinished;
 
-    public static OpponentAIState _opponentAIState;
+    protected CollisionFlags _collisionFlagsOpponent;
 
-    private enum ChooseAttack
+    public static IOpponentAIState _opponentAIState = new OpponentAIStateStateInitialise();
+
+    protected enum ChooseAttack
     {
         LeftPunch,
         RightPunch,
@@ -132,7 +135,7 @@ public class OpponentAI : MonoBehaviour
         StartCoroutine(OpponentFSM());
     }
 
-    private void OpponentIsMovesInit()
+    private protected void OpponentIsMovesInit()
     {
         _ooponentIsPunchingLeft = false;
         _opponentIsPunchingRight = false;
@@ -151,161 +154,33 @@ public class OpponentAI : MonoBehaviour
         UpdatePositionDifference();
         UpdateOpponentsPlanePosition();
     }
+    #endregion
 
-    private IEnumerator OpponentFSM()
+    protected IEnumerator OpponentFSM()
     {
         while (true)
         {
-            switch (_opponentAIState)
-            {
-                case OpponentAIState.Initialise:
-                    Initialise();
-                    break;
-                case OpponentAIState.OpponentIdle:
-                    OpponentIdle();
-                    break;
-                case OpponentAIState.OpponentHitByLowKick:
-                    OpponentHitByLowKick();
-                    break;
-                case OpponentAIState.OpponentHitByLeftPunch:
-                    OpponentHitByLeftPunch();
-                    break;
-                case OpponentAIState.WaitForHitAnimations:
-                    WaitForHitAnimations();
-                    break;
-                case OpponentAIState.DefeatedFinalHit:
-                    OpponentDefeated();
-                    break;
-                case OpponentAIState.OpponentHitByRightPunch:
-                    OpponentHitByRightPunch();
-                    break;
-                case OpponentAIState.OpponentHitByHighKick:
-                    OpponentHitByHighKick();
-                    break;
-                case OpponentAIState.AdvanceOnThePlayer:
-                    AdvanceOnThePlayer();
-                    break;
-                case OpponentAIState.RetreatFromThePlayer:
-                    RetreatFromThePlayer();
-                    break;
-                case OpponentAIState.WalkTowardsThePlayer:
-                    WalkTowardsThePlayer();
-                    break;
-                case OpponentAIState.WalkAwayFromThePlayer:
-                    WalkAwayFromThePlayer();
-                    break;
-                case OpponentAIState.JumpTowardsThePlayer:
-                    JumpTowardsThePlayer();
-                    break;
-                case OpponentAIState.JumpAwayThePlayer:
-                    JumpAwayThePlayer();
-                    break;
-                case OpponentAIState.OpponentJumpUp:
-                    OpponentJumpUp();
-                    break;
-                case OpponentAIState.OpponentComeDown:
-                    OpponentComeDown();
-                    break;
-                case OpponentAIState.OpponentComeDownForward:
-                    OpponentComeDownForward();
-                    break;
-                case OpponentAIState.OpponentComeDownBackwards:
-                    OpponentComeDownBackwards();
-                    break;
-                case OpponentAIState.OpponentLeftPunch:
-                    OpponentLeftPunch();
-                    break;
-                case OpponentAIState.OpponentRightPunch:
-                    OpponentRightPunch();
-                    break;
-                case OpponentAIState.OpponentHighKick:
-                    OpponentHighKick();
-                    break;
-                case OpponentAIState.OpponentLowKick:
-                    OpponentLowKick();
-                    break;
-                case OpponentAIState.ChooseAttackState:
-                    ChooseAttackState();
-                    break;
-                case OpponentAIState.WaitForStrikeAnimations:
-                    WaitForStrikeAnimations();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _opponentAIState.Do();
 
             yield return null;
         }
     }
 
-    private void Initialise()
-    {
-        // Debug.Log(nameof(Initialise));
-
-        _decideAggressionPriority = 2; //Random.Range(1, 9);
-
-        if (_punchKickPivotValue == 0)
-        {
-            _punchKickPivotValue = 3;
-        }
-
-        if (_leftPunchRangeMin != 0)
-        {
-            _leftPunchRangeMin = 0;
-        }
-
-        if (_leftPunchRangeMax == 0)
-        {
-            _leftPunchRangeMax = 1;
-        }
-
-        if (_rightPunchRangeMin == 0)
-        {
-            _rightPunchRangeMin = 2;
-        }
-
-        if (_rightPunchRangeMax == 0)
-        {
-            _rightPunchRangeMax = 3;
-        }
-
-        if (_lowKickRangeMin == 0)
-        {
-            _lowKickRangeMin = 4;
-        }
-
-        if (_lowKickRangeMax == 0)
-        {
-            _lowKickRangeMax = 5;
-        }
-
-        if (_highKickRangeMin == 0)
-        {
-            _highKickRangeMin = 6;
-        }
-
-        if (_highKickRangeMax == 0)
-        {
-            _highKickRangeMax = 7;
-        }
-
-        _opponentAIState = OpponentAIState.OpponentIdle;
-    }
-
-    private void OpponentJumpAnimation()
+    protected void OpponentJumpAnimation()
     {
         // Debug.Log(nameof(OpponentJumpAnimation));
 
         _opponentAnimator.CrossFade(_opponentJumpAnim.name);
     }
-    
-    private void OpponentPunchLeftAnimation()
+
+    protected void OpponentPunchLeftAnimation()
     {
         // Debug.Log(nameof(OpponentPunchLeftAnimation));
         
         _opponentAnimator.CrossFade(_opponentPunchLeftAnim.name);    
     }
-    private void OpponentPunchRightAnimation()
+
+    protected void OpponentPunchRightAnimation()
     {
         // Debug.Log(nameof(OpponentPunchRightAnimation));
         
@@ -317,7 +192,8 @@ public class OpponentAI : MonoBehaviour
         
         _opponentAnimator.CrossFade(_opponentKickHighAnim.name);    
     }
-    private void OpponentKickLowAnimation()
+
+    protected void OpponentKickLowAnimation()
     {
         // Debug.Log(nameof(OpponentKickLowAnimation));
         
@@ -326,159 +202,14 @@ public class OpponentAI : MonoBehaviour
 
     #region Jump
 
-    private void JumpTowardsThePlayer()
-    {
-        Debug.Log(nameof(JumpTowardsThePlayer));
-
-        OpponentJumpAnimation();
-
-        _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
-        _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
-        _opponentMoveDirection *= _opponentJumpSpeed;
-
-        _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
-
-        if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
-        {
-            _opponentAIState = OpponentAIState.OpponentComeDownForward;
-        }
-    }
-
-    private void JumpAwayThePlayer()
-    {
-        Debug.Log(nameof(JumpAwayThePlayer));
-
-        OpponentJumpAnimation();
-        _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
-        _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
-        _opponentMoveDirection *= _opponentJumpSpeed;
-
-        _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
-
-        if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
-        {
-            _opponentAIState = OpponentAIState.OpponentComeDownBackwards;
-        }
-    }
-
-    private void OpponentJumpUp()
-    {
-        Debug.Log(nameof(OpponentJumpUp));
-
-        OpponentJumpAnimation();
-        _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
-        _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
-        _opponentMoveDirection *= _opponentJumpSpeed;
-
-        _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
-
-        if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
-        {
-            _opponentAIState = OpponentAIState.OpponentComeDown;
-        }
-    }
-
-    private void OpponentComeDown()
-    {
-        Debug.Log(nameof(OpponentComeDown));
-
-        //OpponentJumpAnimation();
-        _opponentMoveDirection = new Vector3(0, _opponentVerticalSpeed, 0);
-        _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection);
-        _opponentMoveDirection *= _opponentJumpSpeed;
-
-        _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
-
-        // SetIdleToState();
-        if (OpponentIsGrounded())
-        {
-            _opponentAIState = OpponentAIState.OpponentIdle;
-        }
-    }
-
-    private void OpponentComeDownForward()
-    {
-        Debug.Log(nameof(OpponentComeDownForward));
-
-        //OpponentJumpAnimation();
-        _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
-        _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
-        _opponentMoveDirection *= _opponentJumpSpeed;
-
-        _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
-
-        if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
-        {
-            _opponentAIState = OpponentAIState.OpponentIdle;
-        }
-    }
-
-    private void OpponentComeDownBackwards()
-    {
-        Debug.Log(nameof(OpponentComeDownBackwards));
-
-        //OpponentJumpAnimation();
-        _opponentMoveDirection = new Vector3(0, _opponentJumpSpeed, 0);
-        _opponentMoveDirection = _opponentTransform.TransformDirection(_opponentMoveDirection).normalized;
-        _opponentMoveDirection *= _opponentJumpSpeed;
-
-        _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
-
-        if (_opponentTransform.transform.position.y >= _jumpHeightTemp.y)
-        {
-            _opponentAIState = OpponentAIState.OpponentIdle;
-        }
-    }
-
     #endregion
 
     private void OpponentIdle()
     {
-        // Debug.Log(nameof(OpponentIdle));
-        OpponentIsMovesInit();
-        // if (OpponentIsGrounded())
-        // {
-        //     return;
-        // }
-
-        OpponentIdleAnimation();
-
-        OpponentGravityIdle();
-
-        _returnFightIntroFinished = FightIntro._fightIntroFinished;
-
-        if (_returnFightIntroFinished != true)
-        {
-            return;
-        }
-
-        // Delete below for testing only
-        _opponentAIState = OpponentAIState.WalkTowardsThePlayer;
-
-        if (_decideAggressionPriority < _assessPriority.start)
-        {
-            _opponentAIState = OpponentAIState.AdvanceOnThePlayer;
-        }
-
-        if (_decideAggressionPriority > _offensivePriority.end
-            && _decideAggressionPriority < _defensivePriority.start)
-        {
-            if (_assessingThePlayer)
-            {
-                return;
-            }
-
-            _assessingThePlayer = true;
-            StartCoroutine(AssessThePlayer());
-        }
-
-        if (_decideAggressionPriority == _defensivePriority.start)
-        {
-            _opponentAIState = OpponentAIState.RetreatFromThePlayer;
-        }
+        
     }
 
-    private void OpponentGravityIdle()
+    protected void OpponentGravityIdle()
     {
         // Debug.Log(nameof(OpponentGravityIdle));
 
@@ -489,7 +220,7 @@ public class OpponentAI : MonoBehaviour
         _collisionFlagsOpponent = _opponentController.Move(_opponentMoveDirection * Time.deltaTime);
     }
 
-    private void OpponentIdleAnimation()
+    protected void OpponentIdleAnimation()
     {
         // Debug.Log(nameof(OpponentIdleAnimation));
 
@@ -501,102 +232,14 @@ public class OpponentAI : MonoBehaviour
         Debug.Log(nameof(InitialiseAnimation));
     }
 
-    private void AdvanceOnThePlayer()
-    {
-        // Debug.Log(nameof(AdvanceOnThePlayer));
-
-        _decideForwardMovement = Random.Range(1, 10);
-
-        if (_decideBackwardMovement >= _minimumDecideValue
-            && _decideForwardMovement <= _tippingPointDecideValue)
-        {
-            _opponentAIState = OpponentAIState.WalkTowardsThePlayer;
-        }
-
-        if (_decideBackwardMovement <= _maximumDecideValue
-            && _decideForwardMovement > _tippingPointDecideValue)
-        {
-            if (_positionDifference.x >= _positionDifferenceModifier)
-            {
-                _opponentAIState = OpponentAIState.JumpTowardsThePlayer;
-            }
-            else
-            {
-                _opponentAIState = OpponentAIState.WalkTowardsThePlayer; 
-            }
-        }
-    }
-
-    private void RetreatFromThePlayer()
-    {
-        // Debug.Log(nameof(RetreatFromThePlayer));
-
-        _decideForwardMovement = Random.Range(1, 10);
-
-        if (_decideBackwardMovement >= _minimumDecideValue
-            && _decideForwardMovement <= _tippingPointDecideValue)
-        {
-        }
-
-        if (_decideBackwardMovement <= _maximumDecideValue
-            && _decideForwardMovement > _tippingPointDecideValue)
-        {
-        }
-    }
-
-    private void WalkAwayFromThePlayer()
-    {
-        // Debug.Log(nameof(WalkAwayFromThePlayer));
-
-        _opponentMoveDirection =
-            (transform.position - _playersPosition)
-            * _opponentWalkSpeed;
-
-        _opponentMoveDirection.Normalize();
-
-        _opponentMoveDirection.y = 0;
-        _opponentMoveDirection.z = 0;
-
-        _collisionFlagsOpponent =
-            _opponentController.Move(
-                _opponentMoveDirection * Time.deltaTime);
-
-        OpponentWalkAnimation();
-    }
-
-    private void WalkTowardsThePlayer()
-    {
-        // Debug.Log(nameof(WalkTowardsThePlayer));
-
-        if (Mathf.Abs(_playerOne.transform.position.x - _opponent.transform.position.x) <= _chooseAttackDistanceModifier)
-        {
-            _opponentAIState = OpponentAIState.ChooseAttackState;
-        }
-
-        _opponentMoveDirection =
-            (_playersPosition - transform.position)
-            * _opponentWalkSpeed;
-
-        _opponentMoveDirection.Normalize();
-
-        _opponentMoveDirection.y = 0;
-        _opponentMoveDirection.z = 0;
-
-        _collisionFlagsOpponent =
-            _opponentController.Move(
-                _opponentMoveDirection * Time.deltaTime);
-
-        OpponentWalkAnimation();
-    }
-
-    private void OpponentWalkAnimation()
+    private protected void OpponentWalkAnimation()
     {
         // Debug.Log(nameof(OpponentWalkAnimation));
 
         _opponentAnimator.CrossFade(_opponentWalkAnim.name);
     }
 
-    private IEnumerator AssessThePlayer()
+    protected IEnumerator AssessThePlayer()
     {
         // Debug.Log(nameof(AssessThePlayer));
 
@@ -605,39 +248,7 @@ public class OpponentAI : MonoBehaviour
         _assessingThePlayer = false;
     }
 
-    private void OpponentHitByLowKick()
-    {
-        // Debug.Log(nameof(OpponentHitByLowKick));
-        //OpponentIsMovesInit();
-        OpponentHitBodyAnimation();
-
-        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
-
-        var _impactPoint = PlayerLowKick._opponentImpactPoint;
-
-        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f),
-            Quaternion.identity) as GameObject;
-
-        _opponentAIState = OpponentAIState.WaitForHitAnimations;
-    }
-
-    private void OpponentHitByHighKick()
-    {
-        // Debug.Log(nameof(OpponentHitByHighKick));
-        //OpponentIsMovesInit();
-        OpponentHitBodyAnimation();
-
-        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
-
-        var _impactPoint = PlayerHighKick._opponentImpactPoint;
-
-        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f),
-            Quaternion.identity) as GameObject;
-
-        _opponentAIState = OpponentAIState.WaitForHitAnimations;
-    }
-
-    private void OpponentHitBodyAnimation()
+    private protected void OpponentHitBodyAnimation()
     {
         // Debug.Log(nameof(OpponentHitBodyAnimation));
 
@@ -646,245 +257,15 @@ public class OpponentAI : MonoBehaviour
 
     public float _temp = 0;
 
-    private void OpponentHitByLeftPunch()
-    {
-        // Debug.Log(nameof(OpponentHitByLeftPunch));
-        //OpponentIsMovesInit();
-        OpponentHitHeadAnimation();
-
-        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
-
-        var _impactPoint = PlayerPunchLeft._opponentImpactPoint;
-
-        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f),
-            Quaternion.identity) as GameObject;
-
-        _opponentAIState = OpponentAIState.WaitForHitAnimations;
-    }
-
-    private void OpponentHitByRightPunch()
-    {
-        // Debug.Log(nameof(OpponentHitByRightPunch));
-        //OpponentIsMovesInit();
-        OpponentHitHeadAnimation();
-
-        _opponentAIAudioSource.PlayOneShot(_opponentHeadHitAudio);
-
-        var _impactPoint = PlayerPunchRight._opponentImpactPoint;
-
-        var _hs = Instantiate(_hitSparks, new Vector3(_impactPoint.x, _impactPoint.y, _impactPoint.z + -.2f),
-            Quaternion.identity) as GameObject;
-
-        _opponentAIState = OpponentAIState.WaitForHitAnimations;
-    }
-
-    private void OpponentHitHeadAnimation()
+    private protected void OpponentHitHeadAnimation()
     {
         // Debug.Log(nameof(OpponentHitHeadAnimation));
 
         _opponentAnimator.CrossFade(_opponentHitHeadAnim.name);
     }
 
-    private void ChooseAttackState()
-    {
-        // Debug.Log(nameof(ChooseAttackState));
-        
-        OpponentIdleAnimation();
-        
-        _switchAttackValue = Random.Range(0, 7);
-
-        if (_switchAttackValue >= _leftPunchRangeMin 
-            && _switchAttackValue <= _leftPunchRangeMax)
-        {
-            _switchAttackStateValue = 0;
-        }
-
-        if (_switchAttackValue >= _rightPunchRangeMin 
-            && _switchAttackValue <= _rightPunchRangeMax)
-        {
-            _switchAttackStateValue = 1;
-        }
-
-        if (_switchAttackValue >= _lowKickRangeMin 
-            && _switchAttackValue <= _lowKickRangeMax)
-        {
-            _switchAttackStateValue = 2;
-        }
-
-        if (_switchAttackValue >= _highKickRangeMin 
-            && _switchAttackValue <= _highKickRangeMax)
-        {
-            _switchAttackStateValue = 3;
-        }
-
-        switch (_switchAttackStateValue)
-        {
-            case 0:
-                _chooseAttack = ChooseAttack.LeftPunch;
-                break;
-            case 1:
-                _chooseAttack = ChooseAttack.RightPunch;
-                break;
-            case 2:
-                _chooseAttack = ChooseAttack.LowKick;
-                break;
-            case 3:
-                _chooseAttack = ChooseAttack.HighKick;
-                break;
-        }
-
-        if (_chooseAttack == ChooseAttack.LeftPunch)
-        {
-            _opponentAIState = OpponentAIState.OpponentLeftPunch;
-        }
-
-        if (_chooseAttack == ChooseAttack.RightPunch)
-        {
-            _opponentAIState = OpponentAIState.OpponentRightPunch;
-        }
-
-        if (_chooseAttack == ChooseAttack.LowKick)
-        {
-            _opponentAIState = OpponentAIState.OpponentLowKick;
-        }
-
-        if (_chooseAttack == ChooseAttack.HighKick)
-        {
-            _opponentAIState = OpponentAIState.OpponentHighKick;
-        }
-    }
-
     #region PunchKick
-    private void OpponentLeftPunch()
-    {
-        // Debug.Log(nameof(OpponentLeftPunch));
-        _ooponentIsPunchingLeft = true;
-        OpponentPunchLeftAnimation();
-        _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
-    }
-
-    private void OpponentRightPunch()
-    {
-        // Debug.Log(nameof(OpponentRightPunch));
-        _opponentIsPunchingRight = true;
-        OpponentPunchRightAnimation();
-        _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
-    }
-
-    private void OpponentLowKick()
-    {
-        // Debug.Log(nameof(OpponentLowKick));
-        _opponentIsKickingLow = true;
-        OpponentKickLowAnimation();
-        _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
-    }
-
-    private void OpponentHighKick()
-    {
-        // Debug.Log(nameof(OpponentHighKick));
-        _ooponentIsKickingHigh = true;
-        OpponentHighKick();
-        _opponentAIState = OpponentAIState.WaitForStrikeAnimations;
-    }
     #endregion
-
-    private void WaitForHitAnimations()
-    {
-        // Debug.Log(nameof(WaitForHitAnimations));
-        OpponentIsMovesInit();
-
-        if (_opponentAnimator.IsPlaying(_opponentHitBodyAnim.name))
-        {
-            return;
-        }
-
-        if (_opponentAnimator.IsPlaying(_opponentHitHeadAnim.name))
-        {
-            return;
-        }
-
-        _opponentAIState = OpponentAIState.OpponentIdle;
-    }
-
-    private void WaitForStrikeAnimations()
-    {
-        // Debug.Log(nameof(WaitForStrikeAnimations));
-        OpponentIsMovesInit();
-
-        if (_opponentAnimator.IsPlaying(_opponentPunchLeftAnim.name))
-        {
-            return;
-        }
-
-        if (_opponentAnimator.IsPlaying(_opponentPunchRightAnim.name))
-        {
-            return;
-        }
-
-        if (_opponentAnimator.IsPlaying(_opponentKickLowAnim.name))
-        {
-            return;
-        }
-
-        if (_opponentAnimator.IsPlaying(_opponentKickHighAnim.name))
-        {
-            return;
-        }
-        
-        _ooponentIsPunchingLeft = false;
-        _opponentIsPunchingRight = false;
-        _opponentIsKickingLow = false;
-        _ooponentIsKickingHigh = false;
-        
-        _opponentAIState = OpponentAIState.OpponentIdle;
-    }
-
-    private void WaitForHitAnimationsAnimation()
-    {
-        // Debug.Log(nameof(WaitForHitAnimationsAnimation));
-
-        if (_opponentAnimator.IsPlaying(_opponentHitBodyAnim.name))
-        {
-            return;
-        }
-
-        if (_opponentAnimator.IsPlaying(_opponentHitHeadAnim.name))
-        {
-            return;
-        }
-
-        _opponentAIState = OpponentAIState.OpponentIdle;
-    }
-
-    private void OpponentDefeated()
-    {
-        // Debug.Log(nameof(OpponentDefeated));
-
-        OpponentGravityIdle();
-
-        if (_opponentAnimator.IsPlaying(_opponentDefeatedFinalHitAnim.name))
-        {
-            return;
-        }
-
-        StopCoroutine(OpponentFSM());
-    }
-
-    public void SetOpponentDefeated()
-    {
-        // Debug.Log(nameof(SetOpponentDefeated));
-
-        OpponentFinalHitAnimation();
-
-        _opponentAIState = OpponentAIState.OpponentIdle;
-    }
-
-    private void OpponentFinalHitAnimation()
-    {
-        // Debug.Log(nameof(OpponentFinalHitAnimation));
-
-        _opponentAnimator.CrossFade(_opponentDefeatedFinalHitAnim.name);
-    }
 
     private void DefeatedFinalHit()
     {

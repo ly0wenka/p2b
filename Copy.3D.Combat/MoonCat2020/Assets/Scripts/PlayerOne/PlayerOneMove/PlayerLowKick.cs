@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Opponent.OpponentAIState;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -53,7 +54,7 @@ public class PlayerLowKick : MonoBehaviour
 
     private void HeadKick()
     {
-        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLowKick;
+        OpponentAI._opponentAIState = new OpponentAIStateOpponentHitByLowKick();
 
         OpponentHealth _tempDamage = FightCamera._opponent.GetComponent<OpponentHealth>();
 
