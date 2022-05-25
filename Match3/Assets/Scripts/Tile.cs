@@ -62,7 +62,8 @@ public sealed class Tile : MonoBehaviour
 
         foreach (var neighbour in Neighbours)
         {
-            if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item)
+            var contains = neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item;
+            if (contains)
             {
                 continue;
             }

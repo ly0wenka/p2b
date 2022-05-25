@@ -4,7 +4,61 @@ using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
+
+public class Tile2x
+{
+    private Transform icon1Transform;
+    private Transform icon2Transform;
+    private Image icon1;
+    private Image icon2;
+
+    public static Tile2x CreateInstance(Tile tile1, Tile tile2)
+    {
+        return new Tile2x(tile1, tile2);
+    }
+
+    private Tile2x(Tile tile1, Tile tile2)
+    {
+        Tile1 = tile1;
+        Tile2 = tile2;
+        icon1 = tile1.icon;
+        icon2 = tile2.icon;
+        icon1Transform = icon1.transform;
+        icon2Transform = icon2.transform;
+    }
+
+    public Tile Tile1 { get; private set; }
+    public Tile Tile2 { get; private set; }
+
+    public async Task PlaySwapSequence()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Join(icon1Transform.DOMove(icon2Transform.position, Board.TweenDuration))
+            .Join(icon2Transform.DOMove(icon1Transform.position, Board.TweenDuration));
+        await sequence.Play().AsyncWaitForCompletion();
+    }
+
+    public void SwapParent()
+    {
+        icon1Transform.SetParent(Tile2.transform);
+        icon2Transform.SetParent(Tile1.transform);
+    }
+
+    public void SwapIcons()
+    {
+        Tile1.icon = icon2;
+        Tile2.icon = icon1;
+    }
+
+    public void SwapItem()
+    {
+        var tile1Item = Tile1.Item;
+        Tile1.Item = Tile2.Item;
+        Tile2.Item = tile1Item;
+    }
+}
 
 public sealed class Board : MonoBehaviour
 {
@@ -16,7 +70,7 @@ public sealed class Board : MonoBehaviour
     public int Height => Tiles.GetLength(1);
 
     [SerializeField] private List<Tile> selection = new List<Tile>();
-    internal const float TweenDuration = 0.25f;
+    public const float TweenDuration = 0.25f;
     private void Awake() => Instance = this;
 
     private void Start()
@@ -64,36 +118,26 @@ public sealed class Board : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log($"Selected tiles at {selection[0]} and {selection[1]}");
 #endif
-        await SwapAsync(selection[0], selection[1]);
+        var tile2X = Tile2x.CreateInstance(selection[0], selection[1]);
+        await SwapAsync(tile2X);
         if (CanPop())
         {
             await PopAsync();
         }
         else
         {
-            await SwapAsync(selection[0], selection[1]);
+            await SwapAsync(tile2X);
         }
 
         selection.Clear();
     }
 
-    private async Task SwapAsync(Tile tile1, Tile tile2)
+    private async Task SwapAsync(Tile2x tile2X)
     {
-        var icon1 = tile1.icon;
-        var icon2 = tile2.icon;
-        var icon1Transform = icon1.transform;
-        var icon2Transform = icon2.transform;
-        var sequence = DOTween.Sequence();
-        sequence.Join(icon1Transform.DOMove(icon2Transform.position, TweenDuration))
-            .Join(icon2Transform.DOMove(icon1Transform.position, TweenDuration));
-        await sequence.Play().AsyncWaitForCompletion();
-        icon1Transform.SetParent(tile2.transform);
-        icon2Transform.SetParent(tile1.transform);
-        tile1.icon = icon2;
-        tile2.icon = icon1;
-        var tile1Item = tile1.Item;
-        tile1.Item = tile2.Item;
-        tile2.Item = tile1Item;
+        await tile2X.PlaySwapSequence();
+        tile2X.SwapParent();
+        tile2X.SwapIcons();
+        tile2X.SwapItem();
     }
 
     private bool CanPop()
