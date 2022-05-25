@@ -17,6 +17,7 @@ public sealed class ScoreCounter : MonoBehaviour
             {
                 return;
             }
+
             _score = value;
             scoreText.SetText($"Score = {_score}");
         }

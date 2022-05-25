@@ -8,6 +8,7 @@ public sealed class Tile : MonoBehaviour
     public int x;
     public int y;
     private Item _item;
+    private Image _image;
 
     public Item Item
     {
@@ -21,6 +22,9 @@ public sealed class Tile : MonoBehaviour
 
             _item = value;
             icon.sprite = _item.sprite;
+                
+            var color = _item.color;
+            _image.color = new Color(color.r, color.g, color.b);
         }
     }
 
@@ -32,10 +36,15 @@ public sealed class Tile : MonoBehaviour
         return $"{nameof(Tile)}: {x}, {y}";
     }
 
-    public Tile Left => x > 0 ? Board.Instance.Tiles[x - 1, y] : null;
-    public Tile Top => y > 0 ? Board.Instance.Tiles[x, y - 1] : null;
-    public Tile Right => x < Board.Instance.Width - 1 ? Board.Instance.Tiles[x + 1, y] : null;
-    public Tile Bottom => y < Board.Instance.Height - 1 ? Board.Instance.Tiles[x, y + 1] : null;
+    private void Awake ()
+    {
+        _image = GetComponent<Image>();
+    }
+
+    private Tile Left => x > 0 ? Board.Instance.Tiles[x - 1, y] : null;
+    private Tile Top => y > 0 ? Board.Instance.Tiles[x, y - 1] : null;
+    private Tile Right => x < Board.Instance.Width - 1 ? Board.Instance.Tiles[x + 1, y] : null;
+    private Tile Bottom => y < Board.Instance.Height - 1 ? Board.Instance.Tiles[x, y + 1] : null;
 
     public Tile[] Neighbours => new[]
     {
@@ -49,15 +58,7 @@ public sealed class Tile : MonoBehaviour
 
     public List<Tile> GetConnectedTiles(List<Tile> exclude = null)
     {
-        var result = new List<Tile> {this,};
-        if (exclude == null)
-        {
-            exclude = new List<Tile> {this,};
-        }
-        else
-        {
-            exclude.Add(this);
-        }
+        var result = NewOrAddExclude(ref exclude);
 
         foreach (var neighbour in Neighbours)
         {
@@ -65,7 +66,23 @@ public sealed class Tile : MonoBehaviour
             {
                 continue;
             }
+
             result.AddRange(neighbour.GetConnectedTiles(exclude));
+        }
+
+        return result;
+    }
+
+    private List<Tile> NewOrAddExclude(ref List<Tile> exclude)
+    {
+        var result = new List<Tile> {this,};
+        if (exclude != null)
+        {
+            exclude.Add(this);
+        }
+        else
+        {
+            exclude = new List<Tile> {this,};
         }
 
         return result;

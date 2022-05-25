@@ -5,4 +5,6 @@ public sealed class Item : ScriptableObject
 {
     public int value;
     public Sprite sprite;
+    public Color color;
+    public AudioClip collectSound;
 }

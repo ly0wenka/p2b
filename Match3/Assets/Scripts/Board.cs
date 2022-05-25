@@ -9,30 +9,35 @@ using Random = UnityEngine.Random;
 public sealed class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; }
-    [SerializeField] private AudioClip collectSound;
     [SerializeField] private AudioSource audioSource;
     public Row[] rows;
     public Tile[,] Tiles { get; private set; }
     public int Width => Tiles.GetLength(0);
     public int Height => Tiles.GetLength(1);
+
     [SerializeField] private List<Tile> selection = new List<Tile>();
-    private const float TweenDuration = 0.25f;
+    internal const float TweenDuration = 0.25f;
     private void Awake() => Instance = this;
 
     private void Start()
     {
-        Tiles = new Tile[rows.Max(row=>row.tiles.Length), rows.Length];
+        Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
         for (var y = 0; y < Height; y++)
         {
             for (var x = 0; x < Width; x++)
             {
-                var tile = rows[y].tiles[x];
-                tile.x = x;
-                tile.y = y;
-                tile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
-                Tiles[x, y] = tile;
+                SetTile(y, x);
             }
         }
+    }
+
+    private void SetTile(int y, int x)
+    {
+        var tile = rows[y].tiles[x];
+        tile.x = x;
+        tile.y = y;
+        tile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
+        Tiles[x, y] = tile;
     }
 
     public async void SelectAsync(Tile tile)
@@ -68,6 +73,7 @@ public sealed class Board : MonoBehaviour
         {
             await SwapAsync(selection[0], selection[1]);
         }
+
         selection.Clear();
     }
 
@@ -79,7 +85,7 @@ public sealed class Board : MonoBehaviour
         var icon2Transform = icon2.transform;
         var sequence = DOTween.Sequence();
         sequence.Join(icon1Transform.DOMove(icon2Transform.position, TweenDuration))
-                .Join(icon2Transform.DOMove(icon1Transform.position, TweenDuration));
+            .Join(icon2Transform.DOMove(icon1Transform.position, TweenDuration));
         await sequence.Play().AsyncWaitForCompletion();
         icon1Transform.SetParent(tile2.transform);
         icon2Transform.SetParent(tile1.transform);
@@ -102,6 +108,7 @@ public sealed class Board : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 
@@ -118,20 +125,12 @@ public sealed class Board : MonoBehaviour
                     continue;
                 }
 
-                var deflateSequence = DOTween.Sequence();
-                foreach (var connectedTile in connectedTiles)
-                {
-                    deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, TweenDuration));
-                }
-                audioSource.PlayOneShot(collectSound);
-                ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count;
+                var deflateSequence = connectedTiles.DeflateSequence();
+
+                audioSource.PlayOneShot(tile.Item.collectSound);
+                ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count();
                 await deflateSequence.Play().AsyncWaitForCompletion();
-                var inflateSequence = DOTween.Sequence();
-                foreach (var connectedTile in connectedTiles)
-                {
-                    connectedTile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
-                    inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, TweenDuration));
-                }
+                var inflateSequence = connectedTiles.InflateSequence();
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
 
@@ -139,5 +138,30 @@ public sealed class Board : MonoBehaviour
                 y = 0;
             }
         }
+    }
+}
+public static class TilesExtension
+{
+    public static Sequence InflateSequence(this IEnumerable<Tile> connectedTiles)
+    {
+        var inflateSequence = DOTween.Sequence();
+        foreach (var connectedTile in connectedTiles)
+        {
+            connectedTile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
+            inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, Board.TweenDuration));
+        }
+
+        return inflateSequence;
+    }
+
+    public static Sequence DeflateSequence(this IEnumerable<Tile> connectedTiles)
+    {
+        var deflateSequence = DOTween.Sequence();
+        foreach (var connectedTile in connectedTiles)
+        {
+            deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, Board.TweenDuration));
+        }
+
+        return deflateSequence;
     }
 }
