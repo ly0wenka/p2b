@@ -11,6 +11,7 @@ public class WalletViewModel : ViewModel
     
     private class ModelAttribute : Attribute
     {
+        
     }
 
     public class ProjectAttribute : Attribute
