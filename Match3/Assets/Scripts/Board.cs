@@ -7,56 +7,54 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Tile2x
+public class Tile2X
 {
-    private Transform icon1Transform;
-    private Transform icon2Transform;
-    private Image icon1;
-    private Image icon2;
+    private readonly Transform _icon1Transform;
+    private readonly Transform _icon2Transform;
+    private readonly Image _icon1;
+    private readonly Image _icon2;
 
-    public static Tile2x CreateInstance(Tile tile1, Tile tile2)
+    public static Tile2X CreateInstance(Tile tile1, Tile tile2)
     {
-        return new Tile2x(tile1, tile2);
+        return new Tile2X(tile1, tile2);
     }
 
-    private Tile2x(Tile tile1, Tile tile2)
+    private Tile2X(Tile tile1, Tile tile2)
     {
         Tile1 = tile1;
         Tile2 = tile2;
-        icon1 = tile1.icon;
-        icon2 = tile2.icon;
-        icon1Transform = icon1.transform;
-        icon2Transform = icon2.transform;
+        _icon1 = tile1.icon;
+        _icon2 = tile2.icon;
+        _icon1Transform = _icon1.transform;
+        _icon2Transform = _icon2.transform;
     }
 
-    public Tile Tile1 { get; private set; }
-    public Tile Tile2 { get; private set; }
+    private Tile Tile1 { get; set; }
+    private Tile Tile2 { get; set; }
 
     public async Task PlaySwapSequence()
     {
         var sequence = DOTween.Sequence();
-        sequence.Join(icon1Transform.DOMove(icon2Transform.position, Board.TweenDuration))
-            .Join(icon2Transform.DOMove(icon1Transform.position, Board.TweenDuration));
+        sequence.Join(_icon1Transform.DOMove(_icon2Transform.position, Board.TweenDuration))
+            .Join(_icon2Transform.DOMove(_icon1Transform.position, Board.TweenDuration));
         await sequence.Play().AsyncWaitForCompletion();
     }
 
     public void SwapParent()
     {
-        icon1Transform.SetParent(Tile2.transform);
-        icon2Transform.SetParent(Tile1.transform);
+        _icon1Transform.SetParent(Tile2.transform);
+        _icon2Transform.SetParent(Tile1.transform);
     }
 
     public void SwapIcons()
     {
-        Tile1.icon = icon2;
-        Tile2.icon = icon1;
+        Tile1.icon = _icon2;
+        Tile2.icon = _icon1;
     }
 
     public void SwapItem()
     {
-        var tile1Item = Tile1.Item;
-        Tile1.Item = Tile2.Item;
-        Tile2.Item = tile1Item;
+        (Tile1.Item, Tile2.Item) = (Tile2.Item, Tile1.Item);
     }
 }
 
@@ -80,36 +78,23 @@ public sealed class Board : MonoBehaviour
         {
             for (var x = 0; x < Width; x++)
             {
-                SetTile(y, x);
+                SetRandomTile(y, x);
             }
         }
     }
 
-    private void SetTile(int y, int x)
+    private void SetRandomTile(int y, int x)
     {
         var tile = rows[y].tiles[x];
         tile.x = x;
         tile.y = y;
-        tile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
+        tile.SetRandomItem();
         Tiles[x, y] = tile;
     }
 
     public async void SelectAsync(Tile tile)
     {
-        if (!selection.Contains(tile))
-        {
-            if (selection.Count > 0)
-            {
-                if (Array.IndexOf(selection[0].Neighbours, tile) != -1)
-                {
-                    selection.Add(tile);
-                }
-            }
-            else
-            {
-                selection.Add(tile);
-            }
-        }
+        AddSelected(tile);
 
         if (selection.Count < 2)
         {
@@ -118,7 +103,7 @@ public sealed class Board : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log($"Selected tiles at {selection[0]} and {selection[1]}");
 #endif
-        var tile2X = Tile2x.CreateInstance(selection[0], selection[1]);
+        var tile2X = Tile2X.CreateInstance(selection[0], selection[1]);
         await SwapAsync(tile2X);
         if (CanPop())
         {
@@ -126,13 +111,24 @@ public sealed class Board : MonoBehaviour
         }
         else
         {
-            await SwapAsync(tile2X);
+            await SwapAsync(Tile2X.CreateInstance(selection[0], selection[1]));
         }
 
         selection.Clear();
     }
 
-    private async Task SwapAsync(Tile2x tile2X)
+    private void AddSelected(Tile tile)
+    {
+        if (selection.Contains(tile)) return;
+        if (IsNeighbour() || !selection.Any())
+        {
+            selection.Add(tile);
+        }
+
+        bool IsNeighbour() => selection.Any() && Array.IndexOf(selection[0].Neighbours, tile) != -1;
+    }
+
+    private async Task SwapAsync(Tile2X tile2X)
     {
         await tile2X.PlaySwapSequence();
         tile2X.SwapParent();
@@ -146,7 +142,7 @@ public sealed class Board : MonoBehaviour
         {
             for (var x = 0; x < Width; x++)
             {
-                if (Tiles[x, y].GetConnectedTiles().Skip(1).Count() >= 2)
+                if (!Tiles[x, y].HasPoppedTiles())
                 {
                     return true;
                 }
@@ -163,45 +159,70 @@ public sealed class Board : MonoBehaviour
             for (var x = 0; x < Width; x++)
             {
                 var tile = Tiles[x, y];
-                var connectedTiles = tile.GetConnectedTiles();
-                if (connectedTiles.Skip(1).Count() < 2)
+                if (tile.HasPoppedTiles())
                 {
                     continue;
                 }
 
-                var deflateSequence = connectedTiles.DeflateSequence();
-
-                audioSource.PlayOneShot(tile.Item.collectSound);
-                ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count();
-                await deflateSequence.Play().AsyncWaitForCompletion();
-                var inflateSequence = connectedTiles.InflateSequence();
-
-                await inflateSequence.Play().AsyncWaitForCompletion();
+                //tile.FindConnectedTiles();
+                await DeInflateSequence(tile);
 
                 x = 0;
                 y = 0;
             }
         }
     }
+
+    private async Task DeInflateSequence(Tile tile)
+    {
+        var deflateSequence = tile.DeflateSequence();
+        BeforeDeflateSequence(tile);
+        await deflateSequence.Play().AsyncWaitForCompletion();
+
+        var inflateSequence = tile.InflateSequence();
+        await inflateSequence.Play().AsyncWaitForCompletion();
+    }
+
+    private void BeforeDeflateSequence(Tile tile)
+    {
+        PlayCollectedSound(tile);
+        AddScore(tile);
+    }
+
+    private void PlayCollectedSound(Tile tile) 
+        => audioSource.PlayOneShot(tile.Item.collectSound);
+
+    private static void AddScore(Tile tile) 
+        => ScoreCounter.Instance.Score += tile.Item.value * tile.ConnectedTiles.Count;
 }
 public static class TilesExtension
 {
-    public static Sequence InflateSequence(this IEnumerable<Tile> connectedTiles)
+    public static Sequence InflateSequence(this Tile tile)
     {
         var inflateSequence = DOTween.Sequence();
-        foreach (var connectedTile in connectedTiles)
+        foreach (var connectedTile in tile.ConnectedTiles)
         {
-            connectedTile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
+            SetRandomItem(connectedTile);
             inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, Board.TweenDuration));
         }
 
         return inflateSequence;
     }
 
-    public static Sequence DeflateSequence(this IEnumerable<Tile> connectedTiles)
+    public static void SetRandomItem(this Tile tile)
+    {
+        tile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
+    }
+
+    public static bool HasPoppedTiles(this Tile tile)
+    {
+        return tile.FindConnectedTiles().Skip(1).Count() < 2;
+    }
+
+    public static Sequence DeflateSequence(this Tile tile)
     {
         var deflateSequence = DOTween.Sequence();
-        foreach (var connectedTile in connectedTiles)
+        foreach (var connectedTile in tile.ConnectedTiles)
         {
             deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, Board.TweenDuration));
         }
