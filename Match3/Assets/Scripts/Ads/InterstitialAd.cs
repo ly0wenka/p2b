@@ -14,25 +14,19 @@ namespace Ads
 #else
         private bool testMode = false;
 #endif
-        private string bannerAndroid = "Banner_Android";
-        private BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
         private string interstitialAndroid = "Interstitial_Android";
         void Awake()
         {
             InitializeAd();
-            InitializeBanner();
         }
 
         private void InitializeAd() => Advertisement.Initialize(androidGameId, testMode, this);
-        private void InitializeBanner() => Advertisement.Banner.SetPosition(_bannerPosition);
         private void LoadAd() => Advertisement.Load(interstitialAndroid, this);
-        private void LoadBanner() => Advertisement.Banner.Load(bannerAndroid);
         public void ShowAd() => Advertisement.Show(interstitialAndroid, this);
         public void OnInitializationComplete()
         {
             Debug.Log(nameof(OnInitializationComplete));
             LoadAd();
-            LoadBanner();
         }
         public void OnInitializationFailed(UnityAdsInitializationError error, string message) =>
             Debug.Log($"{nameof(OnInitializationFailed)}:{error}");

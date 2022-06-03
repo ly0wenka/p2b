@@ -243,7 +243,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &629307962
 MonoBehaviour:
@@ -2186,7 +2186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e947ac82a38852f489ab8d33016d65f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectSound: {fileID: 8300000, guid: 0b1d4b2104d91bb4eb86236145bc69e8, type: 3}
   audioSource: {fileID: 1859431791}
   rows:
   - {fileID: 7396048959918427120}

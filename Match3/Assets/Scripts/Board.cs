@@ -73,14 +73,17 @@ public sealed class Board : MonoBehaviour
 
     private void Start()
     {
-        Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
-        for (var y = 0; y < Height; y++)
-        {
-            for (var x = 0; x < Width; x++)
-            {
+        CreateTiles();
+        SetRandomTiles();
+    }
+
+    public void CreateTiles() => Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
+
+    public void SetRandomTiles()
+    {
+        for (var y = 0; y < Height; ++y)
+            for (var x = 0; x < Width; ++x)
                 SetRandomTile(y, x);
-            }
-        }
     }
 
     private void SetRandomTile(int y, int x)
@@ -163,8 +166,7 @@ public sealed class Board : MonoBehaviour
                 {
                     continue;
                 }
-
-                //tile.FindConnectedTiles();
+                
                 await DeInflateSequence(tile);
 
                 x = 0;
