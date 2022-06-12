@@ -1,45 +1,88 @@
 using System.Collections.Generic;
-using System.Linq;
+using BoardNS;
 using NUnit.Framework;
+using TileNS;
 using UnityEngine;
 using static NUnit.Framework.Assert;
+using static TestUtilsNS.TestUtils;
 
 public class NeighboursTest
 {
-    private const int ComponentAmount = 5;
-
     [Test]
-    public void NeighboursLeftTest()
+    public void Neighbours0LeftTest()
     {
-        var tile = CreateComponent<Tile>();
-        var board = CreateComponent<Board>();
+        ItemDatabase.Items = Resources.LoadAll<Item>("Items/");
+        CreateBoard();
 
-        board.rows = Create5Component<Row>();;
-        
-        Set5TilesInRows(board);
-        
-        board.CreateTiles();
-        board.SetRandomTiles();
-        tile.x = 1;
-        tile.y = 1;
+        var tile = Board.Instance.Tiles[1, 1];
+
         NotNull(tile);
-        NotNull(tile.Neighbours);
-        Equals(0, tile.Neighbours[0].x);
-        Equals(1, tile.Neighbours[0].y);
+        NotNull(tile.NeighbourTiles.Neighbours);
+        AreEqual(0, tile.NeighbourTiles.Neighbours[0].x);
+        AreEqual(1, tile.NeighbourTiles.Neighbours[0].y);
     }
 
-    private static IEnumerable<Tile[]> Set5TilesInRows(Board board) => 
-        board.rows.Select(r => r.tiles = Create5Component<Tile>());
-
-    private static Item[] CreateItems() => 
-        Enumerable.Range(0, ComponentAmount).Select(i=> ScriptableObject.CreateInstance<Item>()).ToArray();
-
-    private static T[] Create5Component<T>() where T : MonoBehaviour => 
-        Enumerable.Range(0, ComponentAmount).Select(i=> CreateComponent<T>()).ToArray();
-    
-    private static T CreateComponent<T>() where T : MonoBehaviour
+    [Test]
+    public void Neighbours1UpTest()
     {
-        var gameObject = new GameObject();
-        return gameObject.AddComponent<T>();
+        ItemDatabase.Items = Resources.LoadAll<Item>("Items/");
+        CreateBoard();
+
+        var tile = Board.Instance.Tiles[1, 1];
+
+        NotNull(tile);
+        NotNull(tile.NeighbourTiles.Neighbours);
+        AreEqual(1, tile.NeighbourTiles.Neighbours[1].x);
+        AreEqual(0, tile.NeighbourTiles.Neighbours[1].y);
+    }
+
+    [Test]
+    public void Neighbours2RightTest()
+    {
+        ItemDatabase.Items = Resources.LoadAll<Item>("Items/");
+        CreateBoard();
+
+        var tile = Board.Instance.Tiles[1, 1];
+
+        NotNull(tile);
+        NotNull(tile.NeighbourTiles.Neighbours);
+        AreEqual(2, tile.NeighbourTiles.Neighbours[2].x);
+        AreEqual(1, tile.NeighbourTiles.Neighbours[2].y);
+    }
+
+    [Test]
+    public void Neighbours3BottomTest()
+    {
+        ItemDatabase.Items = Resources.LoadAll<Item>("Items/");
+        CreateBoard();
+
+        var tile = Board.Instance.Tiles[1, 1];
+
+        NotNull(tile);
+        NotNull(tile.NeighbourTiles.Neighbours);
+        AreEqual(1, tile.NeighbourTiles.Neighbours[3].x);
+        AreEqual(2, tile.NeighbourTiles.Neighbours[3].y);
+    }
+
+    [Test]
+    public void Neighbours3SwapBottomTest()
+    {
+        ItemDatabase.Items = Resources.LoadAll<Item>("Items/");
+        CreateBoard();
+
+        var tile = Board.Instance.Tiles[1, 1];
+        
+        NotNull(tile);
+        NotNull(tile.NeighbourTiles.Neighbours);
+        AreEqual(1, tile.NeighbourTiles.Neighbours[3].x);
+        AreEqual(2, tile.NeighbourTiles.Neighbours[3].y);
+        
+        Board.Instance.selection = new List<Tile>() { tile, tile.NeighbourTiles.Neighbours[3]};
+        Board.Instance.Selection.Select(tile);
+        
+        IsTrue(Board.Instance.Popping.CanPop());
+        
+        AreEqual(1, tile.x);
+        AreEqual(2, tile.y);
     }
 }

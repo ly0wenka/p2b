@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "DG.Tweening",
         "Unity.TextMeshPro",
-        "Scripts"
+        "Scripts",
+        "TestsUtils"
     ],
     "includePlatforms": [
         "Editor"
