@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 using NSubstitute;
+using Tests.Utils;
 using Tests.Utils.Arranges;
 
 namespace Tests.PlayMode
@@ -22,17 +23,8 @@ namespace Tests.PlayMode
             Assert.AreEqual(enemyPrefab, prefabOfThePawnedEnemy);
         }
 
-        /// <summary>
-        /// Load EnemyTest
-        /// Create EnemySpawner
-        /// Mock Random 270
-        /// Find EnemyTest
-        /// Get ParentEnemyTest
-        /// Assert EnemyTest ParentEnemyTest
-        /// </summary>
-        /// <returns></returns>
         [UnityTest]
-        public IEnumerator WhenSpawnRandomEnemyShouldBeEnemyAndParentEnemy()
+        public IEnumerator METHOD()
         {
             var enemyPrefab = Resources.Load("Tests/EnemyTest");
             var enemySpawner = Create.Component<EnemySpawner>();
