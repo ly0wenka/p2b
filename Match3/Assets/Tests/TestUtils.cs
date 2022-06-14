@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using BoardNS;
 using TileNS;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TestUtilsNS
@@ -10,6 +12,16 @@ namespace TestUtilsNS
     public static class TestUtils
     {
         private const int ComponentAmount = 5;
+
+        public static IEnumerator LoadSceneCoroutineAsync(string sceneName)
+        {
+            var operation = SceneManager.LoadSceneAsync(sceneName);
+            while (!operation.isDone)
+            {
+                Debug.Log(message: $"{operation.progress:P}");
+                yield return null;
+            }
+        }
 
         public static void CreateBoard()
         {

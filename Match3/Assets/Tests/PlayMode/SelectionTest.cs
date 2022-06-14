@@ -11,12 +11,8 @@ public class SelectionTest
     [UnityTest]
     public IEnumerator Neighbours3SwapBottomTest()
     {
-        var operation = SceneManager.LoadSceneAsync("SampleScene");
-        while (!operation.isDone)
-        {
-            Debug.Log($"{operation.progress:P}");
-            yield return null;
-        }
+        yield return LoadSceneCoroutineAsync("SampleScene");
+        
         var board = GameObject.Find("Board").GetComponent<Board>();
         board.SettingRandomTiles.SetRandomTiles(MockSetItem);
         
@@ -45,15 +41,11 @@ public class SelectionTest
         
         yield return new WaitForSeconds(3);
     }
+    
     [UnityTest]
     public IEnumerator Neighbours3SwapBottomTestIconBag()
     {
-        var operation = SceneManager.LoadSceneAsync("SampleScene");
-        while (!operation.isDone)
-        {
-            Debug.Log($"{operation.progress:P}");
-            yield return null;
-        }
+        yield return LoadSceneCoroutineAsync("SampleScene");
         
         var board = GameObject.Find("Board").GetComponent<Board>();
         board.SettingRandomTiles.SetRandomTiles(MockSetItem);

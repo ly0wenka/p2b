@@ -83,6 +83,6 @@ public class NeighboursTest
         IsTrue(Board.Instance.Popping.CanPop());
         
         AreEqual(1, tile.x);
-        AreEqual(2, tile.y);
+        AreEqual(1, tile.y);
     }
 }
