@@ -16,16 +16,19 @@ public class LoadMatch : MonoBehaviour
     private void SendMessageSceneBackgroundLoadFromOnePlayerManager()
     {
         var onePlayerManager = GameObject.FindGameObjectWithTag(nameof(OnePlayerManager));
-
-        #region InstatiateWhenNull
-        if (!onePlayerManager)
-        {
-            Instantiate(Resources.Load($"Managers{Path.PathSeparator}OnePlayerManager"));
-        }
-        #endregion
+        
+        InstatiateWhenNull(onePlayerManager);
         
         onePlayerManager.GetComponent<OnePlayerManager>()
         .SendMessage(nameof(OnePlayerManager.LoadPlayerOneCharacter));
+    }
+
+    private static void InstatiateWhenNull(GameObject onePlayerManager)
+    {
+        if (!onePlayerManager)
+        {
+            Instantiate(Resources.Load($"Managers{Path.PathSeparator}{nameof(OnePlayerManager)}"));
+        }
     }
 
     private void SendMessageSceneBackgroundLoadFromOpponentManager()
@@ -35,17 +38,11 @@ public class LoadMatch : MonoBehaviour
         #region InstatiateWhenNull
         if (!opponentManager)
         {
-            Instantiate(Resources.Load($"Managers{Path.PathSeparator}OnePlayerManager"));
+            Instantiate(Resources.Load($"Managers{Path.PathSeparator}{nameof(OpponentManager)}"));
         }
         #endregion
         
         opponentManager.GetComponent<OpponentManager>()
         .SendMessage(nameof(OpponentManager.LoadCurrentOpponent));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

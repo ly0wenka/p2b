@@ -1,18 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
+using Tests.Utils;
+using Tests.Utils.Arranges;
 using UnityEngine.TestTools;
 
-public class PlayerOneMovementTest
+namespace Tests.PlayMode
 {
-    [UnityTest]
-    public IEnumerator PlayerIsNotPunchingLeft()
+    public class PlayerOneMovementTest
     {
-        var gameObject = new GameObject();
-        var playerOneMovement = gameObject.AddComponent<PlayerOneMovement>();
+        [UnityTest]
+        public IEnumerator PlayerIsNotPunchingLeft()
+        {
+            var playerOneMovement = Create.Component<PlayerOneMovement>();
         
-        yield return null; // wait until animations
-        Assert.AreEqual(false, PlayerOneMovement._playerIsPunchingLeft);
+            yield return null; // wait until animations
+            Assert.AreEqual(false, PlayerOneMovement._playerIsPunchingLeft);
+        }
     }
 }
