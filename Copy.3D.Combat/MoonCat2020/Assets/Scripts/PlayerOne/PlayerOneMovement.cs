@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -59,14 +60,14 @@ public class PlayerOneMovement : MonoBehaviour
     private float _yAxis;
     private float _analogStickAngle;
 
-    [SerializeField] private int _0degreesAngle = 0;
-    [SerializeField] private int _90DegreesAngle = 90;
+    private int _0DegreesAngle = 0;
+    private int _90DegreesAngle = 90;
     private int _180DegreesAngle = 180;
     private float _degreeModifier = 22.5f;
 
-    public float playersGravity = 20f;
-    public float playerGravityModifier = 5f;
-    public float playersSpeedYAxis;
+    public float _playersGravity = 20f;
+    public float _playerGravityModifier = 5f;
+    public float _playersSpeedYAxis;
 
     private bool _returnDemoState;
     private int _demoRotationValue = 75;
@@ -87,7 +88,7 @@ public class PlayerOneMovement : MonoBehaviour
         
         _jumpHeightTemp = new Vector3(0, _playerJumpHeight, 0);
 
-        playersSpeedYAxis = 0;
+        _playersSpeedYAxis = 0;
 
         _playerController = GetComponent<CharacterController>();
 
@@ -278,7 +279,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         PlayerOneComeDownForwardsAnim();
 
-        _playerOneMoveDirection = new Vector3(-_playerJumpHorizontal, playersSpeedYAxis, 0);
+        _playerOneMoveDirection = new Vector3(-_playerJumpHorizontal, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
@@ -302,7 +303,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         PlayerOneComeDownBackwardsAnim();
 
-        _playerOneMoveDirection = new Vector3(+_playerJumpHorizontal, playersSpeedYAxis, 0);
+        _playerOneMoveDirection = new Vector3(+_playerJumpHorizontal, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
@@ -352,12 +353,12 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerHeadHitAudio);
 
-        Vector3 impactPoint = global::OpponentPunchLeft._playerOneImpactPoint;
+        Vector3 _impactPoint = global::OpponentPunchLeft._playerOneImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
-                impactPoint.x,
-                impactPoint.y,
-                impactPoint.z + -.2f),
+                _impactPoint.x,
+                _impactPoint.y,
+                _impactPoint.z + -.2f),
             Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
@@ -372,12 +373,12 @@ public class PlayerOneMovement : MonoBehaviour
 
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
 
-        Vector3 impactPoint = global::OpponentHighKick._playerImpactPoint;
+        Vector3 _impactPoint = global::OpponentHighKick._playerImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
-                impactPoint.x,
-                impactPoint.y,
-                impactPoint.z + -.2f),
+                _impactPoint.x,
+                _impactPoint.y,
+                _impactPoint.z + -.2f),
             Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
@@ -392,12 +393,12 @@ public class PlayerOneMovement : MonoBehaviour
         
         _playerAudioSource.PlayOneShot(_playerBodyHitAudio);
 
-        Vector3 impactPoint = global::OpponentLowKick._playerOneImpactPoint;
+        Vector3 _impactPoint = global::OpponentLowKick._playerOneImpactPoint;
         
         var hs = Instantiate(_hitSparks, new Vector3(
-            impactPoint.x,
-            impactPoint.y,
-            impactPoint.z + -.2f),
+            _impactPoint.x,
+            _impactPoint.y,
+            _impactPoint.z + -.2f),
             Quaternion.identity) as GameObject;
 
         _playerOneStates = PlayerOneStates.WaitForHitAnimations;
@@ -411,7 +412,7 @@ public class PlayerOneMovement : MonoBehaviour
     {
         //Debug.Log(nameof(PlayerDefeated));
 
-        _playerOneMoveDirection = new Vector3(0, playersSpeedYAxis, 0);
+        _playerOneMoveDirection = new Vector3(0, _playersSpeedYAxis, 0);
         
         PlayerGravityIdle();
         
@@ -509,7 +510,7 @@ public class PlayerOneMovement : MonoBehaviour
             return;
         }
 
-        _playerOneMoveDirection = new Vector3(0, playersSpeedYAxis, 0);
+        _playerOneMoveDirection = new Vector3(0, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
 
         _collisionFlags = _playerController.Move(_playerOneMoveDirection * Time.deltaTime);
@@ -640,7 +641,7 @@ public class PlayerOneMovement : MonoBehaviour
 
         PlayerOneComeDownAnim();
 
-        _playerOneMoveDirection = new Vector3(0, playersSpeedYAxis, 0);
+        _playerOneMoveDirection = new Vector3(0, _playersSpeedYAxis, 0);
         _playerOneMoveDirection = _playerOneTransform.TransformDirection(_playerOneMoveDirection);
         _playerOneMoveDirection *= _playerJumpSpeed;
 
@@ -914,11 +915,11 @@ public class PlayerOneMovement : MonoBehaviour
 
         if (PlayerOneIsGrounded())
         {
-            playersSpeedYAxis = 0f;
+            _playersSpeedYAxis = 0f;
         }
         else
         {
-            playersSpeedYAxis -= playersGravity * playerGravityModifier * Time.deltaTime;
+            _playersSpeedYAxis -= _playersGravity * _playerGravityModifier * Time.deltaTime;
         }
     }
 
@@ -934,16 +935,14 @@ public class PlayerOneMovement : MonoBehaviour
     {
         //Debug.Log(nameof(UpdatePlayerPosition));
 
-        var position = _playerOne.transform.position;
-        _playersPosition = new Vector3(position.x, position.y, position.z);
+        _playersPosition = new Vector3(_playerOne.transform.position.x, _playerOne.transform.position.y, _playerOne.transform.position.z);
     }
 
     private void UpdateOpponentsPosition()
     {
         //Debug.Log(nameof(UpdateOpponentsPosition));
 
-        var position = _opponent.transform.position;
-        _opponentPosition = new Vector3(position.x, position.y, position.z);
+        _opponentPosition = new Vector3(_opponent.transform.position.x, _opponent.transform.position.y, _opponent.transform.position.z);
     }
 
     private void UpdatePlayersRotation()

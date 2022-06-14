@@ -1,118 +1,118 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Startup
+[RequireComponent(typeof(AudioSource))]
+public class SplashScreen : MonoBehaviour
 {
-    [RequireComponent(typeof(AudioSource))]
-    public class SplashScreen : MonoBehaviour
+    public Texture2D splashScreenBackground;
+    public Texture2D splashScreenText;
+
+    private AudioSource splashScreenAudio;
+    public AudioClip splashScreenMusic;
+
+    private float splashScreenFadeValue;
+    private float splashScreenFadeSpeed = .5f;
+
+    private SplashScreenController splashScreenController;
+
+    void Awake()
     {
-        public Texture2D splashScreenBackground;
-        public Texture2D splashScreenText;
+        splashScreenFadeValue = 0;
+    }
 
-        private AudioSource _splashScreenAudio;
-        public AudioClip splashScreenMusic;
+    void Start()
+    {
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
 
-        private float _splashScreenFadeValue;
-        private float splashScreenFadeSpeed = .5f;
+        splashScreenAudio = GetComponent<AudioSource>();
 
-        private SplashScreenController _splashScreenController;
+        splashScreenAudio.volume = 0;
+        splashScreenAudio.clip = splashScreenMusic;
+        splashScreenAudio.loop = true;
+        splashScreenAudio.Play();
 
-        void Awake()
+        splashScreenController = SplashScreenController.SplashScreenFadeIn;
+
+        StartCoroutine(SplashScreenManager());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private IEnumerator SplashScreenManager()
+    {
+        while (true)
         {
-            _splashScreenFadeValue = 0;
-        }
-
-        void Start()
-        {
-            // Cursor.visible = false;
-            // Cursor.lockState = CursorLockMode.Locked;
-
-            _splashScreenAudio = GetComponent<AudioSource>();
-
-            _splashScreenAudio.volume = 0;
-            _splashScreenAudio.clip = splashScreenMusic;
-            _splashScreenAudio.loop = true;
-            _splashScreenAudio.Play();
-
-            _splashScreenController = SplashScreenController.SplashScreenFadeIn;
-
-            StartCoroutine(SplashScreenManager());
-        }
-
-        private IEnumerator SplashScreenManager()
-        {
-            while (true)
+            switch (splashScreenController)
             {
-                switch (_splashScreenController)
-                {
-                    case SplashScreenController.SplashScreenFadeIn:
-                        SplashScreenFadeIn();
-                        break;
-                    case SplashScreenController.SplashScreenFadeOut:
-                        SplashScreenFadeOut();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                yield return null;
+                case SplashScreenController.SplashScreenFadeIn:
+                    SplashScreenFadeIn();
+                    break;
+                case SplashScreenController.SplashScreenFadeOut:
+                    SplashScreenFadeOut();
+                    break;
             }
-        }
 
-        private void SplashScreenFadeIn()
+            yield return null;
+        }
+    }
+
+    private void SplashScreenFadeIn()
+    {
+        Debug.Log(nameof(SplashScreenFadeIn));
+
+        IncreaseVolume();
+
+        if (splashScreenFadeValue > 1)
+            splashScreenFadeValue = 1;
+
+        if (splashScreenFadeValue == 1)
         {
-            Debug.Log(nameof(SplashScreenFadeIn));
-
-            IncreaseVolume();
-
-            if (_splashScreenFadeValue > 1)
-                _splashScreenFadeValue = 1;
-
-            const double tolerance = 0.01;
-            if (Math.Abs(_splashScreenFadeValue - 1) < tolerance)
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
+            SceneManager.LoadScene("MainMenu");
         }
+    }
     
-        private void IncreaseVolume()
-        {
-            _splashScreenAudio.volume += splashScreenFadeSpeed * Time.deltaTime;
-            _splashScreenFadeValue += splashScreenFadeSpeed * Time.deltaTime;
-        }
+    private void IncreaseVolume()
+    {
+        splashScreenAudio.volume += splashScreenFadeSpeed * Time.deltaTime;
+        splashScreenFadeValue += splashScreenFadeSpeed * Time.deltaTime;
+    }
 
-        private void SplashScreenFadeOut()
-        {
-            Debug.Log(nameof(SplashScreenFadeOut));
+    private void SplashScreenFadeOut()
+    {
+        Debug.Log(nameof(SplashScreenFadeOut));
 
-            DecreaseVolume();
+        DecreaseVolume();
         
-            if (_splashScreenFadeValue < 0)
-                _splashScreenFadeValue = 0;
+        if (splashScreenFadeValue < 0)
+            splashScreenFadeValue = 0;
 
-            if (_splashScreenFadeValue == 0)
-                SceneManager.LoadScene("ControllerWarning");
-        }
+        if (splashScreenFadeValue == 0)
+            SceneManager.LoadScene("ControllerWarning");
+    }
 
-        private void DecreaseVolume()
-        {
-            _splashScreenAudio.volume -= splashScreenFadeSpeed * Time.deltaTime;
-            _splashScreenFadeValue -= splashScreenFadeSpeed * Time.deltaTime;
-        }
+    private void DecreaseVolume()
+    {
+        splashScreenAudio.volume -= splashScreenFadeSpeed * Time.deltaTime;
+        splashScreenFadeValue -= splashScreenFadeSpeed * Time.deltaTime;
+    }
 
-        void OnGUI()
-        {
-            GUI.DrawTexture(new Rect(0,0,
-                    Screen.width, Screen.height),
-                splashScreenBackground);
+    void OnGUI()
+    {
+        GUI.DrawTexture(new Rect(0,0,
+                Screen.width, Screen.height),
+            splashScreenBackground);
 
-            GUI.color = new Color(1, 1, 1, _splashScreenFadeValue);
+        GUI.color = new Color(1, 1, 1, splashScreenFadeValue);
         
-            GUI.DrawTexture(new Rect(0,0,
-                    Screen.width, Screen.height),
-                splashScreenText);
-        }
+        GUI.DrawTexture(new Rect(0,0,
+            Screen.width, Screen.height),
+            splashScreenText);
     }
 }

@@ -1,312 +1,291 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Startup
+[RequireComponent(typeof(AudioSource))]
+public class MainMenu : MonoBehaviour
 {
-    [RequireComponent(typeof(AudioSource))]
-    public class MainMenu : MonoBehaviour
-    {
-        public int selectedButton = 0;
-        private readonly float _timeBetweenButtonPress = 0.1f;
-        private float _timeDelay;
+    private int _selectedButton = 0;
+    private float _timeBetweenButtonPress = 0.1f;
+    private float _timeDelay;
 
-        private float _mainMenuVerticalInputTimer;
-        private readonly float _mainMenuVerticalInputDelay = 1f;
+    private float _mainMenuVerticalInputTimer;
+    private float _mainMenuVerticalInputDelay = 1f;
 
-        public Texture2D mainMenuBackground;
-        public Texture2D mainMenuTitle;
+    public Texture2D _mainMenuBackground;
+    public Texture2D _mainMenuTitle;
 
-        private AudioSource _mainMenuAudio;
-        public AudioClip mainMenuMusic;
-        public AudioClip mainMenuStartButtonAudio;
-        public AudioClip mainMenuQuitButtonAudio;
+    private AudioSource _mainMenuAudio;
+    public AudioClip _mainMenuMusic;
+    public AudioClip _mainMenuStartButtonAudio;
+    public AudioClip _mainMenuQuitButtonAudio;
 
-        private float _mainMenuFadeValue;
-        private float _mainMenuFadeSpeed = .5f;
+    private float _mainMenuFadeValue;
+    private float _mainMenuFadeSpeed = .5f;
 
-        private float _mainMenuButtonWidth = 100f;
-        private float _mainMenuButtonHeight = 25f;
-        private float _mainMenuGUIOffset = 10f;
+    private float _mainMenuButtonWidth = 100f;
+    private float _mainMenuButtonHeight = 25f;
+    private float _mainMenuGUIOffset = 10f;
 
-        private bool _startingOnePlayerGame;
-        [SerializeField] private bool _startingTwoPlayerGame;
-        private bool _quittingGame;
+    private bool _startingOnePlayerGame;
+    private bool _startingTwoPlayerGame;
+    private bool _quittingGame;
     
-        private bool _ps4Controller;
-        private bool _xBoxController;
+    private bool _ps4Controller;
+    private bool _xBOXController;
+    private string[] _mainMenuButtons = new []
+    {
+        "_onePlayer",
+        "_twoPlayer",
+        "_quit"
+    };
 
-        private readonly string[] _mainMenuButtons = new []
+    private MainMenuController _mainMenuController;
+    // Start is called before the first frame update
+    void Start()
+    {
+        _ps4Controller = false;
+        _xBOXController = false;
+        _mainMenuController = MainMenuController.MainMenuFadeIn;
+
+        _mainMenuFadeValue = 0;
+        
+        _mainMenuAudio = GetComponent<AudioSource>();
+
+        _mainMenuAudio.volume = 0;
+        _mainMenuAudio.clip = _mainMenuMusic;
+        _mainMenuAudio.loop = true;
+        _mainMenuAudio.Play();
+        
+        StartCoroutine(MainMenuManager());
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (_mainMenuFadeValue > 1)
         {
-            "_onePlayer",
-            "_twoPlayer",
-            "_quit"
-        };
+            return;
+        }
 
-        private MainMenuController _mainMenuController;
-        
-        void Start()
+    
+        var _joyStickNames = Input.GetJoystickNames();
+        for (int i = 0; i < _joyStickNames.Length; i++)
         {
-            _ps4Controller = false;
-            _xBoxController = false;
-            _mainMenuController = MainMenuController.MainMenuFadeIn;
+            if (_joyStickNames[i].Length == 0)
+            {
+                return;
+            }
 
-            _mainMenuFadeValue = 0;
-        
-            _mainMenuAudio = GetComponent<AudioSource>();
+            if (_joyStickNames[i].Length == 19)
+            {
+                _ps4Controller = true;
+            }
 
-            _mainMenuAudio.volume = 0;
-            _mainMenuAudio.clip = mainMenuMusic;
-            _mainMenuAudio.loop = true;
-            _mainMenuAudio.Play();
-        
-            StartCoroutine(MainMenuManager());
+            if (_joyStickNames[i].Length == 33)
+            {
+                _xBOXController = true;
+            }
+        }
+
+        if (_mainMenuVerticalInputTimer > 0)
+            _mainMenuVerticalInputTimer -= 1f * Time.deltaTime;
+
+        if (Input.GetAxis("Vertical") > 0f && _selectedButton == 0)
+        {
+            return;
+        }
+
+        if (Input.GetAxis("Vertical") > 0f && _selectedButton == 1)
+        {
+            if (_mainMenuVerticalInputTimer > 0)
+                return;
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
+            _selectedButton = 0;
         }
         
-        void Update()
+        if (Input.GetAxis("Vertical") > 0f && _selectedButton == 2)
         {
-            if (_mainMenuFadeValue > 1)
-            {
-                return;
-            }
-
-    
-            var joyStickNames = Input.GetJoystickNames() ?? throw new ArgumentNullException("Input.GetJoystickNames()");
-            foreach (var joyStickName in joyStickNames)
-            {
-                switch (joyStickName.Length)
-                {
-                    case 0:
-                        return;
-                    case 19:
-                        _ps4Controller = true;
-                        break;
-                    case 33:
-                        _xBoxController = true;
-                        break;
-                }
-            }
-
             if (_mainMenuVerticalInputTimer > 0)
-                _mainMenuVerticalInputTimer -= 1f * Time.deltaTime;
-
-            if (IsVerticalAxisMoreThan0() && SelectedButton0())
-            {
                 return;
-            }
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
+            _selectedButton = 1;
+        }
 
-            if (IsVerticalAxisMoreThan0() && selectedButton == 1)
-            {
-                if (_mainMenuVerticalInputTimer > 0)
-                    return;
-                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
-                selectedButton = 0;
-            }
+        if (Input.GetAxis("Vertical") < 0f && _selectedButton == 2)
+        {
+            return;
+        }
         
-            if (IsVerticalAxisMoreThan0() && selectedButton == 2)
-            {
-                if (_mainMenuVerticalInputTimer > 0)
-                {
-                    return;
-                }
-
-                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
-                selectedButton = 1;
-            }
-
-            if (IsVerticalAxisMoreThan0() && selectedButton == 2) return;
-
-            if (IsVerticalAxisMoreThan0() && selectedButton == 0)
-            {
-                if (_mainMenuVerticalInputTimer > 0)
-                    return;
-                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
-                selectedButton = 1;
-            }
-
-            if (IsVerticalAxisMoreThan0() && selectedButton == 1)
-            {
-                if (_mainMenuVerticalInputTimer > 0) return;
-
-                _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
-                selectedButton = 2;
-            }
-
-            if (!(Time.deltaTime >= _timeDelay) || (!Input.GetButton("Fire1"))) return;
-            
+        if (Input.GetAxis("Vertical") < 0f && _selectedButton == 0)
+        {
+            if (_mainMenuVerticalInputTimer > 0)
+                return;
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
+            _selectedButton = 1;
+        }
+        
+        if (Input.GetAxis("Vertical") < 0f && _selectedButton == 1)
+        {
+            if (_mainMenuVerticalInputTimer > 0)
+                return;
+            _mainMenuVerticalInputTimer = _mainMenuVerticalInputDelay;
+            _selectedButton = 2;
+        }
+        
+        if (Time.deltaTime >= _timeDelay && (Input.GetButton("Fire1")))
+        {
             StartCoroutine(nameof(MainMenuButtonPress));
             _timeDelay = Time.deltaTime + _timeBetweenButtonPress;
-
-            bool SelectedButton0()
-            {
-                return selectedButton == 0;
-            }
-
-            bool SelectedButton1()
-            {
-                return selectedButton == 1;
-            }
-
-            bool SelectedButton2()
-            {
-                return selectedButton == 2;
-            }
         }
+    }
 
-        private static bool IsVerticalAxisMoreThan0() => Input.GetAxis("Vertical") > 0f;
-
-        private IEnumerator MainMenuManager()
+    private IEnumerator MainMenuManager()
+    {
+        while (true)
         {
-            while (true)
+            switch (_mainMenuController)
             {
-                switch (_mainMenuController)
-                {
-                    case MainMenuController.MainMenuFadeIn:
-                        MainMenuFadeIn();
-                        break;
-                    case MainMenuController.MainMenuAtIdle:
-                        MainMenuAtIdle();
-                        break;
-                    case MainMenuController.MainMenuFadeOut:
-                        MainMenuFadeOut();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                yield return null;
-            }
-        }
-
-        private void MainMenuFadeIn()
-        {
-            Debug.Log(nameof(MainMenuFadeIn));
-
-            _mainMenuAudio.volume += _mainMenuFadeSpeed * Time.deltaTime;
-
-            _mainMenuFadeValue += _mainMenuFadeSpeed * Time.deltaTime;
-
-            if (_mainMenuFadeValue > 1)
-                _mainMenuFadeValue = 1;
-
-            const double tolerance = 0.01;
-            if (Math.Abs(_mainMenuFadeValue - 1) < tolerance)
-            {
-                _mainMenuController = MainMenuController.MainMenuAtIdle;
-            }
-        }
-
-        private void MainMenuAtIdle()
-        {
-            Debug.Log(nameof(MainMenuAtIdle));
-
-            if (_startingOnePlayerGame || _quittingGame)
-            {
-                _mainMenuController = MainMenuController.MainMenuFadeOut;
-            }
-        }
-
-        private void MainMenuFadeOut()
-        {
-            Debug.Log(nameof(MainMenuFadeOut));
-        
-            _mainMenuAudio.volume -= _mainMenuFadeSpeed * Time.deltaTime;
-
-            _mainMenuFadeValue -= _mainMenuFadeSpeed * Time.deltaTime;
-
-            if (_mainMenuFadeValue < 0)
-                _mainMenuFadeValue = 0;
-
-            if (_mainMenuFadeValue == 0 && _startingOnePlayerGame == true)
-            {
-                SceneManager.LoadScene("ChooseCharacter");
-            }
-        }
-
-        public void MainMenuButtonPress()
-        {
-            Debug.Log(nameof(MainMenuFadeIn));
-            GUI.FocusControl(_mainMenuButtons[selectedButton]);
-
-            switch (selectedButton)
-            {
-                case 0:
-                    _mainMenuAudio.PlayOneShot(mainMenuStartButtonAudio);
-                    _startingOnePlayerGame = true;
-                    EnableOnePlayerManager();
+                case MainMenuController.MainMenuFadeIn:
+                    MainMenuFadeIn();
                     break;
-                case 1:
-                    _mainMenuAudio.PlayOneShot(mainMenuStartButtonAudio);
-                    _startingTwoPlayerGame = true;
-                    EnableTwoPlayerManager();
+                case MainMenuController.MainMenuAtIdle:
+                    MainMenuAtIdle();
                     break;
-                case 2:
-                    _mainMenuAudio.PlayOneShot(mainMenuQuitButtonAudio);
-                    _quittingGame = true;
+                case MainMenuController.MainMenuFadeOut:
+                    MainMenuFadeOut();
                     break;
             }
+
+            yield return null;
         }
+    }
 
-        private static void EnableTwoPlayerManager() => GameObject.FindGameObjectWithTag("TwoPlayerManager").GetComponent<TwoPlayerManager>().enabled = true;
+    private void MainMenuFadeIn()
+    {
+        Debug.Log(nameof(MainMenuFadeIn));
 
-        private static void EnableOnePlayerManager() => GameObject.FindGameObjectWithTag("OnePlayerManager").GetComponent<OnePlayerManager>().enabled = true;
+        _mainMenuAudio.volume += _mainMenuFadeSpeed * Time.deltaTime;
 
-        private void OnGUI()
+        _mainMenuFadeValue += _mainMenuFadeSpeed * Time.deltaTime;
+
+        if (_mainMenuFadeValue > 1)
+            _mainMenuFadeValue = 1;
+
+        if (_mainMenuFadeValue == 1)
         {
-            GUI.DrawTexture(new Rect(
-                    0,0,
-                    Screen.width, Screen.height),
-                mainMenuBackground);
+            _mainMenuController = MainMenuController.MainMenuAtIdle;
+        }
+    }
+
+    private void MainMenuAtIdle()
+    {
+        Debug.Log(nameof(MainMenuAtIdle));
+
+        if (_startingOnePlayerGame || _quittingGame)
+        {
+            _mainMenuController = MainMenuController.MainMenuFadeOut;
+        }
+    }
+
+    private void MainMenuFadeOut()
+    {
+        Debug.Log(nameof(MainMenuFadeOut));
         
-            GUI.DrawTexture(new Rect(
-                    0,0,
-                    Screen.width, Screen.height),
-                mainMenuTitle);
+        _mainMenuAudio.volume -= _mainMenuFadeSpeed * Time.deltaTime;
 
-            GUI.color = new Color(1, 1, 1, _mainMenuFadeValue);
+        _mainMenuFadeValue -= _mainMenuFadeSpeed * Time.deltaTime;
+
+        if (_mainMenuFadeValue < 0)
+            _mainMenuFadeValue = 0;
+
+        if (_mainMenuFadeValue == 0 && _startingOnePlayerGame == true)
+        {
+            SceneManager.LoadScene("ChooseCharacter");
+        }
+    }
+
+    private void MainMenuButtonPress()
+    {
+        Debug.Log(nameof(MainMenuFadeIn));
+        GUI.FocusControl(_mainMenuButtons[_selectedButton]);
+
+        switch (_selectedButton)
+        {
+            case 0:
+                _mainMenuAudio.PlayOneShot(_mainMenuStartButtonAudio);
+                _startingOnePlayerGame = true;
+                EnableOnePlayerManager();
+                break;
+            case 1:
+                _mainMenuAudio.PlayOneShot(_mainMenuStartButtonAudio);
+                _startingTwoPlayerGame = true;
+                EnableTwoPlayerManager();
+                break;
+            case 2:
+                _mainMenuAudio.PlayOneShot(_mainMenuQuitButtonAudio);
+                _quittingGame = true;
+                break;
+        }
+    }
+
+    private static void EnableTwoPlayerManager()
+    {
+        GameObject.FindGameObjectWithTag("TwoPlayerManager").GetComponent<TwoPlayerManager>().enabled = true;
+    }
+
+    private static void EnableOnePlayerManager()
+    {
+        GameObject.FindGameObjectWithTag("OnePlayerManager").GetComponent<OnePlayerManager>().enabled = true;
+    }
+
+    private void OnGUI()
+    {
         
-            CreateButtonsGroup();
+        GUI.DrawTexture(new Rect(
+            0,0,
+            Screen.width, Screen.height),
+            _mainMenuBackground);
+        
+        GUI.DrawTexture(new Rect(
+            0,0,
+            Screen.width, Screen.height),
+            _mainMenuTitle);
 
-            if (_ps4Controller || _xBoxController)
-            {
-                GUI.FocusControl(_mainMenuButtons[selectedButton]);
-            }
-        }
+        GUI.color = new Color(1, 1, 1, _mainMenuFadeValue);
+        
+        GUI.BeginGroup(new Rect(
+            Screen.width / 2 - _mainMenuButtonWidth / 2,
+            Screen.height / 1.5f,
+            _mainMenuButtonWidth,
+            _mainMenuButtonHeight * 3 + _mainMenuGUIOffset * 2));
+        
+        CreateButton(0,"One Player",0, 0);
+        CreateButton(1,"Two Player",1, _mainMenuButtonHeight + _mainMenuGUIOffset);
+        CreateButton(2,"Quit",2, _mainMenuButtonHeight * 2 + _mainMenuGUIOffset * 2);
 
-        private void CreateButtonsGroup()
+        
+        GUI.EndGroup();
+
+        if (_ps4Controller || _xBOXController)
         {
-            GUI.BeginGroup(new Rect(
-                Screen.width / 2 - _mainMenuButtonWidth / 2,
-                Screen.height / 1.5f,
-                _mainMenuButtonWidth,
-                _mainMenuButtonHeight * 3 + _mainMenuGUIOffset * 2));
-
-            var buttonTexts = new [] { "One Player", "Two Player", "Quit"};
-            var rectYs = new[] { 0f, _mainMenuButtonHeight + _mainMenuGUIOffset,
-                _mainMenuButtonHeight * 2 + _mainMenuGUIOffset * 2};
-            
-            for (int i = 0; i < buttonTexts.Length; ++i)
-            {
-                CreateButton(i, buttonTexts[i], i, rectYs[i]);
-            }
-
-            GUI.EndGroup();
+            GUI.FocusControl(_mainMenuButtons[_selectedButton]);
         }
+    }
 
-        private void CreateButton(int indexMainMenuButton, string buttonText, int selectedButton, float rectY)
+    private void CreateButton(int indexMainMenuButton, string buttonText, int selectedButton, float rectY)
+    {
+        GUI.SetNextControlName(_mainMenuButtons[indexMainMenuButton]); // _onePlayer
+
+        if (GUI.Button(new Rect(
+                0, rectY,
+                _mainMenuButtonWidth, _mainMenuButtonHeight),
+            buttonText))
         {
-            GUI.SetNextControlName(_mainMenuButtons[indexMainMenuButton]); // _onePlayer
-
-            if (GUI.Button(new Rect(
-                        0, rectY,
-                        _mainMenuButtonWidth, _mainMenuButtonHeight),
-                    buttonText))
-            {
-                this.selectedButton = selectedButton;
-                MainMenuButtonPress();
-            }
+            _selectedButton = selectedButton;
+            MainMenuButtonPress();
         }
     }
 }

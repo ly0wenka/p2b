@@ -4,15 +4,14 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class PlayerOneMovementTest
+public class MovementTest
 {
-    [UnityTest]
-    public IEnumerator PlayerIsNotPunchingLeft()
+    // A Test behaves as an ordinary method
+    [Test]
+    public void DefaultWalkSpeed()
     {
         var gameObject = new GameObject();
         var playerOneMovement = gameObject.AddComponent<PlayerOneMovement>();
-        
-        yield return null; // wait until animations
-        Assert.AreEqual(false, PlayerOneMovement._playerIsPunchingLeft);
+        Assert.AreEqual(1f, playerOneMovement._playerWalkSpeed);
     }
 }
