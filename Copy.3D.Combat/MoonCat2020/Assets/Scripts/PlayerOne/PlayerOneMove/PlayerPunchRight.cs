@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Opponent.OpponentAIState;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -62,7 +61,7 @@ public class PlayerPunchRight : MonoBehaviour
 
     private void HeadStruck()
     {
-        OpponentAI._opponentAIState = new OpponentAIStateOpponentHitByRightPunch();
+        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByRightPunch;
 
         OpponentHealth _tempDamage = FightCamera._opponent.GetComponent<OpponentHealth>();
 

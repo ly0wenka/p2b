@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Opponent.OpponentAIState;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -57,7 +56,7 @@ public class PlayerPunchLeft : MonoBehaviour
 
     private void HeadStruck()
     {
-        OpponentAI._opponentAIState = new OpponentAIStateOpponentHitByLeftPunch();
+        OpponentAI._opponentAIState = OpponentAIState.OpponentHitByLeftPunch;
 
         OpponentHealth _tempDamage = FightCamera._opponent.GetComponent<OpponentHealth>();
 
