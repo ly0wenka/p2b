@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Actor1-5
   m_EditorClassIdentifier: 
   value: 10
-  sprite: {fileID: 21300000, guid: 803495a81500dc34cba610060d84dd38, type: 3}
-  color: {r: 0.6415094, g: 0.489234, b: 0.003025995, a: 0}
+  sprite: {fileID: 21300000, guid: b613e79ab6ffac647bd0114bdfe778df, type: 3}
+  color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 0}
   collectSound: {fileID: 8300000, guid: 0b1d4b2104d91bb4eb86236145bc69e8, type: 3}
