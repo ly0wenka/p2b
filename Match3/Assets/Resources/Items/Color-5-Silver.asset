@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06a9d935a0a3173408eefa8bba16fa00, type: 3}
-  m_Name: Actor1-7
+  m_Name: Color-5-Silver
   m_EditorClassIdentifier: 
-  value: 2
-  sprite: {fileID: 21300000, guid: 013c457eadd5da54d95fabeef63eef08, type: 3}
-  color: {r: 0.8627451, g: 0.078431375, b: 0.23529412, a: 0}
+  value: 10
+  sprite: {fileID: 21300000, guid: b613e79ab6ffac647bd0114bdfe778df, type: 3}
+  color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 0}
   collectSound: {fileID: 8300000, guid: 0b1d4b2104d91bb4eb86236145bc69e8, type: 3}
