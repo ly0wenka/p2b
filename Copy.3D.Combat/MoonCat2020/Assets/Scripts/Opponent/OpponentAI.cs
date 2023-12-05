@@ -22,7 +22,7 @@ public class OpponentAI : MonoBehaviour
     private protected Vector3 _playersPosition;
     private Vector3 _opponentPosition;
     protected Vector3 _positionDifference;
-    public float _positionDifferenceModifier = 2.0f; 
+    public float _positionDifferenceModifier = 2.0f;
 
     private Quaternion _targetRotation;
     private int _defaultRotation = 0;
@@ -40,7 +40,7 @@ public class OpponentAI : MonoBehaviour
     public AnimationClip _opponentDefeatedFinalHitAnim;
     public AnimationClip _opponentWalkAnim;
     public AnimationClip _opponentJumpAnim;
-    
+
     public AnimationClip _opponentPunchLeftAnim;
     public AnimationClip _opponentPunchRightAnim;
     public AnimationClip _opponentKickHighAnim;
@@ -83,7 +83,7 @@ public class OpponentAI : MonoBehaviour
     protected int _switchAttackStateValue;
     public int _punchKickPivotValue;
     public float _chooseAttackDistanceModifier = .75f;
-    
+
     public int _leftPunchRangeMin, _leftPunchRangeMax;
     public int _rightPunchRangeMin, _rightPunchRangeMax;
     public int _lowKickRangeMin, _lowKickRangeMax;
@@ -107,7 +107,7 @@ public class OpponentAI : MonoBehaviour
         LowKick,
         HighKick
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -154,6 +154,7 @@ public class OpponentAI : MonoBehaviour
         UpdatePositionDifference();
         UpdateOpponentsPlanePosition();
     }
+
     #endregion
 
     protected IEnumerator OpponentFSM()
@@ -176,28 +177,29 @@ public class OpponentAI : MonoBehaviour
     protected void OpponentPunchLeftAnimation()
     {
         // Debug.Log(nameof(OpponentPunchLeftAnimation));
-        
-        _opponentAnimator.CrossFade(_opponentPunchLeftAnim.name);    
+
+        _opponentAnimator.CrossFade(_opponentPunchLeftAnim.name);
     }
 
     protected void OpponentPunchRightAnimation()
     {
         // Debug.Log(nameof(OpponentPunchRightAnimation));
-        
-        _opponentAnimator.CrossFade(_opponentPunchRightAnim.name);    
+
+        _opponentAnimator.CrossFade(_opponentPunchRightAnim.name);
     }
+
     private void OpponentKickHighAnimation()
     {
         // Debug.Log(nameof(OpponentKickHighAnimation));
-        
-        _opponentAnimator.CrossFade(_opponentKickHighAnim.name);    
+
+        _opponentAnimator.CrossFade(_opponentKickHighAnim.name);
     }
 
     protected void OpponentKickLowAnimation()
     {
         // Debug.Log(nameof(OpponentKickLowAnimation));
-        
-        _opponentAnimator.CrossFade(_opponentKickLowAnim.name);    
+
+        _opponentAnimator.CrossFade(_opponentKickLowAnim.name);
     }
 
     #region Jump
@@ -206,7 +208,6 @@ public class OpponentAI : MonoBehaviour
 
     private void OpponentIdle()
     {
-        
     }
 
     protected void OpponentGravityIdle()
@@ -265,6 +266,7 @@ public class OpponentAI : MonoBehaviour
     }
 
     #region PunchKick
+
     #endregion
 
     private void DefeatedFinalHit()
