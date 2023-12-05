@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Color-4-Blue
   m_EditorClassIdentifier: 
   value: 15
-  sprite: {fileID: 21300000, guid: 3fa412dacd532a0458bb76f5d772c47a, type: 3}
+  sprite: {fileID: 21300000, guid: da98b313099c80945947ec799b8a6ad7, type: 3}
   color: {r: 0.03137255, g: 0.5058824, b: 0.6392157, a: 0}
   collectSound: {fileID: 8300000, guid: 0b1d4b2104d91bb4eb86236145bc69e8, type: 3}

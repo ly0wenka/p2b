@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Color-2-Indigo
   m_EditorClassIdentifier: 
   value: 10
-  sprite: {fileID: 21300000, guid: e9de8574f85bafc4f9cd78bf33a01714, type: 3}
+  sprite: {fileID: 21300000, guid: 155ad8568bc6657499f29da445d9c816, type: 3}
   color: {r: 0.29411766, g: 0, b: 0.50980395, a: 0}
   collectSound: {fileID: 8300000, guid: 0b1d4b2104d91bb4eb86236145bc69e8, type: 3}
