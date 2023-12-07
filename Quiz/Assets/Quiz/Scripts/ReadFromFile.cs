@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Fungus;
 using Fungus.EditorUtils;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Quiz.Scripts
 {

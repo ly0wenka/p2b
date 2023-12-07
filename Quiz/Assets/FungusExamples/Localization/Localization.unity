@@ -1,33 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
-OcclusionCullingSettings:
+SceneSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
+  m_PVSData: 
+  m_PVSObjectsArray: []
+  m_PVSPortalsArray: []
   m_OcclusionBakeSettings:
     smallestOccluder: 5
-    smallestHole: 0.25
+    smallestHole: .25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 6
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientSkyColor: {r: .211999997, g: .226999998, b: .259000003, a: 1}
+  m_AmbientEquatorColor: {r: .114, g: .125, b: .133000001, a: 1}
+  m_AmbientGroundColor: {r: .0469999984, g: .0430000015, b: .0350000001, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: 0.5
+  m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
@@ -38,104 +37,68 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
-  m_UseRadianceAmbientProbe: 0
+--- !u!127 &3
+LevelGameManager:
+  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 5
   m_GIWorkflowMode: 0
+  m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
+    m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 12
+    serializedVersion: 3
     m_Resolution: 2
     m_BakeResolution: 40
-    m_AtlasSize: 1024
-    m_AO: 0
+    m_TextureWidth: 1024
+    m_TextureHeight: 1024
     m_AOMaxDistance: 1
-    m_CompAOExponent: 0
-    m_CompAOExponentDirect: 0
-    m_ExtractAmbientOcclusion: 0
     m_Padding: 2
+    m_CompAOExponent: 0
     m_LightmapParameters: {fileID: 0}
-    m_LightmapsBakeMode: 1
     m_TextureCompression: 1
     m_FinalGather: 0
-    m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
-    m_ReflectionCompression: 2
-    m_MixedBakeMode: 1
-    m_BakeBackend: 0
-    m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
-    m_PVRSampleCount: 512
-    m_PVRBounces: 2
-    m_PVREnvironmentSampleCount: 512
-    m_PVREnvironmentReferencePointCount: 2048
-    m_PVRFilteringMode: 0
-    m_PVRDenoiserTypeDirect: 0
-    m_PVRDenoiserTypeIndirect: 0
-    m_PVRDenoiserTypeAO: 0
-    m_PVRFilterTypeDirect: 0
-    m_PVRFilterTypeIndirect: 0
-    m_PVRFilterTypeAO: 0
-    m_PVREnvironmentMIS: 0
-    m_PVRCulling: 1
-    m_PVRFilteringGaussRadiusDirect: 1
-    m_PVRFilteringGaussRadiusIndirect: 5
-    m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
-    m_PVRFilteringAtrousPositionSigmaIndirect: 2
-    m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ExportTrainingData: 0
-    m_TrainingDataDestination: TrainingData
-    m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 4ffecb7439f81ed43afdebf7e4f71375,
-    type: 2}
+  m_LightmapSnapshot: {fileID: 0}
+  m_RuntimeCPUUsage: 25
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
-    agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: .5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: .400000006
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.16666667
-    manualTileSize: 0
-    tileSize: 256
     accuratePlacement: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
-    debug:
-      m_Flags: 0
+    minRegionArea: 2
+    cellSize: .166666672
+    manualCellSize: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &63911677
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
   m_Component:
-  - component: {fileID: 63911682}
-  - component: {fileID: 63911681}
-  - component: {fileID: 63911679}
-  - component: {fileID: 63911678}
+  - 4: {fileID: 63911682}
+  - 20: {fileID: 63911681}
+  - 92: {fileID: 63911680}
+  - 124: {fileID: 63911679}
+  - 81: {fileID: 63911678}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -146,43 +109,41 @@ GameObject:
 --- !u!81 &63911678
 AudioListener:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63911677}
   m_Enabled: 1
 --- !u!124 &63911679
 Behaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 63911677}
+  m_Enabled: 1
+--- !u!92 &63911680
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63911677}
   m_Enabled: 1
 --- !u!20 &63911681
 Camera:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63911677}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: .300000012
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -194,38 +155,31 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
+  m_StereoSeparation: .0219999999
 --- !u!4 &63911682
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63911677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 2
 --- !u!1 &1024569594
 GameObject:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
   m_Component:
-  - component: {fileID: 1024569596}
-  - component: {fileID: 1024569595}
+  - 4: {fileID: 1024569596}
+  - 114: {fileID: 1024569595}
   m_Layer: 0
   m_Name: _FungusState
   m_TagString: Untagged
@@ -236,9 +190,8 @@ GameObject:
 --- !u!114 &1024569595
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1024569594}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -249,50 +202,46 @@ MonoBehaviour:
 --- !u!4 &1024569596
 Transform:
   m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1024569594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 0
 --- !u!1 &1369216145
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 142980, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
+  m_PrefabParentObject: {fileID: 142980, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
   m_Component:
-  - component: {fileID: 1369216151}
-  - component: {fileID: 1369216150}
-  - component: {fileID: 1369216148}
-  - component: {fileID: 1369216147}
-  - component: {fileID: 1369216146}
-  - component: {fileID: 1369216164}
-  - component: {fileID: 1369216163}
-  - component: {fileID: 1369216162}
-  - component: {fileID: 1369216161}
-  - component: {fileID: 1369216160}
-  - component: {fileID: 1369216159}
-  - component: {fileID: 1369216158}
-  - component: {fileID: 1369216157}
-  - component: {fileID: 1369216156}
-  - component: {fileID: 1369216155}
-  - component: {fileID: 1369216154}
-  - component: {fileID: 1369216153}
-  - component: {fileID: 1369216152}
-  - component: {fileID: 1369216165}
-  - component: {fileID: 1369216167}
-  - component: {fileID: 1369216169}
-  - component: {fileID: 1369216166}
-  - component: {fileID: 1369216168}
-  - component: {fileID: 1369216149}
+  - 4: {fileID: 1369216151}
+  - 114: {fileID: 1369216150}
+  - 114: {fileID: 1369216149}
+  - 114: {fileID: 1369216148}
+  - 114: {fileID: 1369216147}
+  - 114: {fileID: 1369216146}
+  - 114: {fileID: 1369216164}
+  - 114: {fileID: 1369216163}
+  - 114: {fileID: 1369216162}
+  - 114: {fileID: 1369216161}
+  - 114: {fileID: 1369216160}
+  - 114: {fileID: 1369216159}
+  - 114: {fileID: 1369216158}
+  - 114: {fileID: 1369216157}
+  - 114: {fileID: 1369216156}
+  - 114: {fileID: 1369216155}
+  - 114: {fileID: 1369216154}
+  - 114: {fileID: 1369216153}
+  - 114: {fileID: 1369216152}
+  - 114: {fileID: 1369216165}
+  - 114: {fileID: 1369216167}
+  - 114: {fileID: 1369216169}
+  - 114: {fileID: 1369216166}
+  - 114: {fileID: 1369216168}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -303,9 +252,8 @@ GameObject:
 --- !u!114 &1369216146
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -313,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 1
+  errorMessage: 
   indentLevel: 0
   storyText: Select Language
   description: 
@@ -322,18 +271,16 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
+  fadeIn: 0
+  fadeOut: 0
   waitForClick: 0
-  stopVoiceover: 1
-  waitForVO: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1369216147
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11462346, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -341,15 +288,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 1369216148}
-  suppressBlockAutoSelect: 0
-  waitForFrames: 1
 --- !u!114 &1369216148
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 11433304, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11433304, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -360,64 +304,44 @@ MonoBehaviour:
     serializedVersion: 2
     x: 63
     y: 69
-    width: 145
+    width: 136
     height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
   itemId: 0
   blockName: Select Language
   description: 'The standard language
 
-    in this scene is English, but you can
-    use whatever standard language you want.'
+    in this scene is English, but you can use whatever standard language you want.'
   eventHandler: {fileID: 1369216147}
   commandList:
   - {fileID: 1369216146}
   - {fileID: 1369216164}
   - {fileID: 1369216163}
   - {fileID: 1369216152}
-  suppressAllAutoSelections: 0
 --- !u!114 &1369216149
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11417010, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: d2f6487d21a03404cb21b245f0242e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 22
-  indentLevel: 0
-  storyText: Lies
-  description: 
-  character: {fileID: 0}
-  portrait: {fileID: 0}
-  voiceOverClip: {fileID: 0}
-  showAlways: 1
-  showCount: 1
-  extendPrevious: 0
-  fadeWhenDone: 1
-  waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
-  setSayDialog: {fileID: 0}
+  parentBlock: {fileID: 0}
 --- !u!114 &1369216150
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 11430050, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11430050, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1
   scrollPos: {x: 120, y: -29}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
@@ -429,43 +353,35 @@ MonoBehaviour:
     y: -385
     width: 1297
     height: 1114
-  selectedBlocks:
-  - {fileID: 1369216156}
+  selectedBlock: {fileID: 1369216159}
   selectedCommands: []
   variables: []
-  description: "This scene shows how to use the Fungus localization system.\nThe
-    key elements are the Localization game object, the \nlocalization.csv file and
-    the Set Language command."
+  description: "This scene shows how to use the Fungus localization system.\nThe key
+    elements are the Localization game object, the \nlocalization.csv file and the
+    Set Language command."
   stepPause: 0
   colorCommands: 1
   hideComponents: 1
   saveSelection: 1
   localizationId: LocalizationDemo
-  showLineNumbers: 0
-  hideCommands: []
-  luaEnvironment: {fileID: 0}
-  luaBindingName: flowchart
+  nextItemId: 22
 --- !u!4 &1369216151
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 467082, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 467082, guid: 5e7fbc8d4eb714b279eeeef2262c1e1a, type: 2}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7442008, y: -11.516381, z: 0}
+  m_LocalPosition: {x: -.744200826, y: -11.5163813, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 1
 --- !u!114 &1369216152
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -473,24 +389,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 15
+  errorMessage: 
   indentLevel: 0
   text: French
   description: 
   targetBlock: {fileID: 1369216162}
   hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
   setMenuDialog: {fileID: 0}
-  hideThisOption:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
 --- !u!114 &1369216153
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -498,20 +408,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 14
+  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216156}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
   callMode: 0
 --- !u!114 &1369216154
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -519,20 +425,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 13
+  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216156}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
   callMode: 0
 --- !u!114 &1369216155
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -540,6 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 12
+  errorMessage: 
   indentLevel: 0
   storyText: This text is in English
   description: 
@@ -549,17 +452,15 @@ MonoBehaviour:
   showAlways: 1
   showCount: 1
   extendPrevious: 0
-  fadeWhenDone: 1
+  fadeIn: 0
+  fadeOut: 0
   waitForClick: 1
-  stopVoiceover: 1
-  waitForVO: 0
   setSayDialog: {fileID: 0}
 --- !u!114 &1369216156
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -570,25 +471,20 @@ MonoBehaviour:
     serializedVersion: 2
     x: 421
     y: 69
-    width: 80
+    width: 120
     height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
   itemId: 11
   blockName: Story
   description: 
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1369216155}
-  - {fileID: 1369216149}
   - {fileID: 1369216165}
-  suppressAllAutoSelections: 0
 --- !u!114 &1369216157
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -596,17 +492,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 10
+  errorMessage: 
   indentLevel: 0
-  _languageCode:
-    stringRef: {fileID: 0}
-    stringVal: ES
-  languageCodeOLD: 
+  languageCode: ES
 --- !u!114 &1369216158
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -614,15 +507,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 9
+  errorMessage: 
   indentLevel: 0
   commenterName: 
   commentText: Using the code ES for Spanish
 --- !u!114 &1369216159
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -633,10 +526,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 245
     y: 201
-    width: 95
+    width: 120
     height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
   itemId: 8
   blockName: Spanish
   description: Set language to Spanish
@@ -645,13 +536,11 @@ MonoBehaviour:
   - {fileID: 1369216158}
   - {fileID: 1369216157}
   - {fileID: 1369216153}
-  suppressAllAutoSelections: 0
 --- !u!114 &1369216160
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -659,15 +548,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 7
+  errorMessage: 
   indentLevel: 0
   commenterName: 
   commentText: Using the code FR for Spanish
 --- !u!114 &1369216161
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -675,17 +564,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 6
+  errorMessage: 
   indentLevel: 0
-  _languageCode:
-    stringRef: {fileID: 0}
-    stringVal: FR
-  languageCodeOLD: 
+  languageCode: FR
 --- !u!114 &1369216162
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -695,11 +581,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 245
-    y: 289
-    width: 89
+    y: 288
+    width: 120
     height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
   itemId: 4
   blockName: French
   description: Set language to French
@@ -708,13 +592,11 @@ MonoBehaviour:
   - {fileID: 1369216160}
   - {fileID: 1369216161}
   - {fileID: 1369216154}
-  suppressAllAutoSelections: 0
 --- !u!114 &1369216163
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -722,24 +604,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 3
+  errorMessage: 
   indentLevel: 0
   text: Spanish
   description: 
   targetBlock: {fileID: 1369216159}
   hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
   setMenuDialog: {fileID: 0}
-  hideThisOption:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
 --- !u!114 &1369216164
 MonoBehaviour:
   m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -747,24 +623,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 2
+  errorMessage: 
   indentLevel: 0
   text: English
   description: 
   targetBlock: {fileID: 1369216167}
   hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
   setMenuDialog: {fileID: 0}
-  hideThisOption:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
 --- !u!114 &1369216165
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -772,20 +642,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 16
+  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216148}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
   callMode: 0
 --- !u!114 &1369216166
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -793,17 +659,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 20
+  errorMessage: 
   indentLevel: 0
-  _languageCode:
-    stringRef: {fileID: 0}
-    stringVal: 
-  languageCodeOLD: 
+  languageCode: 
 --- !u!114 &1369216167
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -814,10 +677,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 244
     y: 114
-    width: 90
+    width: 120
     height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
   itemId: 18
   blockName: English
   description: Set language to English
@@ -826,13 +687,11 @@ MonoBehaviour:
   - {fileID: 1369216169}
   - {fileID: 1369216166}
   - {fileID: 1369216168}
-  suppressAllAutoSelections: 0
 --- !u!114 &1369216168
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -840,20 +699,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 21
+  errorMessage: 
   indentLevel: 0
   targetFlowchart: {fileID: 0}
   targetBlock: {fileID: 1369216156}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
   callMode: 0
 --- !u!114 &1369216169
 MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1369216145}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -861,51 +716,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 19
+  errorMessage: 
   indentLevel: 0
   commenterName: 
   commentText: Leave language code blank to use standard text
 --- !u!1001 &1843071213
-PrefabInstance:
+Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: m_LocalPosition.x
       value: -.744200826
       objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: m_LocalPosition.y
       value: -11.5163813
       objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11438504, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 480768, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11438504, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
       propertyPath: localizationFile
       value: 
       objectReference: {fileID: 4900000, guid: 1015148e989d64d9da9e8322038eda38, type: 3}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ffbd0831d997545eab75c364da082c1b, type: 3}
+  m_ParentPrefab: {fileID: 100100000, guid: ffbd0831d997545eab75c364da082c1b, type: 2}
+  m_IsPrefabParent: 0
