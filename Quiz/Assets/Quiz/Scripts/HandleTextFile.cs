@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class HandleTextFile
 {
+#if UNITY_EDITOR
     [MenuItem("Tools/Write file")]
     static void WriteString()
     {
@@ -34,5 +35,5 @@ public class HandleTextFile
         Debug.Log(reader.ReadToEnd());
         reader.Close();
     }
-
+#endif
 }

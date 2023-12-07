@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Fungus;
-using Fungus.EditorUtils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -33,19 +31,19 @@ namespace Quiz.Scripts
 
         private Dictionary<string, int> filesMinChosens = new Dictionary<string, int>
         {
-            {"constructions_with_koto.txt", 60},
-            {"degrees_of_politeness.txt", 250},
-            {"homogeneous.txt", 220},
-            {"homogeneous_members_of_a_sentence.txt", 220},
-            {"loss_indicators.txt", 144},
-            {"modal_constructions.txt", 70},
-            {"modal_constructions2.txt", 180},
-            {"negative.txt", 188},
-            {"politeness.txt", 258},
-            {"pronouns2.txt", 140},
-            {"sentence_interrogative.txt", 148},
-            {"sentence_negative.txt", 182},
-            {"sentence_question.txt", 148},
+            {"constructions_with_koto", 60},
+            {"degrees_of_politeness", 250},
+            {"homogeneous", 220},
+            {"homogeneous_members_of_a_sentence", 220},
+            {"loss_indicators", 144},
+            {"modal_constructions", 70},
+            {"modal_constructions2", 180},
+            {"negative", 188},
+            {"politeness", 258},
+            {"pronouns2", 140},
+            {"sentence_interrogative", 148},
+            {"sentence_negative", 182},
+            {"sentence_question", 148},
         };
 
         private string _filepath;
@@ -111,7 +109,7 @@ namespace Quiz.Scripts
 
         private void SplitOnWordsCorrectAnswer() => _wordsCorrectAnswer = _lineCorrectAnswer.Split(" ");
 
-        private void GetFlowchart() => _flowchart = FlowchartWindow.GetFlowchart();
+        private void GetFlowchart() => _flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 
         private void Choose()
         {
@@ -124,13 +122,13 @@ namespace Quiz.Scripts
         }
 
         private void Split() => _lines = _text.Split("\n");
-
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private void Read()
         {
-            var assetsHelp = "Assets/Help";
-            
-            StreamReader reader = new StreamReader(Path.Combine(assetsHelp, _filepath));
-            _text = reader.ReadToEnd();
+            var assetsHelp = $"Help/{_filepath}";
+            var textAsset = Resources.Load<TextAsset>(assetsHelp);
+            _text = textAsset.text;
         }
 
         // Update is called once per frame
