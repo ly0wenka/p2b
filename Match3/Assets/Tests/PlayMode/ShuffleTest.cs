@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using static TestUtilsNS.TestUtils;
 using static NUnit.Framework.Assert;
+using System.Threading.Tasks;
 
 public class ShuffleTest
 {

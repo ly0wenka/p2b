@@ -4,6 +4,7 @@ using BoardNS.SelectionNS;
 using TileNS;
 using UnityEngine;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 namespace BoardNS
 {
@@ -33,68 +34,36 @@ namespace BoardNS
             SettingRandomTiles = new SettingRandomTiles(this);
         }
 
-        public void Shuffle()
+        public async void Shuffle()
         {
-            // Create a list of all tiles
-            List<Tile> allTiles = new List<Tile>();
+            List<Tile> targetTiles = new();
             foreach (var row in rows)
             {
-                allTiles.AddRange(row.tiles);
+                targetTiles.AddRange(row.tiles);
             }
 
             // Shuffle the list of tiles
-            int n = allTiles.Count;
+            int n = targetTiles.Count;
             while (n > 1)
             {
                 n--;
                 int k = UnityEngine.Random.Range(0, n + 1);
-                Tile value = allTiles[k];
-                allTiles[k] = allTiles[n];
-                allTiles[n] = value;
+                (targetTiles[n], targetTiles[k]) = (targetTiles[k], targetTiles[n]);
             }
-            var sequence = DOTween.Sequence();
             // Update the positions in the 2D array
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    Tile tile = Tiles[x, y];
-                    Tile tileTarget = allTiles[x * Height + y];
-                    var position = tileTarget.icon.transform.position;
-                    Vector3 targetPosition = new Vector3(position.x, position.y, 0); // Assuming 2D grid, adjust if needed
-                    var position1 = tile.icon.transform.position;
-                    Vector3 targetPosition2 = new Vector3(position1.x, position1.y, 0); // Assuming 2D grid, adjust if needed
-                    // Use DOTween to animate the movement to the new position
-                    sequence.Append(
-                        tile.icon.transform.DOMove(targetPosition, Board.TweenDuration)
-                        .SetEase(Ease.OutQuad)
-                        .OnComplete(() =>
-                        {
-                            // Log the position after the animation completes
+                    selection.Clear();
+                    selection.Add(Tiles[x, y]);
+                    selection.Add(targetTiles[x * Height + y]);
 #if UNITY_EDITOR
-                            Debug.Log($"Tile (tile) moved to {tile.transform.position}");
+                    Debug.Log($"Selected tiles at {selection[0]} and {selection[1]}");
 #endif
-
-
-                            // Update the icon's parent to the new tile
-                            tile.icon.transform.SetParent(tile.transform);
-                        })).Append(
-                        tileTarget.icon.transform.DOMove(targetPosition2, Board.TweenDuration)
-                            .SetEase(Ease.OutQuad)
-                            .OnComplete(() =>
-                            {
-                                // Log the position after the animation completes
-#if UNITY_EDITOR
-                                Debug.Log($"Tile (tile) moved to {tile.transform.position}");
-#endif
-
-
-                                // Update the icon's parent to the new tile
-                                tile.icon.transform.SetParent(tile.transform);
-                            }));
+                    await Swapping.SwapAsync(this);
                 }
             }
-            sequence.Play();
 #if UNITY_EDITOR
             Debug.Log($"Shuffle");
 #endif
